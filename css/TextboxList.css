@@ -1,0 +1,39 @@
+.textboxlist {
+	FONT: 11px "Lucida Grande", Verdana; CURSOR: text
+}
+.textboxlist-bits {
+	BORDER-BOTTOM: #999 1px solid; BORDER-LEFT: #999 1px solid; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-LEFT: 4px; PADDING-RIGHT: 4px; ZOOM: 1; OVERFLOW: hidden; BORDER-TOP: #999 1px solid; BORDER-RIGHT: #999 1px solid; PADDING-TOP: 3px
+}
+.textboxlist-bit {
+	PADDING-BOTTOM: 0px; LIST-STYLE-TYPE: none; MARGIN: 0px 5px 3px 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; DISPLAY: block; FLOAT: left; CURSOR: default; PADDING-TOP: 0px
+}
+.textboxlist-bit-editable {
+	BORDER-BOTTOM: #fff 1px solid; BORDER-LEFT: #fff 1px solid; BORDER-TOP: #fff 1px solid; BORDER-RIGHT: #fff 1px solid
+}
+.textboxlist-bit-editable-input {
+	BORDER-BOTTOM: 0px; BORDER-LEFT: 0px; PADDING-BOTTOM: 2px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; FONT: 11px "Lucida Grande", Verdana; HEIGHT: 14px; BORDER-TOP: 0px; BORDER-RIGHT: 0px; PADDING-TOP: 2px
+}
+.textboxlist-bit-editable-input:focus {
+	OUTLINE-STYLE: none; OUTLINE-COLOR: invert; OUTLINE-WIDTH: 0px
+}
+.textboxlist-bit-box {
+	BORDER-BOTTOM: #cad8f3 1px solid; POSITION: relative; BORDER-LEFT: #cad8f3 1px solid; PADDING-BOTTOM: 0px; LINE-HEIGHT: 18px; PADDING-LEFT: 5px; PADDING-RIGHT: 5px; BACKGROUND: #dee7f8; BORDER-TOP: #cad8f3 1px solid; CURSOR: default; BORDER-RIGHT: #cad8f3 1px solid; PADDING-TOP: 0px; -moz-border-radius: 9px; -webkit-border-radius: 9px; border-radius: 9px
+}
+.textboxlist-bit-box-deletable {
+	PADDING-RIGHT: 15px
+}
+.textboxlist-bit-box-deletebutton {
+	POSITION: absolute; WIDTH: 7px; DISPLAY: block; BACKGROUND: url(../images/textbox/close.gif); HEIGHT: 7px; FONT-SIZE: 1px; TOP: 6px; RIGHT: 4px
+}
+.textboxlist-bit-box-deletebutton:hover {
+	BORDER-BOTTOM: medium none; BORDER-LEFT: medium none; BACKGROUND-POSITION: 7px 50%; BORDER-TOP: medium none; BORDER-RIGHT: medium none; TEXT-DECORATION: none
+}
+.textboxlist-bit-box-hover {
+	BORDER-BOTTOM: #6d95e0 1px solid; BORDER-LEFT: #6d95e0 1px solid; BACKGROUND: #bbcef1; BORDER-TOP: #6d95e0 1px solid; BORDER-RIGHT: #6d95e0 1px solid
+}
+.textboxlist-bit-box-focus {
+	BORDER-BOTTOM-COLOR: #598bec; BORDER-TOP-COLOR: #598bec; BACKGROUND: #598bec; COLOR: #fff; BORDER-RIGHT-COLOR: #598bec; BORDER-LEFT-COLOR: #598bec
+}
+.textboxlist-bit-box-focus .textboxlist-bit-box-deletebutton {
+	BACKGROUND-POSITION: 50% bottom
+}

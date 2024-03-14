@@ -1,0 +1,5 @@
+@page {
+    size: 85.6cm 54cm portrait; /*设置纸张及其方向 portrait：纵向；  landscape: 横向*/
+    margin-top: 0mm;/*去掉页眉*/
+    margin-bottom:0mm;/*去掉页脚*/
+}

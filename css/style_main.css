@@ -1,0 +1,111 @@
+*{margin:0px;padding:0px;font-size:12px;}
+
+body { background:#fff url(../images/bg0.gif) ; }
+#layout { width:1280px;margin:0 auto;background:#fff; padding-bottom:0px; background:white;}
+#header{ width:1280px; height:53px;margin:0 0px; }
+
+#header h1 { float:left; width:1280px; height:60px; background:url(../images/logo_long2.png) no-repeat; margin-top:0px; text-indent:-5000px; }
+
+#footer {float: bottom; width:1270px; height:36px; background:url(../images/footer_bg2.jpg) no-repeat; line-height: 36px; margin:10px 5px 0;font-size:12px; color:#2c4a77;}
+
+/* 共用的模块 */
+.main { width:1270px;height:auto; margin:8px 8px; }
+.side { float:left; width:228px; }
+.side ul {list-style:none;border:silver 1px solid;background-color: #EFEFEF;}
+.side a{ text-align:left;display:block; height:30px; line-height:35px; border-bottom:silver 1px solid;background-color: #EEE;font-size:14px; text-decoration:none;color:#000;padding-left:55px;}
+.side a:hover { color:white; background:orange;}
+.side h2 {height:71px;position:relative; }
+.side h2 span {
+	background: url(img/top_news.gif) no-repeat;
+	position:absolute;
+	width:100%;
+	height:100%;
+	top:0px;
+	left:0px;
+
+}
+
+.side h3 {background:url(images/help.jpg) no-repeat; width:228px; height:140px; margin-top:20px;}
+.silverbg { height:32px; line-height:32px;border-bottom:silver 1px solid;background-color:silver;font-size:16px; font-weight:bold;text-decoration:none;color: #3F410F;padding-left:55px; text-align:left;}
+.primary  {float:right; width:720px; margin:0px 10px 5px 0;}
+.primary h2 {float:center; height:20px;border-left:5px solid #f0f0f0;margin:9px 0;border-bottom:1px solid #f0f0f0;font-size:13px;padding-left:15px;padding-top:10px;text-align:left;color: #3F410F;}
+.primary h4  {font-weight:normal; font-size:16px; height:40px; color: #3F410F; padding-top:15px;}
+.primary h4 span {font-weight:normal; color: #113F7B;}
+.primary p{line-height:25px;padding:5px 30px; text-align:left;}
+.pimg {float:left; padding:5px;}
+
+
+.clear {clear:both}
+.tindent { text-indent:-5000px;}
+
+/* for ie6 */
+.main { width:1270px;height:auto; margin:8px 8px;}
+#about .side,#news .side,#business .side,#success .side,#product .side,#recruit .side,#contact .side{ float:left; width:228px; }
+#about .side ul,#news .side ul,#business .side ul,#success .side ul,#product .side ul,#recruit .side ul ,#contact .side ul{list-style:none;border:silver 1px solid;background-color: #EFEFEF;}
+#about .side a,#news .side a,#business .side a,#success .side a,#product .side a,#recruit .side a ,#contact .side a{ text-align:left;display:block; height:30px; line-height:35px; border-bottom:silver 1px solid;background-color: #EEE;font-size:14px; text-decoration:none;color:#000;padding-left:55px;}
+#about .side a:hover,#news .side a:hover,#business .side a:hover,#success .side a:hover,#product .side a:hover,#recruit .side a:hover ,#contact .side a:hover { color:white; background:orange;}
+#about .side h2,#news .side h2,#business .side h2,#success .side h2,#product .side h2,#recruit .side h2,#contact .side h2{height:71px;position:relative; }
+#about .side h2 span,#news .side h2 span,#business .side h2 span,#success .side h2 span,#product .side h2 span,#recruit .side h2 span,#contact .side h2 span {
+	background: url(img/top_news.gif) no-repeat;
+	position:absolute;
+	width:100%;
+	height:100%;
+	top:0px;
+	left:0px;
+	background-image: url(img/top_news.gif);
+
+}
+
+#about .side h3,#news .side h3,#business .side h3,#success .side h3,#product .side h3,#recruit .side h3,#contact .side h3{background:url(img/help.jpg) no-repeat; width:228px; height:140px; margin-top:20px;}
+.silverbg { height:32px; line-height:32px;border-bottom:silver 1px solid;background-color:silver;font-size:16px; font-weight:bold;text-decoration:none;color: #036;padding-left:55px; text-align:left;}
+
+
+/* index */
+
+#index_con { width:1270px; height:auto; margin:0 5px; }
+#index_left { width:700px; float:left; margin-top:9px; }
+#index_right { width:246px; float:right; margin-top:9px;}
+
+
+#table1{width:90%;border-collapse:collapse;margin:0 2em;  border:1px solid silver;}
+#table1 .odd {  background-color: #FFFFE6;}
+#table1 .red{background-color:#900; color:orange; font-weight:bold;}
+#table1 th, td { padding: 0;}
+#table1 tr.over td{background:#FEE4E5;}
+#table1 td a{text-decoration:none; color:#900;}
+#table1 td a:hover{text-decoration: underline; color: #F30;}
+#table1 td a:visited {text-decoration:none; color: #F06;}
+
+#headlines{
+  float:right;
+	width: 500;
+	border-left: 1px solid #cccccc;
+	border-right: 1px solid #cccccc;
+	border-top: 1px solid #cccccc;
+	border-bottom: 1px solid #cccccc;
+	padding-right: 0px;
+}
+
+.comm {padding:1px;margin:0;}
+.comm h2 {float:center; height:20px;margin:2px 0;border-bottom:1px solid #c0c0c0;font-size:13px;text-align:center;color: #3F410F;}
+.comm h3 {float:center; height:20px;margin:2px 0;font-size:13px;text-align:center;color: #3F410F;}
+.comm input {height:18px;vertical-align:middle;border:solid 1px #c0c0c0; background: #fcfcfc;margin:0;}
+.comm select {height:20px;vertical-align:middle;border:solid 1px #c0c0c0; background: #fcfcfc;}
+.comm label {vertical-align:middle;border:0px; text-align:center;color: #3F410F;}
+.comm td {line-height:26px;vertical-align:middle; padding:0;margin:0px;}
+.comm input.button {height:18px;vertical-align:middle;text-align:center;border:solid 1px #c0c0c0; background: #edeeed;padding:0px;margin:0;}
+.comm input.readOnly {height:18px;vertical-align:middle;border:solid 1px #f8f8ff; background: #e8e8e8;}
+.comm textarea.readOnly {border:solid 1px #f8f8ff; background: #e8e8e8;}
+.comm input.mustFill {height:18px;vertical-align:middle;border:solid 1px #c0c0c0; background: #fff0f0;}
+.comm textarea.mustFill {border:solid 1px #c0c0c0; background: #fff0f0;}
+
+.blueText {color: blue;}
+.redText {color: red;}
+.redAlert {padding-left:15px;color:red;font-size:14px;font-weight:bold;}
+.blueAlert {padding-left:15px;color:blue;font-size:14px;font-weight:bold;}
+.lineDiv {border:solid 1px #e0e0e0;width:100%;margin:1px;background:#e0e0fc;line-height:18px;}
+
+.dir{ width:100%; border-left:#C8B9AE solid 1px;border-top:#C8B9AE solid 1px;border-collapse:collapse;} 
+.dir td{width:25%;border-right:#C8B9AE solid 1px;border-bottom:#C8B9AE solid 1px;background-color: #DA2CB;padding:10px 10px 6px;vertical-align: top;}
+
+#hr { width:100%; margin:3px 0;}

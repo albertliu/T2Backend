@@ -1,0 +1,24 @@
+.textboxlist-autocomplete {
+	POSITION: absolute
+}
+.textboxlist-autocomplete-placeholder {
+	BORDER-BOTTOM: #999 1px solid; FILTER: alpha(opacity=90); BORDER-LEFT: #999 1px solid; DISPLAY: none; BACKGROUND: #eee; BORDER-TOP: medium none; BORDER-RIGHT: #999 1px solid; opacity: 0.9; -webkit-box-shadow: 0 3px 3px #ccc; -moz-box-shadow: 0 3px 3px #ccc; box-shadow: 0 3px 3px #ccc
+}
+.textboxlist-autocomplete-results {
+	BORDER-BOTTOM: #999 1px solid; FILTER: alpha(opacity=90); BORDER-LEFT: #999 1px solid; DISPLAY: none; BACKGROUND: #eee; BORDER-TOP: medium none; BORDER-RIGHT: #999 1px solid; opacity: 0.9; -webkit-box-shadow: 0 3px 3px #ccc; -moz-box-shadow: 0 3px 3px #ccc; box-shadow: 0 3px 3px #ccc
+}
+.textboxlist-autocomplete-placeholder {
+	PADDING-BOTTOM: 5px; PADDING-LEFT: 7px; PADDING-RIGHT: 7px; PADDING-TOP: 5px
+}
+.textboxlist-autocomplete-results {
+	PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 0px
+}
+.textboxlist-autocomplete-result {
+	PADDING-BOTTOM: 5px; LIST-STYLE-TYPE: none; MARGIN: 0px; PADDING-LEFT: 5px; PADDING-RIGHT: 5px; BACKGROUND: #eee; PADDING-TOP: 5px
+}
+.textboxlist-autocomplete-result-focus {
+	BACKGROUND: #c6d9e4
+}
+.textboxlist-autocomplete-highlight {
+	BACKGROUND: #eef0c4; FONT-WEIGHT: bold
+}

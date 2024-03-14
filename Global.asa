@@ -1,0 +1,60 @@
+<OBJECT runat="Server" scope="Application" id="fso" progid="Scripting.FileSystemObject"></OBJECT>
+
+<script language="JScript" runat="Server">
+var conn = new ActiveXObject("ADODB.Connection");
+var strdsn = "DSN=etrainT2;UID=sqlrw;PWD=De0penl99O53!4N#~9.";
+conn.Open(strdsn);
+
+var sql = "";
+
+String.now = function() {
+    var dt = new Date();
+    return dt.getFullYear() + "-" + (dt.getMonth() + 1) + "-" + dt.getDate()
+        + " " + dt.getHours() + ":" + dt.getMinutes() + ":" + dt.getSeconds();
+};
+
+function Application_OnStart() {
+    //log("Application.onStart()");
+    Application("visitorCount") = 0;
+}
+
+function Session_OnStart() {
+    Session.Timeout = 1000;
+    //log("Session.onStart(): " + Session.SessionID);
+	Application.Lock;
+	Application("visitorCount") += 1;
+	Application.UnLock;
+	//Session("SID") = setVistLog();
+}
+
+function Session_OnEnd() {
+    //log("Session.onEnd(): " + Session.SessionID);
+	Application.Lock;
+	Application("visitorCount") += -1;
+	if(Application("visitorCount")<0){
+		Application("visitorCount") = 0;
+	}
+	Application.UnLock;
+}
+
+function Application_OnEnd() {
+    //log("Application.onEnd()");
+}
+
+function setVistLog(){
+	var rs,result;
+	sql = "insert into vistLog(IP) values('xx')";
+	conn.Execute(sql);
+	
+	sql = "select max(SID) as SID from vistLog where IP='xx'";
+	rs = conn.Execute(sql);
+
+	if(!rs.EOF){
+		result = rs("SID").value;
+	}else{
+		result = 0;
+	}
+	
+	return result;
+}
+</script>

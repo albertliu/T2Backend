@@ -1,0 +1,180 @@
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+html {
+  background: #E2E2E2;
+}
+
+body {
+  background: #E2E2E2;
+  margin: 0;
+  padding: 0;
+  font-family: '宋体', sans-serif;
+}
+
+.login-form-wrap {
+  position: relative;
+  width: 180mm;
+  height: 120mm;
+  margin: 0;
+  padding: 0;
+  text-align: left; 
+  border: 1px solid #555;
+}
+h1 {
+  margin: 0;
+  padding: 10px;
+  font-size: 44px;
+  color: #000;
+}
+h2 {
+  margin: 0;
+  padding: 10px;
+  font-size: 33px;
+  color: #000;
+}
+h3 {
+  margin: 0;
+  padding-top: 5px;
+  padding-bottom: 3px;
+  padding-left: 3px;
+  font-size: 22px;
+  color: #000;
+}
+h4 {
+  margin: 0;
+  padding-top: 10px;
+  padding-bottom: 3px;
+  padding-left: 3px;
+  font-size: 30px;
+  color: #000;
+  font-family: 微软雅黑;
+}
+h4A {
+  margin: 0;
+  padding-top: 10px;
+  padding-bottom: 3px;
+  padding-left: 3px;
+  font-size: 36px;
+  color: #000;
+  font-family: 微软雅黑;
+}
+h5 {
+  margin: 0;
+  padding-top: 8px;
+  padding-bottom: 3px;
+  padding-left: 3px;
+  font-size: 28px;
+  font-family: "黑体",Arial, Helvetica, sans-serif;
+  color: #000;
+}
+h6 {
+  margin: 0;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 3px;
+  font-size: 29px;
+  font-family: 微软雅黑,幼圆,Arial, Helvetica, sans-serif;
+  color: #000;
+}
+h6A {
+  margin: 0;
+  padding-top: 8px;
+  padding-bottom: 3px;
+  padding-left: 3px;
+  font-size: 32px;
+  font-family: "幼圆",Arial, Helvetica, sans-serif;
+  color: #014991;
+}
+td.foot {
+  border-bottom:#888 solid 1px;
+  text-align: center;
+}
+.login-form-wrap > h5 > a {
+  font-size: 14px;
+  color: #fff;
+  text-decoration: none;
+  font-weight: 400;
+}
+
+.login-form-wrap1 {
+  position: relative;
+  width: 175mm;
+  height: 260mm;
+  margin: 0;
+  padding: 0;
+  text-align: left; 
+  border: none;
+}
+.login-form-wrap2 {
+  position: relative;
+  width: 175mm;
+  height: 260mm;
+  margin: 0;
+  padding: 0;
+  text-align: left; 
+  border: 1px solid #555;
+}
+.login-form-wrap3 {
+  position: relative;
+  width: 275mm;
+  height: 175mm;
+  margin: 0;
+  padding: 0;
+  text-align: left; 
+  border: 1px solid #555;
+}
+.login-form-wrap3s {
+  position: relative;
+  width: 350mm;
+  height: 238mm;
+  margin: 0;
+  padding: 0;
+  text-align: left; 
+  border: none;
+}
+.login-form-wrap3p0 {
+  position: relative;
+  width: 230mm;
+  height: 139.5mm;
+  margin: 0;
+  padding: 0;
+  text-align: left; 
+  border: none;
+}
+.login-form-wrap3p {
+  position: relative;
+  width: 172mm;
+  height: 108mm;
+  margin: 0;
+  padding: 0;
+  text-align: left; 
+  border: none;
+}
+td.normal {
+  height: 30px;
+  word-wrap: break-word;
+}
+.lineC1 {
+  height: 50px;
+  margin: 0;
+  padding-top: 10px;
+  padding-bottom: 3px;
+  padding-left: 3px;
+  font-size: 24px;
+  color: #000;
+  line-height:40px;
+}
+.lineC1s {
+  height: 75px;
+  margin: 0;
+  padding-top: 10px;
+  padding-bottom: 3px;
+  padding-left: 3px;
+  font-size: 32px;
+  color: #000;
+  font-family: "黑体",Arial, Helvetica, sans-serif;
+}
