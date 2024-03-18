@@ -107,7 +107,7 @@
 				$("#educationName").html(ar[21]);
 				$("#address").html(ar[24]);
 				$("#province").html(ar[19]);
-				if(ar[15] > "" && keyID !=4){
+				if(ar[15] > ""){
 					$("#img_photo").attr("src","/users" + ar[15]);
 				}else{
 					$("#img_photo").attr("src","images/blank_photo.png");

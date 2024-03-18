@@ -147,7 +147,7 @@
 				}else{
 					$("#IDK1").prop("checked",true);
 				}
-				if(ar[15] > "" && keyID !=4){
+				if(ar[15] > ""){
 					$("#img_photo").attr("src","/users" + ar[15]);
 				}else{
 					$("#img_photo").attr("src","images/blank_photo.png");
