@@ -1026,7 +1026,7 @@
 					<td align="right">证明格式</td>
 					<td><input class="easyui-checkbox" id="person" name="person" value="1" />&nbsp;个人</td>
 					<td align="left" colspan="2">
-						复训日期
+						应复训日期
 						<input id="currDiplomaDate" name="currDiplomaDate" class="easyui-datebox" data-options="height:22,width:100,required:true" />
 						<span id="currDiplomaCheckItem">
 							<input class="easyui-checkbox" id="currDiplomaChecked" name="currDiplomaChecked" value="1" />&nbsp;已确认

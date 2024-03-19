@@ -435,10 +435,10 @@
 		if($("#searchEnterInvoice").checkbox("options").checked){
 			inv = 1;
 		}
-		alert("&partnerID=" + $("#searchEnterPartner").combobox("getValue"));
+		// alert("&partnerID=" + $("#searchEnterPartner").combobox("getValue"));
 		$.get("studentCourseControl.asp?op=getStudentCourseList&where=" + escape(sWhere) + "&enterListDateKind=" + enterListDateKind + "&photo=" + photo + "&list=" + list + "&pool=" + pool + "&needInvoice=" + inv + "&try=" + trys + "&host=" + $("#searchEnterHost").combobox("getValue") + "&partnerID=" + $("#searchEnterPartner").combobox("getValue") + "&status=" + $("#searchEnterStatus").combobox("getValue") + "&sales=" + $("#searchEnterSales").combobox("getValue") + "&courseID=" + $("#searchEnterCourseID").combobox("getValue") + "&pay=" + $("#searchEnterPay").combobox("getValue") + "&submited=" + $("#searchEnterSubmit").combobox("getValue") + "&fStart=" + $("#searchEnterStartDate").datebox("getValue") + "&fEnd=" + $("#searchEnterEndDate").datebox("getValue") + "&completion1=" + $("#searchEnter_completion1").textbox("getValue") + "&dk=101&times=" + (new Date().getTime()),function(data){
 		//$.getJSON("enterControl.asp?op=getEnterList",function(data){
-			alert(unescape(data));
+			// alert(unescape(data));
 			var ar = new Array();
 			ar = (unescape(data)).split("%%");
 			$("#enterCover").empty();

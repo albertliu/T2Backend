@@ -220,8 +220,8 @@ if(op == "getStudentCourseList"){
 	rs.Close();
 	
 	Session(op) = ssql;
-	//Response.Write(escape(result));
-	Response.Write((sql));
+	Response.Write(escape(result));
+	//Response.Write((sql));
 }	
 
 if(op == "getStudentListByClass"){
