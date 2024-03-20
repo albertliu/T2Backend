@@ -355,7 +355,7 @@
 						d = d.replace(/\s*/g,"");
 						if(d > ""){
 							//alert($("#searchStudentPreProjectID").val() + "&status=1&host=" + $("#searchStudentPreHost").val() + "&keyID=" + selList);
-							// alert(d + ":" + selList);
+							alert(uploadURL + ":" + d + ":" + selList);
 							$.post(uploadURL + "/public/sort_enter_host", {selList: selList, host:d, registerID: currUser} ,function(data1){
 								//jAlert(data1);
 								getEnterList();
@@ -365,6 +365,39 @@
 							jAlert("目标学校不能为空。");
 						}
 					});
+				});
+			}
+		});
+		
+		$("#btnEnterReturn").linkbutton({
+			iconCls:'icon-undo',
+			width:85,
+			height:25,
+			text:'退回部门',
+			onClick:function() {
+				getSelCart("visitstockchkEnter");
+				if(selCount==0){
+					jAlert("请选择要退回的名单。");
+					return false;
+				}
+				let d = $("#searchEnterPartner").combobox("getValue");
+				if(d==""){
+					jAlert("请选择一个部门。");
+					return false;
+				}
+				if(!$("#searchEnterPool").checkbox("options").checked){
+					jAlert("请勾选候考标识。");
+					return false;
+				}
+				jConfirm("确定要这" + selCount + "个人的报名退回到" + $("#searchEnterPartner").combobox("getText") + "吗？","确认",function(r){
+					if(r){
+						//$.get("enterControl.asp?op=doStudentMaterial_resubmit&status=1&keyID=" + selList ,function(data){
+						$.post(uploadURL + "/public/return_enter_partner", {selList: selList, registerID: currUser} ,function(data){
+							//jAlert(data);
+							getEnterList();
+							jAlert("操作成功。");
+						});
+					}
 				});
 			}
 		});
@@ -408,6 +441,16 @@
 				var w=screen.availWidth;
 				var h=screen.availHeight;        
 				window.open('qrShow.asp','qrShow','fullscreen,width='+w+',height='+h+',top=0,left=0,status=yes,location=no');
+			}
+		});
+		$("#searchEnterPool").checkbox({
+			onChange: function(val){
+				getEnterList();
+			}
+		});
+		$("#searchEnterPartner").combobox({
+			onChange: function(val){
+				getEnterList();
 			}
 		});
 
@@ -673,6 +716,9 @@
 				$("#enterPartnerItem").hide();
 			}
 			$("#searchEnterSubmit").combobox("setValue", 1);  // 学校只能查看合作单位提交的数据
+			if(checkPermission("submitReturn")){
+				$("#btnEnterReturn").show();
+			}
 		}else{
 			$("#enterSubmitItem").show();
 			$("#btnEnterSubmit").show();
@@ -680,11 +726,11 @@
 			$("#enterApplyItem").hide();
 			$("#enterSalesItem").hide();
 			$("#enterPayItem").hide();
-			alert((currHost>""?currHost:currPartner))
 			getComboList("searchEnterPartner","v_partnerList","partnerID","title","partnerID='" + (currHost>""?currHost:currPartner) + "'",0);
 			$("#enterHostItem").show();
 			$("#searchEnterSubmit").combobox("setValue", 0)
 			$("#enterPartnerItem").hide();
+			$("#btnEnterReturn").hide();
 		}
 	}
 	

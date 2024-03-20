@@ -16,14 +16,14 @@
 					if(s==1 && (val["kindID"]==1 || val["kindID"]==2)){	//身份证正反面
 						c1 += 1;
 						i += 1;
-						arr.push('	<div><img src="users' + val["filename"] + '" style="max-width:300px;max-height:300px;padding-top:20px;"></div>');
+						arr.push('	<div><img src="users' + val["filename"] + '?times=' + (new Date().getTime()) + '" style="max-width:300px;max-height:300px;padding-top:20px;"></div>');
 					}
 					if(p==1 && val["kindID"]==3){	//学历证明
 						c2 = 1;
 						i += 1;
 						arr.push('<tr>');
 						arr.push('<td align="center" style="width:100%;">');
-						arr.push('	<img src="users' + val["filename"] + '" style="max-width:450px;max-height:800px;padding-top:20px;">');
+						arr.push('	<img src="users' + val["filename"] + '?times=' + (new Date().getTime()) + '" style="max-width:450px;max-height:800px;padding-top:20px;">');
 						arr.push('</td>');
 						arr.push('</tr>');
 					}

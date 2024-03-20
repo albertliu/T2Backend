@@ -177,15 +177,15 @@
 					$("#IDK1").prop("checked",true);
 				}
 				if(ar[15] > ""){
-					$("#img_photo").attr("src","/users" + ar[15]);
+					$("#img_photo").attr("src","/users" + ar[15] + "?times=" + (new Date().getTime()));
 				}else{
 					$("#img_photo").attr("src","images/blank_photo.png");
 				}
 				if(keyID ==5){
-					$("#img_A").attr("src","/users" + ar[16]);
-					$("#img_B").attr("src","/users" + ar[17]);
+					$("#img_A").attr("src","/users" + ar[16] + "?times=" + (new Date().getTime()));
+					$("#img_B").attr("src","/users" + ar[17] + "?times=" + (new Date().getTime()));
 					if(reex == 0){	//初训报名表显示学历
-						$("#img_E").attr("src","/users" + ar[18]);
+						$("#img_E").attr("src","/users" + ar[18] + "?times=" + (new Date().getTime()));
 					}
 				}
 

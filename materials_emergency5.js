@@ -14,7 +14,7 @@
 				$.each(data,function(iNum,val){
 					if(k==1 && val["kindID"]==5){	//在职证明
 						i += 1;
-						arr.push('	<img src="users' + val["filename"] + '" style="max-width:450px;max-height:600px;padding-top:20px;">');
+						arr.push('	<img src="users' + val["filename"] + '?times=' + (new Date().getTime()) + '" style="max-width:450px;max-height:600px;padding-top:20px;">');
 					}
 				});
 				arr.push('</div>');

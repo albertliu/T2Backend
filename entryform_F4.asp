@@ -111,7 +111,7 @@
 				$("#address").html(ar[24]);
 				$("#province").html(ar[19]);
 				if(ar[15] > ""){
-					$("#img_photo").attr("src","/users" + ar[15]);
+					$("#img_photo").attr("src","/users" + ar[15] + "?times=" + (new Date().getTime()));
 				}else{
 					$("#img_photo").attr("src","images/blank_photo.png");
 				}

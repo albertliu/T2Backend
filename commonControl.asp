@@ -170,7 +170,7 @@ if(op == "clearSession"){
 }
 
 if(op == "getCurrParam"){
-	result = currDate + "|" + currUser + "|" + Session("name_key") + "|" + currYear + "|" + currMonth + "|" + currWeek + "|" + currHost + "|" + currPartner + "|" + getSysEnv("NODE_ENV_UPLOAD_URLS") + "|" + getSysEnv("NODE_ENV_BACKEND_ET") + "|" + currHostName;
+	result = currDate + "|" + currUser + "|" + Session("name_key") + "|" + currYear + "|" + currMonth + "|" + currWeek + "|" + currHost + "|" + currPartner + "|" + getSysEnv("NODE_ENV_UPLOAD_URL") + "|" + getSysEnv("NODE_ENV_BACKEND_ET") + "|" + currHostName;
 	Response.Write(escape(result));
 }
 

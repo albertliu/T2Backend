@@ -248,10 +248,10 @@
 			//window.open("entryform_C13.asp?keyID=0&nodeID=" + nodeID + "&refID=" + refID, "_self");
 		});
 
-		$("#btnPreview").click(function(){
-			// printEntryform(0);
-			printEntryform1(1);
-		});
+		// $("#btnPreview").click(function(){
+		// 	// printEntryform(0);
+		// 	printEntryform1(1);
+		// });
 
 		$("#btnGenSignForm").click(function(){
 			generateEntryFormSign();
@@ -296,7 +296,7 @@
 
 			jConfirm('确定要付款吗?', '确认对话框', function(r) {
 				if(r){
-					$.get("studentCourseControl.asp?op=enterPay&nodeID=" + $("#ID").val() + "&amount=" + $("#amount").numberbox("getValue") + "&kindID=" + $("#pay_kindID").combobox("getValue") + "&refID=" + $("#pay_type").combobox("getValue") + "&memo=" + escape($("#pay_memo").textbox("getValue")) + "&times=" + (new Date().getTime()),function(re){
+					$.get("studentCourseControl.asp?op=enterPay&nodeID=" + $("#ID").val() + "&amount=" + $("#amount").numberbox("getValue") + "&kindID=0&refID=" + $("#pay_type").combobox("getValue") + "&memo=" + escape($("#pay_memo").textbox("getValue")) + "&times=" + (new Date().getTime()),function(re){
 						// alert(unescape(re))
 						$.messager.alert("提示","操作成功。","info");
 						updateCount += 1;
@@ -653,15 +653,15 @@
 	}
 	
 	function generateEntryForm(i){
-		window.open("entryform_" + entryform + ".asp?nodeID=" + nodeID + "&refID=" + refID + "&keyID=" + i + "&host=" + currHost, "_self");
+		window.open("entryform_" + entryform + ".asp?nodeID=" + nodeID + "&refID=" + refID + "&keyID=" + i + "&host=" + currHost + "&times=" + (new Date().getTime()), "_self");
 	}
 	
 	function printEntryform(k){
-		window.open("entryform_" + entryform + ".asp?keyID=" + k + "&nodeID=" + nodeID + "&refID=" + refID + "&kindID=" + $("#certID").val() + "&host=" + currHost, "_self");
+		window.open("entryform_" + entryform + ".asp?keyID=" + k + "&nodeID=" + nodeID + "&refID=" + refID + "&kindID=" + $("#certID").val() + "&host=" + currHost + "&times=" + (new Date().getTime()), "_self");
 	}
 	
 	function printEntryform1(k){
-		window.open("entryform_" + entryform + "_202301.asp?keyID=" + k + "&nodeID=" + nodeID + "&refID=" + refID + "&kindID=" + $("#certID").val() + "&host=" + currHost, "_self");
+		window.open("entryform_" + entryform + "_202301.asp?keyID=" + k + "&nodeID=" + nodeID + "&refID=" + refID + "&kindID=" + $("#certID").val() + "&host=" + currHost + "&times=" + (new Date().getTime()), "_self");
 	}
 
 	function generateMaterials(){
@@ -880,7 +880,7 @@
 			if(!checkPermission("applyEdit")){
 				$("#signatureDate1").numberbox({readonly:true});
 				$("#signatureDate").numberbox({readonly:true});
-				$("#btnPreview").hide();
+				// $("#btnPreview").hide();
 			}
 
 			if(checkPermission("studentAdd")){
@@ -987,7 +987,7 @@
 			<form style="width:98%;float:right;margin:1px;padding-left:1px;background:#fefaf8;">
 			<table>
 				<tr>
-					<td align="right">证件号</td><input type="hidden" id="pay_kind" name="pay_kind" />
+					<td align="right">证件号</td><input type="hidden" id="pay_kindID" name="pay_kindID" />
 					<td><input id="username" name="username" class="easyui-textbox" data-options="height:22,width:195,readonly:true" /></td>
 					<td align="right">类别</td>
 					<td><select id="kindID" name="kindID" class="easyui-combobox" data-options="editable:false,panelHeight:'auto',height:22,width:80,readonly:true"></select></td>
@@ -1139,7 +1139,6 @@
 						<input class="button" type="button" id="btnMaterials" value="查看材料" />
 						<input class="button" type="button" id="btnEntryform" value="班级资料" />
 						<input class="button" type="button" id="btnEntryformExam" value="鉴定归档" />
-						<input class="button" type="button" id="btnPreview" value="打印(旧版)" />
 						<input class="button" type="button" id="btnPrint" value="打印" />
 						<span id="file1"></span>
 						<span id="file2"></span>

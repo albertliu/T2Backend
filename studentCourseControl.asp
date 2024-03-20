@@ -364,14 +364,14 @@ if(op == "update"){
 		sql += "',0,'" + currPartner + "','" + Request.Form("sales") + "','" + Request.Form("channel") + "','" + currHost + "','" + Request.Form("memo") + "','" + Request.Form("price") + "','" + Request.Form("amount") + "','" + Request.Form("pay_kindID") + "','" + Request.Form("pay_type") + "','" + Request.Form("pay_status") + "','" + Request.Form("invoice");
 		sql += "','" + Request.Form("title") + "','" + Request.Form("datePay") + "','" + Request.Form("dateInvoice") + "','" + Request.Form("dateInvoicePick") + "','" + Request.Form("pay_memo") + "','" + Request.Form("try") + "','" + Request.Form("person") + "','" + currUser + "'";
 		
-		/*rs = conn.Execute(sql);
+		rs = conn.Execute(sql);
 		if (!rs.EOF){
 			result = rs("re").value + "|" + rs("msg").value + "|" + rs("enterID").value;
 		}
-		rs.Close();*/
+		rs.Close();/**/
 	}
-	//Response.Write(escape(result));
-	Response.Write(escape(sql));
+	Response.Write(escape(result));
+	//Response.Write(escape(sql));
 }
 
 if(op == "getPayList"){

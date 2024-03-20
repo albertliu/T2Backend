@@ -170,7 +170,7 @@ if (String(Request.QueryString("msg")) != "undefined" &&
 		}
 		
 		$.get("login.asp?op=login&username=" + $("#username").val() + "&passwd=" + md5($("#passwd").val()) + "&times=" + (new Date().getTime()),function(re){
-			//alert(unescape(re));
+			// alert(unescape(re));
 			ar = unescape(re).split("|");
 			if(ar[0]==0){  //passed
 				if($("#passwd").val()=="123456"){
