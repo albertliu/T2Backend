@@ -723,7 +723,7 @@
 					$("#reexamineItem").show();
 					if(op == 1){	
 						// 新增默认选中个人
-						$("#person").checkbox({checked:true});
+						// $("#person").checkbox({checked:true});
 					}
 				}else{
 					$("#reexamineItem").hide();
