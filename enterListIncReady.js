@@ -33,32 +33,32 @@
 			}
 		});
 		
-		$("#searchEnterCourseID").combobox({
-			onChange:function() {
-				let c = $("#searchEnterCourseID").combobox("getValue");
-				if(c>""){
-					$.get("courseControl.asp?op=getNodeInfo&nodeID=0&refID=" + c + "&times=" + (new Date().getTime()),function(re){
-						//alert(unescape(re));
-						var ar = new Array();
-						ar = unescape(re).split("|");
-						if(ar > ""){
-							if(ar[21]==1 && ar[28]==1){
-								//安监复训
-								$("#searchEnterDateLabel").text("复训日期");
-								enterListDateKind = 1;
-							}else{
-								$("#searchEnterDateLabel").text("报名日期");
-								enterListDateKind = 0;
-							}
-						}
-					});
-				}else{
-					$("#searchEnterDateLabel").text("报名日期");
-					enterListDateKind = 0;
-				}
-				getEnterList();
-			}
-		});
+		// $("#searchEnterCourseID").combobox({
+		// 	onChange:function() {
+		// 		let c = $("#searchEnterCourseID").combobox("getValue");
+		// 		if(c>""){
+		// 			$.get("courseControl.asp?op=getNodeInfo&nodeID=0&refID=" + c + "&times=" + (new Date().getTime()),function(re){
+		// 				//alert(unescape(re));
+		// 				var ar = new Array();
+		// 				ar = unescape(re).split("|");
+		// 				if(ar > ""){
+		// 					if(ar[21]==1 && ar[28]==1){
+		// 						//安监复训
+		// 						$("#searchEnterDateLabel").text("复训日期");
+		// 						enterListDateKind = 1;
+		// 					}else{
+		// 						$("#searchEnterDateLabel").text("报名日期");
+		// 						enterListDateKind = 0;
+		// 					}
+		// 				}
+		// 			});
+		// 		}else{
+		// 			$("#searchEnterDateLabel").text("报名日期");
+		// 			enterListDateKind = 0;
+		// 		}
+		// 		getEnterList();
+		// 	}
+		// });
 		
 		$("#searchEnterHost").combobox({
 			onChange:function(val) {
