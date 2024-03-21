@@ -597,10 +597,10 @@
 			$.messager.alert("提示","请选择渠道。","warning");
 			return false;
 		}
-		if($("#sales").combobox("getValue")=="" && $("#partnerID").combobox("getValue")=="" && currPartner == 0){
-			$.messager.alert("提示","请选择销售。","warning");
-			return false;
-		}
+		// if($("#sales").combobox("getValue")=="" && $("#partnerID").combobox("getValue")=="" && currPartner == 0){
+			// $.messager.alert("提示","请选择销售。","warning");
+			// return false;
+		// }
 		if(op==1 && $("#pay_status").combobox("getValue")=="1" && $("#amount").numberbox("getValue")==0){
 			$.messager.alert("提示","收款金额不能为0。","warning");
 			return false;
@@ -1051,7 +1051,7 @@
 					<td align="right">销售</td>
 					<td>
 						<div>
-						<span><select id="sales" name="sales" class="easyui-combobox" data-options="editable:false,panelHeight:'auto',height:22,width:80,required:true"></select></span>
+						<span><select id="sales" name="sales" class="easyui-combobox" data-options="editable:false,panelHeight:'auto',height:22,width:80"></select></span>
 						<span>&nbsp;渠道&nbsp;<select id="channel" name="channel" class="easyui-combobox" data-options="editable:false,panelHeight:'auto',height:22,width:100,required:true"></select></span>
 						<span id="tryItem">&nbsp;&nbsp;&nbsp;<input class="easyui-checkbox" value="1" id="try" name="try" />&nbsp;试读</span>
 						</div>
