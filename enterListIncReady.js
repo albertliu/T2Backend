@@ -95,9 +95,9 @@
 			onShowPanel:function() {
 				var id = $("#searchEnterAgencyID").combobox("getValue");
 				if(id > ""){
-					getComboList("searchEnterCourseID","[dbo].[getEnterQtyInPool]('" + currHost + "'," + currPartner + ")","courseID","courseName","agencyID='" + id + "' order by seq",1);
+					getComboList("searchEnterCourseID","[dbo].[getEnterQtyInPool]('" + currHost + "','" + currPartner + "')","courseID","courseName","agencyID='" + id + "' order by seq",1);
 				}else{
-					getComboList("searchEnterCourseID","[dbo].[getEnterQtyInPool]('" + currHost + "'," + currPartner + ")","courseID","courseName","1=1 order by seq",1);
+					getComboList("searchEnterCourseID","[dbo].[getEnterQtyInPool]('" + currHost + "','" + currPartner + "')","courseID","courseName","1=1 order by seq",1);
 				}
 			}
 		});
