@@ -5,6 +5,7 @@
 if(op == "getStudentCourseList"){
 	var s = "";
 	var d = 0;
+	var p = "";
 	//如果有条件，按照条件查询
 	if(where > ""){ // 有条件
 		where = where.replace(/\s+/g, "");
@@ -12,11 +13,14 @@ if(op == "getStudentCourseList"){
 		d += 1;
 	}
 	
-	s = "host='" + (host>""?host:currHost) + "'";
-	if(where > ""){
-		where = where + " and " + s;
-	}else{
-		where = s;
+	p = (host>""?host:currHost);
+	if(p>""){
+		s = "host='" + p + "'";
+		if(where > ""){
+			where = where + " and " + s;
+		}else{
+			where = s;
+		}
 	}
 
 	//如果有部门
@@ -46,6 +50,17 @@ if(op == "getStudentCourseList"){
 			where = s;
 		}
 	}
+	
+	//如果未分拣
+	if(String(Request.QueryString("nosort")) == "1"){ // 
+		s = "host=''";	//
+		if(where > ""){
+			where = where + " and " + s;
+		}else{
+			where = s;
+		}
+	}
+	
 	//如果有状态 默认显示未退课人员
 	if(status > "" && status !="undefined"){ // 
 		s = "status=" + status;
@@ -214,14 +229,14 @@ if(op == "getStudentCourseList"){
 		//97
 		result += "|" + rs("reExamCount").value + "|" + rs("examScore").value + "|" + rs("examTimes").value + "|" + rs("sc").value + "|" + rs("file4").value + "|" + rs("photo_size").value + "|" + rs("agencyID").value + "|" + rs("salesName").value;
 		//105
-		result += "|" + rs("file5").value + "|" + rs("needInvoice").value + "|" + rs("scanID").value;
+		result += "|" + rs("file5").value + "|" + rs("needInvoice").value + "|" + rs("scanID").value + "|" + rs("hostTitle").value;
 		rs.MoveNext();
 	}
 	rs.Close();
-	
+	/**/
 	Session(op) = ssql;
 	Response.Write(escape(result));
-	//Response.Write((sql));
+	//Response.Write(escape(sql));
 }	
 
 if(op == "getStudentListByClass"){

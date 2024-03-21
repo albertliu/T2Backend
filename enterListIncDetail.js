@@ -68,7 +68,10 @@
 								&nbsp;&nbsp;进度&nbsp;&gt;=&nbsp;<input type="text" id="searchEnter_completion1" class="easyui-textbox" data-options="height:22,width:40" />%&nbsp;&nbsp;
 							</span>
 							<a class="easyui-linkbutton" id="btnEnterSubmit" href="javascript:void(0)"></a>
-							<a class="easyui-linkbutton" id="btnEnterSort" href="javascript:void(0)"></a>
+							<span id="enterSortItem">
+								<a class="easyui-linkbutton" id="btnEnterSort" href="javascript:void(0)"></a>
+								&nbsp;<input class="easyui-checkbox" id="searchEnterNosort" name="searchEnterNosort" value="1"/>&nbsp;未分拣
+							</span>
 							&nbsp;&nbsp;<input class="easyui-checkbox" id="searchEnterShowPhoto" name="searchEnterShowPhoto" value="1"/>&nbsp;显示照片&nbsp;
 							<span id="enterPhotoItem">
 								<a class="easyui-linkbutton" id="btnAttentionPhoto" href="javascript:void(0)"></a>

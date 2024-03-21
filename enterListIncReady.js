@@ -448,6 +448,11 @@
 				getEnterList();
 			}
 		});
+		$("#searchEnterNosort").checkbox({
+			onChange: function(val){
+				getEnterList();
+			}
+		});
 		$("#searchEnterPartner").combobox({
 			onChange: function(val){
 				getEnterList();
@@ -463,6 +468,7 @@
 		var pool = 0;
 		var trys = 0;
 		var inv = 0;
+		let nosort = 0;
 		if($("#searchEnterShowPhoto").checkbox("options").checked){
 			photo = 1;
 			// $("#enterPhotoItem").show();
@@ -472,6 +478,9 @@
 		if($("#searchEnterPool").checkbox("options").checked){
 			pool = 1;
 		}
+		if($("#searchEnterNosort").checkbox("options").checked){
+			nosort = 1;
+		}
 		if($("#searchEnterTry").checkbox("options").checked){
 			trys = 1;
 		}
@@ -479,7 +488,7 @@
 			inv = 1;
 		}
 		// alert("&partnerID=" + $("#searchEnterPartner").combobox("getValue"));
-		$.get("studentCourseControl.asp?op=getStudentCourseList&where=" + escape(sWhere) + "&enterListDateKind=" + enterListDateKind + "&photo=" + photo + "&list=" + list + "&pool=" + pool + "&needInvoice=" + inv + "&try=" + trys + "&host=" + $("#searchEnterHost").combobox("getValue") + "&partnerID=" + $("#searchEnterPartner").combobox("getValue") + "&status=" + $("#searchEnterStatus").combobox("getValue") + "&sales=" + $("#searchEnterSales").combobox("getValue") + "&courseID=" + $("#searchEnterCourseID").combobox("getValue") + "&pay=" + $("#searchEnterPay").combobox("getValue") + "&submited=" + $("#searchEnterSubmit").combobox("getValue") + "&fStart=" + $("#searchEnterStartDate").datebox("getValue") + "&fEnd=" + $("#searchEnterEndDate").datebox("getValue") + "&completion1=" + $("#searchEnter_completion1").textbox("getValue") + "&dk=101&times=" + (new Date().getTime()),function(data){
+		$.get("studentCourseControl.asp?op=getStudentCourseList&where=" + escape(sWhere) + "&enterListDateKind=" + enterListDateKind + "&photo=" + photo + "&list=" + list + "&pool=" + pool + "&nosort=" + nosort + "&needInvoice=" + inv + "&try=" + trys + "&host=" + $("#searchEnterHost").combobox("getValue") + "&partnerID=" + $("#searchEnterPartner").combobox("getValue") + "&status=" + $("#searchEnterStatus").combobox("getValue") + "&sales=" + $("#searchEnterSales").combobox("getValue") + "&courseID=" + $("#searchEnterCourseID").combobox("getValue") + "&pay=" + $("#searchEnterPay").combobox("getValue") + "&submited=" + $("#searchEnterSubmit").combobox("getValue") + "&fStart=" + $("#searchEnterStartDate").datebox("getValue") + "&fEnd=" + $("#searchEnterEndDate").datebox("getValue") + "&completion1=" + $("#searchEnter_completion1").textbox("getValue") + "&dk=101&times=" + (new Date().getTime()),function(data){
 		//$.getJSON("enterControl.asp?op=getEnterList",function(data){
 			// alert(unescape(data));
 			var ar = new Array();
@@ -525,7 +534,9 @@
 			arr.push("<th width='5%'>状态</th>");
 			// arr.push("<th width='5%'>证书</th>");
 			arr.push("<th width='10%'>销售</th>");
-			// arr.push("<th width='2%'>表</th>");
+			if(checkPartner == 1){
+				arr.push("<th width='5%'>主管</th>");
+			}
 			arr.push("<th width='2%'></th>");
 			arr.push("</tr>");
 			arr.push("</thead>");
@@ -611,11 +622,9 @@
 					arr.push("<td class='center'>" + ar1[92] + "</td>");	//状态
 					// arr.push("<td class='center'>" + (ar1[55]>""?imgChk:"") + "</td>");		//证书
 					arr.push("<td class='center'>" + ar1[104] + "&nbsp;" + ar1[29] + "</td>");	//经办
-					// if(ar1[48]==''){
-					// 	arr.push("<td class='center'><div id='material" + ar1[0] + "'><span onclick='generateMaterials(" + ar1[0] + ",\"" + ar1[1] + "\",\"" + ar1[82] + "\")' title='生成报名表'><img src='images/add.png' style='width:15px;'><span><div></td>");
-					// }else{
-					// 	arr.push("<td class='center'><a href='javascript:void(0);' onclick='openMaterial(\"/users" + ar1[48] + "?t=" + (new Date().getTime()) + "\");' title='报名表'>" + imgFile + "</a> <span onclick='generateMaterials(" + ar1[0] + ",\"" + ar1[1] + "\",\"" + ar1[82] + "\")' title='生成报名表'><img src='images/add.png' style='width:15px;'><span></td>");
-					// }
+					if(checkPartner == 1){
+						arr.push("<td class='center'>" + ar1[108] + "</td>");
+					}
 					arr.push("<td class='left'>" + "<input style='BORDER-TOP-STYLE: none; BORDER-RIGHT-STYLE: none; BORDER-LEFT-STYLE: none; BORDER-BOTTOM-STYLE: none' type='checkbox' value='" + ar1[0] + "' name='visitstockchkEnter' " + (list>""?"checked":"") + " />" + "</td>");
 					arr.push("</tr>");
 				});
@@ -638,6 +647,9 @@
 			arr.push("<th>&nbsp;</th>");
 			arr.push("<th>&nbsp;</th>");
 			if(r){
+				arr.push("<th>&nbsp;</th>");
+			}
+			if(checkPartner == 1){
 				arr.push("<th>&nbsp;</th>");
 			}
 			if(photo == 0){
@@ -706,7 +718,7 @@
 		if(checkPartner == 0){
 			$("#enterSubmitItem").hide();
 			$("#btnEnterSubmit").hide();
-			$("#btnEnterSort").hide();
+			$("#enterSortItem").hide();
 			getComboList("searchEnterPartner","v_partnerList","partnerID","title","partnerID<>'" + currHost + "' order by mark, title",1);
 			$("#enterHostItem").hide();
 			$("#searchEnterHost").combobox({"setValue": ""});
@@ -722,7 +734,7 @@
 		}else{
 			$("#enterSubmitItem").show();
 			$("#btnEnterSubmit").show();
-			$("#btnEnterSort").show();
+			$("#enterSortItem").show();
 			$("#enterApplyItem").hide();
 			$("#enterSalesItem").hide();
 			$("#enterPayItem").hide();
