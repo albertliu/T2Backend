@@ -380,7 +380,10 @@
 					jAlert("请选择要转移的名单。");
 					return false;
 				}
-
+				if(!$("#searchEnterPool").checkbox("options").checked){
+					jAlert("请勾选'候考'选项。");
+					return false;
+				}
 				$.get("hostControl.asp?op=getHostListPure",function(data){
 					//alert(unescape(data));
 					var ar = $.parseJSON(unescape(data));
