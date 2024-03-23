@@ -755,7 +755,12 @@
 	function setEnterListMenu(){
 		$("#btnEnterTurn").hide();
 		$("#btnEnterReturn").hide();
-		$("#enterPartnerItem").hide();
+		$("#enterPartnerItem").hide();		
+		if(!checkPermission("studentAdd")){
+			$("#btnSearchEnterAdd").hide();
+			$("#btnEnterStudentImport").hide();
+		}
+
 		if(checkPartner == 0){
 			$("#enterSubmitItem").hide();
 			$("#btnEnterSubmit").hide();
@@ -780,9 +785,17 @@
 			$("#enterApplyItem").hide();
 			$("#enterSalesItem").hide();
 			$("#enterPayItem").hide();
-			getComboList("searchEnterPartner","v_partnerList","partnerID","title","partnerID='" + (currHost>""?currHost:currPartner) + "'",0);
 			$("#enterHostItem").show();
-			$("#searchEnterSubmit").combobox("setValue", 0)
+			$("#searchEnterSubmit").combobox("setValue", 0);
+			if(checkPermission("superArea")){
+				$("#btnEnterStudentImport").hide();
+				$("#enterPartnerItem").show();
+				$("#btnEnterSubmit").hide();
+				$("#enterSortItem").hide();
+				getComboList("searchEnterPartner","v_partnerList","partnerID","title","1=1 order by mark, title",1);
+			}else{
+				getComboList("searchEnterPartner","v_partnerList","partnerID","title","partnerID='" + (currHost>""?currHost:currPartner) + "'",0);
+			}
 		}
 	}
 	
