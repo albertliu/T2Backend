@@ -60,6 +60,7 @@
 							</span>
 							<a class="easyui-linkbutton" id="btnEnterStudentImport" href="javascript:void(0)"></a>
 							<a class="easyui-linkbutton" id="btnEnterReturn" href="javascript:void(0)"></a>
+							<a class="easyui-linkbutton" id="btnEnterTurn" href="javascript:void(0)"></a>
 							<span id="enterApplyItem">
 								<a class="easyui-linkbutton" id="btnEnterApply" href="javascript:void(0)"></a>
 								<a class="easyui-linkbutton" id="btnEnterApplyByExcel" href="javascript:void(0)"></a>

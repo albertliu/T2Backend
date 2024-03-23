@@ -33,32 +33,32 @@
 			}
 		});
 		
-		// $("#searchEnterCourseID").combobox({
-		// 	onChange:function() {
-		// 		let c = $("#searchEnterCourseID").combobox("getValue");
-		// 		if(c>""){
-		// 			$.get("courseControl.asp?op=getNodeInfo&nodeID=0&refID=" + c + "&times=" + (new Date().getTime()),function(re){
-		// 				//alert(unescape(re));
-		// 				var ar = new Array();
-		// 				ar = unescape(re).split("|");
-		// 				if(ar > ""){
-		// 					if(ar[21]==1 && ar[28]==1){
-		// 						//安监复训
-		// 						$("#searchEnterDateLabel").text("复训日期");
-		// 						enterListDateKind = 1;
-		// 					}else{
-		// 						$("#searchEnterDateLabel").text("报名日期");
-		// 						enterListDateKind = 0;
-		// 					}
-		// 				}
-		// 			});
-		// 		}else{
-		// 			$("#searchEnterDateLabel").text("报名日期");
-		// 			enterListDateKind = 0;
-		// 		}
-		// 		getEnterList();
-		// 	}
-		// });
+		$("#searchEnterCourseID").combobox({
+			onChange:function() {
+				// let c = $("#searchEnterCourseID").combobox("getValue");
+				// if(c>""){
+				// 	$.get("courseControl.asp?op=getNodeInfo&nodeID=0&refID=" + c + "&times=" + (new Date().getTime()),function(re){
+				// 		//alert(unescape(re));
+				// 		var ar = new Array();
+				// 		ar = unescape(re).split("|");
+				// 		if(ar > ""){
+				// 			if(ar[21]==1 && ar[28]==1){
+				// 				//安监复训
+				// 				$("#searchEnterDateLabel").text("复训日期");
+				// 				enterListDateKind = 1;
+				// 			}else{
+				// 				$("#searchEnterDateLabel").text("报名日期");
+				// 				enterListDateKind = 0;
+				// 			}
+				// 		}
+				// 	});
+				// }else{
+				// 	$("#searchEnterDateLabel").text("报名日期");
+				// 	enterListDateKind = 0;
+				// }
+				getEnterList();
+			}
+		});
 		
 		$("#searchEnterHost").combobox({
 			onChange:function(val) {
@@ -355,11 +355,46 @@
 						d = d.replace(/\s*/g,"");
 						if(d > ""){
 							//alert($("#searchStudentPreProjectID").val() + "&status=1&host=" + $("#searchStudentPreHost").val() + "&keyID=" + selList);
-							alert(uploadURL + ":" + d + ":" + selList);
+							// alert(uploadURL + ":" + d + ":" + selList);
 							$.post(uploadURL + "/public/sort_enter_host", {selList: selList, host:d, registerID: currUser} ,function(data1){
 								//jAlert(data1);
 								getEnterList();
 								jAlert("操作成功。");
+							});
+						}else{
+							jAlert("目标学校不能为空。");
+						}
+					});
+				});
+			}
+		});
+		
+		$("#btnEnterTurn").linkbutton({
+			iconCls:'icon-filter',
+			width:85,
+			height:25,
+			text:'转移部门',
+			onClick:function() {
+				getSelCart("visitstockchkEnter");
+				if(selCount==0){
+					jAlert("请选择要转移的名单。");
+					return false;
+				}
+
+				$.get("hostControl.asp?op=getHostListPure",function(data){
+					//alert(unescape(data));
+					var ar = $.parseJSON(unescape(data));
+					jSelect("<p style='color:red; font-size:1.1em;'>要将这" + selCount + "个人转移到其他学校</p>请选择目标学校：", ar, "部门转移", function(d){
+						d = d.replace(/\s*/g,"");
+						if(d > ""){
+							//alert($("#searchStudentPreProjectID").val() + "&status=1&host=" + $("#searchStudentPreHost").val() + "&keyID=" + selList);
+							// alert(uploadURL + ":" + d + ":" + selList);
+							$.post(uploadURL + "/public/turn_enter_partner", {selList: selList, host:d, registerID: currUser} ,function(data1){
+								//jAlert(data1);
+								if(data1.status==0){
+									getEnterList();
+									jAlert("操作成功" + data1.re + "条记录。")
+								};
 							});
 						}else{
 							jAlert("目标学校不能为空。");
@@ -715,6 +750,9 @@
 	}
 
 	function setEnterListMenu(){
+		$("#btnEnterTurn").hide();
+		$("#btnEnterReturn").hide();
+		$("#enterPartnerItem").hide();
 		if(checkPartner == 0){
 			$("#enterSubmitItem").hide();
 			$("#btnEnterSubmit").hide();
@@ -724,12 +762,13 @@
 			$("#searchEnterHost").combobox({"setValue": ""});
 			if(checkPermission("deptShow")){
 				$("#enterPartnerItem").show();
-			}else{
-				$("#enterPartnerItem").hide();
 			}
 			$("#searchEnterSubmit").combobox("setValue", 1);  // 学校只能查看合作单位提交的数据
 			if(checkPermission("submitReturn")){
 				$("#btnEnterReturn").show();
+			}
+			if(checkPermission("turnHost")){
+				$("#btnEnterTurn").show();
 			}
 		}else{
 			$("#enterSubmitItem").show();
@@ -741,8 +780,6 @@
 			getComboList("searchEnterPartner","v_partnerList","partnerID","title","partnerID='" + (currHost>""?currHost:currPartner) + "'",0);
 			$("#enterHostItem").show();
 			$("#searchEnterSubmit").combobox("setValue", 0)
-			$("#enterPartnerItem").hide();
-			$("#btnEnterReturn").hide();
 		}
 	}
 	

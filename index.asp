@@ -197,12 +197,11 @@
 	}
 
 	function setHostMenu(){
-		$("#menu2").hide();		//申报
-		$("#menu5").hide();		//课程
-		$("#menu3").show();		
-		$("#menu5").show();	
-		$("#menu6").show();	
+		$("#menu2").hide();	//申报
+		$("#menu3").show();	//证书	
 		$("#menu4").show();	//统计
+		$("#menu5").show();	//课程
+		$("#menu6").show();	//综合
 		if(checkPartner==1){
 			//	合作单位
 			$("#menu3").hide();		
