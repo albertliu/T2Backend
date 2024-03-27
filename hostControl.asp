@@ -146,7 +146,8 @@ if(op == "emptyQRqueue"){
 }
 
 if(op == "getPartnerList"){
-	sql = "SELECT ID, partnerID, partnerName, title, status, statusName, memo, regDate, registerName from v_partnerInfo where host='" + currHost + "' order by ID";
+	//sql = "SELECT ID, partnerID, partnerName, title, status, statusName, memo, regDate, registerName from v_partnerInfo where host='" + currHost + "' order by ID";
+	sql = "SELECT ID, partnerID, partnerName, title, status, statusName, memo, regDate, registerName from v_partnerInfo order by ID";
 	rs = conn.Execute(sql);
 	while (!rs.EOF){
 		result += "%%" + rs("ID").value + "|" + rs("partnerName").value + "|" + rs("title").value + "|" + rs("status").value + "|" + rs("statusName").value + "|" + rs("memo").value + "|" + rs("regDate").value + "|" + rs("registerName").value + "|" + rs("partnerID").value;
