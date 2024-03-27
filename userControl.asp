@@ -68,13 +68,13 @@ if(op == "getUserList"){
 		where = "(realName like('%" + where + "%') or userName like('%" + where + "%'))";
 	}
 	//如果有公司
-	s = "host='" + currHost + "'";
+	s = "(host='" + currHost + "' or partnerID>'')";
 	if(where > ""){
 		where = where + " and " + s;
 	}else{
 		where = s;
 	}
-	if(currPartner > 0){ // 
+	if(currPartner > ""){ // 
 		s = "partnerID=" + currPartner;
 		where = where + " and " + s;
 	}
