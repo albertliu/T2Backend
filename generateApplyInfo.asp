@@ -856,15 +856,16 @@
 			arr.push("<th width='5%'>成绩</th>");
 			arr.push("<th width='5%'>结果</th>");
 			if(photo == 0){
-				arr.push("<th width='7%'>去向</th>");
-				arr.push("<th width='12%'>备注</th>");
+				// arr.push("<th width='7%'>去向</th>");
+				arr.push("<th width='15%'>备注</th>");
 			}else{
-				arr.push("<th width='7%'>考站签名</th>");
+				// arr.push("<th width='7%'>考站签名</th>");
 				arr.push("<th width='7%'>照片</th>");
 				arr.push("<th width='6%'>签名</th>");
 			}
 			arr.push("<th width='3%'>鉴</th>");
 			arr.push("<th width='3%'>班</th>");
+			arr.push("<th width='3%'>传</th>");
 			arr.push("<th width='1%'></th>");
 			arr.push("</tr>");
 			arr.push("</thead>");
@@ -910,10 +911,10 @@
 					// 	arr.push("<td class='center'>&nbsp;</td>");
 					// }
 					if(photo == 0){
-						arr.push("<td class='left'>" + ar1[34] + "</td>");	// 去向
+						// arr.push("<td class='left'>" + ar1[34] + "</td>");	// 去向
 						arr.push("<td class='left' title='" + ar1[38] + "'>" + ar1[10] + "</td>");	// 备注
 					}else{
-						arr.push("<td class='left'>" + ar1[36] + "</td>");	// 考站签名
+						// arr.push("<td class='left'>" + ar1[36] + "</td>");	// 考站签名
 						photo_type = ar1[30].substr(ar1[30].indexOf("."));
 						photo_size = ar1[32];
 						if(photo_size > 100 || photo_type !== ".jpg"){	//根据照片类型或文件大小，显示不同背景颜色
@@ -943,9 +944,14 @@
 						arr.push("<td class='center'><a href='javascript:void(0);' title='鉴定归档资料' onclick='openMaterial(\"/users" + ar1[25] + "?t=" + (new Date().getTime()) + "\");' ondblclick='generateMaterialsExam(" + ar1[2] + ",\"" + ar1[4] + "\",\"" + ar1[29] + "\")' title='鉴定归档资料'>" + imgFile + "</a></td>");
 					}
 					if(ar1[24]==''){
-						arr.push("<td class='center'><div id='material" + ar1[2] + "'><span onclick='generateMaterials(" + ar1[2] + ",\"" + ar1[4] + "\",\"" + ar1[29] + "\")' title='申报材料'><img src='images/addDoc.png' style='width:15px;'><span><div></td>");
+						arr.push("<td class='center'><div id='material" + ar1[2] + "'><span onclick='generateMaterials(" + ar1[2] + ",\"" + ar1[4] + "\",\"" + ar1[29] + "\")' title='班级归档资料'><img src='images/addDoc.png' style='width:15px;'><span><div></td>");
 					}else{
 						arr.push("<td class='center'><a href='javascript:void(0);' title='班级归档资料' onclick='openMaterial(\"/users" + ar1[24] + "?t=" + (new Date().getTime()) + "\");' ondblclick='generateMaterials(" + ar1[2] + ",\"" + ar1[4] + "\",\"" + ar1[29] + "\")' title='申报材料'>" + imgFile + "</a></td>");
+					}
+					if(ar1[26]==''){
+						arr.push("<td class='center'></td>");
+					}else{
+						arr.push("<td class='center'><a href='javascript:void(0);' title='申报材料' onclick='showPic(\"/users" + ar1[26] + "?t=" + (new Date().getTime()) + "\");' title='申报材料'>" + imgFile + "</a></td>");
 					}
 					arr.push("<td class='left'><input style='BORDER-TOP-STYLE: none; BORDER-RIGHT-STYLE: none; BORDER-LEFT-STYLE: none; BORDER-BOTTOM-STYLE: none' type='checkbox' value='" + ar1[0] + "' name='visitstockchk'></td>");
 					arr.push("</tr>");
@@ -1027,6 +1033,10 @@
 		timer1=setTimeout(function(){
 			window.open(path);
 		},300);
+	}
+
+	function showPic(path){
+		showImage(path,1,1,0);
 	}
 
 	function generateZip(t){

@@ -121,7 +121,7 @@
 			height:25,
 			text:'查看操作',
 			onClick:function() {
-				showStudentOpList(nodeID,"",0,1);
+				showStudentOpList(nodeID,0,0,1);
 			}
 		});
 

@@ -92,6 +92,16 @@
 			}
 		});
 
+		$("#opList").linkbutton({
+			iconCls:'',
+			width:65,
+			height:25,
+			text:'查看操作',
+			onClick:function() {
+				showStudentOpList(refID,1,0,1);
+			}
+		});
+
 		$("#btnSave").linkbutton({
 			iconCls:'icon-save',
 			width:70,
@@ -863,6 +873,7 @@
 		<a class="easyui-linkbutton" id="btnDel" href="javascript:void(0)"></a>
 		<a class="easyui-linkbutton" id="smsList" href="javascript:void(0)"></a>
 		<a class="easyui-linkbutton" id="examList" href="javascript:void(0)"></a>
+		<a class="easyui-linkbutton" id="opList" href="javascript:void(0)"></a>
   	</div>
 	<div style="width:100%;float:left;margin:10;height:4px;"></div>
   	<div class="comm" align="center" style="width:99%;float:top;margin:1px;background:#fcfcfc;clear:both;">
