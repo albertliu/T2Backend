@@ -1036,7 +1036,7 @@
 	}
 
 	function showPic(path){
-		showImage(path,1,1,0);
+		showImage(path,1.5,1.5,0);
 	}
 
 	function generateZip(t){
