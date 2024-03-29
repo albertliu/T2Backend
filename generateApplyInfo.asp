@@ -951,7 +951,7 @@
 					if(ar1[26]==''){
 						arr.push("<td class='center'></td>");
 					}else{
-						arr.push("<td class='center'><a href='javascript:void(0);' title='申报材料' onclick='showPic(\"/users" + ar1[26] + "\");' title='申报材料'>" + imgFile + "</a></td>");
+						arr.push("<td class='center'><a href='javascript:void(0);' title='申报材料' onclick='showPic(\"" + ar1[26] + "\");' title='申报材料'>" + imgFile + "</a></td>");
 					}
 					arr.push("<td class='left'><input style='BORDER-TOP-STYLE: none; BORDER-RIGHT-STYLE: none; BORDER-LEFT-STYLE: none; BORDER-BOTTOM-STYLE: none' type='checkbox' value='" + ar1[0] + "' name='visitstockchk'></td>");
 					arr.push("</tr>");
