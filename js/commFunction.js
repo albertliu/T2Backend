@@ -2031,9 +2031,10 @@
 	}
 	
 	//txt: 要显示的内容
-	function showMsg(txt){
+	function showMsg(title, txt){
+		title = title>""?title:'详细内容'
 		$.messager.show({
-			title:'详细内容',
+			title:title,
 			msg: txt,
 			showType:'fade',
 			style:{
