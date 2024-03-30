@@ -2030,6 +2030,19 @@
 		});
 	}
 	
+	//txt: 要显示的内容
+	function showMsg(txt){
+		$.messager.show({
+			title:'详细内容',
+			msg: txt,
+			showType:'fade',
+			style:{
+				right:'',
+				bottom:''
+			}
+		});
+	}
+	
 	//nodeID: ID; op: 0 浏览 1 新增  2 编辑  3 删除  4 审批; mark: 0 不动作  1 有修改时刷新列表  2 有修改时刷新对象  k 来源标识  kindID:photo,education...
 	function showCropperInfo(nodeID,refID,kindID,k,op,mark){
 		asyncbox.open({

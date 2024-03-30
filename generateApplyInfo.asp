@@ -912,7 +912,7 @@
 					// }
 					if(photo == 0){
 						// arr.push("<td class='left'>" + ar1[34] + "</td>");	// 去向
-						arr.push("<td class='left' title='" + ar1[38] + "'>" + ar1[10] + "</td>");	// 备注
+						arr.push("<td class='link1'><a href='javascript:showMsg(\"" + ar1[38] + "\");'>" + ar1[10] + "</a></td>");	// 备注
 					}else{
 						// arr.push("<td class='left'>" + ar1[36] + "</td>");	// 考站签名
 						photo_type = ar1[30].substr(ar1[30].indexOf("."));
