@@ -1065,6 +1065,7 @@
 		$("#close").hide();
 		$("#open").hide();
 		$("#btnZip").hide();
+		$("#btnGen").hide();
 		$("#generateApplyZip").hide();
 		$("#azip").hide();
 		$("#doImportApply").hide();
@@ -1116,7 +1117,7 @@
 				}
 				if(s<2){
 					$("#close").show();
-					$("#btnZip").show();
+					$("#btnGen").show();
 					$("#adjustClassDate").show();
 					if(agencyID==1){
 						$("#doApplyEnter").show();	// 应急局项目可以自动报名
@@ -1250,10 +1251,12 @@
 			</tr>
 			<tr>
 				<td align="left" colspan="4">
-					<span id="btnZip">
+					<span id="btnGen">
 						<label style="color:orange;font-size:1.2em;">生成</label><input class="button" type="button" id="generateExamDoc" value="鉴定文档" />
 						<input class="button" type="button" id="generateClassDoc" value="班级文档" />
 						<input class="button" type="button" id="generateEntryDoc" value="报名表" />
+					</span>
+					<span id="btnZip">
 						<label style="color:orange;font-size:1.2em;">打包</label><input class="button" type="button" id="generateEZip" value="鉴定包" />
 						<input class="button" type="button" id="generatePhotoZip" value="照片包" />
 						<input class="button" type="button" id="generateMZip" value="班级包" />
