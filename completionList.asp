@@ -151,7 +151,7 @@
 					+ ' style="padding-left:50px;width:80%;">' +
 					'<tr><td style="width:30%;">检测日期</td><td style="width:25%;">参考图片</td><td style="width:25%;">拍摄图片</td><td style="width:20%;">比对结果</td></tr>'
 				$.each(ar,function(iNum,val){
-					$.get(uploadURL + "/outfiles/get_OSS_file_base64?filename=" + val.file1,function(re1){
+					$.get(uploadURL + "/alis/get_OSS_file_base64?filename=" + val.file1,function(re1){
 						//alert(re.status);
 						x += '<tr>' +
 						'<td>' + val.regDate + '</td>' +

@@ -14,9 +14,17 @@
   <script src="js/tracking.js/data/mouth.js"></script>
 
   <style>
-    video, canvas {
+    video {
       margin-left: 230px;
-      margin-top: 120px;
+      margin-top: 60px;
+      position: absolute;
+      transform: rotateY(180deg);
+      -webkit-transform: rotateY(180deg);
+      -moz-transform: rotateY(180deg);
+    }
+    canvas {
+      margin-left: 230px;
+      margin-top: 60px;
       position: absolute;
     }
 
@@ -29,11 +37,11 @@
 	  <!--#include file="js/commFunction.js"-->
     var tipFlag = false // 是否检测
     var faceflag = false // 是否进行拍照
+    var quality = 0.2;  // 0.2-0.5之间，控制压缩率。越小压缩越大，0.2可以在保证质量的情况下达到最大压缩率。
     $(document).ready(function (){
       var video = document.getElementById('video');
       var canvas = document.getElementById('canvas');
       var context = canvas.getContext('2d');
-      var quality = 0.2;  // 0.2-0.5之间，控制压缩率。越小压缩越大，0.2可以在保证质量的情况下达到最大压缩率。
 
       canvas.width = canvas.clientWidth;
       canvas.height = canvas.clientHeight;
@@ -81,13 +89,23 @@
               let rect = event.data[0];
               //判断脸部是否在屏幕中间
               // alert(rect1?rect1.x:"");
-              if (!faceflag && rect && rect.x > video.clientWidth * 0.3 && rect.x < video.clientWidth * 0.7) { // 检测到人脸进行拍照，延迟0.5秒
+              if (!faceflag && rect && rect.x > video.clientWidth * 0.2 && rect.x < video.clientWidth * 0.8) { // 检测到人脸进行拍照，延迟0.5秒
               // $("#tip1").html(faceflag + ":" + rect?rect.x + ":" + video.clientWidth * 0.3 + ":" + video.clientWidth * 0.7:"");
                   $("#tip").html('识别中，请勿乱动~');
                   faceflag = true;
                   tipFlag = true;
                   setTimeout(() => {
-                      tackPhoto(); // 拍照
+                      tackPhoto(function(base64Data){
+                        //upload photo for compare
+                        alert(uploadURL);
+                        $.post(uploadURL + "/alis/searchFace", {base64Data: base64Data, refID: 1} ,function(data){
+                          if(data.status==0){
+                            alert(data.msg);
+                          }else{
+                            alert(data.msg);
+                          }
+                        });
+                      }); 
                       //uploadPhoto();
                       $("#tip").html('识别成功.');
                       faceflag = false;
@@ -110,11 +128,13 @@
         context.drawImage(video, 0, 0, video.clientWidth, video.clientHeight);
         var snapData = canvas.toDataURL('image/jpeg', quality);
         var imgSrc = "data:image/jepg;" + snapData;
-        $("#imgShot").src = imgSrc;
+        alert(snapData);
+        return snapData;
+        // $("#imgShot").src = imgSrc;
 
         // sessionStorage.setItem("faceImage", imgSrc);
         // history.go(-1);
-        history.back()
+        // history.back()
         // video.srcObject.getTracks().forEach(track => track.stop());
         // 取消监听
         // tra.stop();

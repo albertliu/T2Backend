@@ -12,16 +12,24 @@
   <script src="js/tracking.js/data/mouth.js"></script>
 
   <style>
-  video, canvas {
-    margin-left: 230px;
-    margin-top: 120px;
-    position: absolute;
-  }
+    video {
+      margin-left: 230px;
+      margin-top: 60px;
+      position: absolute;
+      transform: rotateY(180deg);
+      -webkit-transform: rotateY(180deg);
+      -moz-transform: rotateY(180deg);
+    }
+    canvas {
+      margin-left: 230px;
+      margin-top: 60px;
+      position: absolute;
+    }
 
-  .tip-box {
-      margin: 10px;
-      font-size: 1em;
-  }
+    .tip-box {
+        margin: 10px;
+        font-size: 1em;
+    }
   </style>
 </head>
 <body>
@@ -41,11 +49,11 @@
   <script>
     var tipFlag = false // 是否检测
     var faceflag = false // 是否进行拍照
+    var quality = 0.2;  // 0.2-0.5之间，控制压缩率。越小压缩越大，0.2可以在保证质量的情况下达到最大压缩率。
     window.onload = function() {
       var video = document.getElementById('video');
       var canvas = document.getElementById('canvas');
       var context = canvas.getContext('2d');
-      var quality = 0.2;  // 0.2-0.5之间，控制压缩率。越小压缩越大，0.2可以在保证质量的情况下达到最大压缩率。
 
       canvas.width = canvas.clientWidth;
       canvas.height = canvas.clientHeight;
@@ -93,14 +101,14 @@
               let rect = event.data[0];
               //判断脸部是否在屏幕中间
               // alert(rect1?rect1.x:"");
-              if (!faceflag && rect && rect.x > video.clientWidth * 0.3 && rect.x < video.clientWidth * 0.7) { // 检测到人脸进行拍照，延迟0.5秒
+              if (!faceflag && rect && rect.x > video.clientWidth * 0.2 && rect.x < video.clientWidth * 0.8) { // 检测到人脸进行拍照，延迟0.5秒
               // $("#tip1").html(faceflag + ":" + rect?rect.x + ":" + video.clientWidth * 0.3 + ":" + video.clientWidth * 0.7:"");
                   $("#tip").html('识别中，请勿乱动~');
                   faceflag = true;
                   tipFlag = true;
                   setTimeout(() => {
                       tackPhoto(); // 拍照
-                      //uploadPhoto();
+                      alert("识别成功")
                       $("#tip").html('识别成功.');
                       faceflag = false;
                       tipFlag = false;
@@ -122,7 +130,7 @@
           var snapData = canvas.toDataURL('image/jpeg', quality);
           var imgSrc = "data:image/jepg;" + snapData;
           // document.querySelector("img").src = imgSrc;
-          $("#imgShot").src = imgSrc;
+          // $("#imgShot").src = imgSrc;
 
           // sessionStorage.setItem("faceImage", imgSrc);
           // history.go(-1);

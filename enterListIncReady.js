@@ -15,7 +15,9 @@
 		getComboList("searchEnterHost","hostInfo","hostNo","title","status=0 and hostNo<>'" + currHost + "' order by hostNo",1);
 		getComboBoxList("statusSubmit","searchEnterSubmit",0);
 		
-		$("#btnEnterApplyImport1").hide();
+		if(currUser != "desk"){
+			$("#btnEnterApplyImport1").hide();
+		}
 
 		$("#txtSearchEnter").textbox('textbox').css('background','#FFFF00');
 		
@@ -253,12 +255,13 @@
 			height:25,
 			text:'接龙申报',
 			onClick:function() {
-				c = $("#searchEnterCourseID").combobox("getValue");
-				if(c==""){
-					jAlert("请选择一个课程。");
-					return false;
-				}
-				showUploadFile(c, "", "apply_picker", "接龙申报名单", "getEnterList(reDo)", 1, 1);
+				// c = $("#searchEnterCourseID").combobox("getValue");
+				// if(c==""){
+				// 	jAlert("请选择一个课程。");
+				// 	return false;
+				// }
+				// showUploadFile(c, "", "apply_picker", "接龙申报名单", "getEnterList(reDo)", 1, 1);
+				window.open("face_camera.asp","", 'top=0, left=0, toolbar=no, menubar=no, scrollbars=no, resizable=no,location=no, status=no', "_blank");
 			}
 		});
 		
