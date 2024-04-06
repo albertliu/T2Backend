@@ -35,6 +35,7 @@
 	var selCount1 = 0;
 	var currPage = "";
 	var uploadURL = "";
+	var uploadURLS = "";
 	var backendURL = "";
 	var token_user = new Array();
 	var ctree = 0;
@@ -70,6 +71,7 @@
 		uploadURL = ar[8];
 		backendURL = ar[9];
 		currHostName = ar[10];
+		uploadURLS = ar[11];
 	});
 		
 	function chkUserActive(){
