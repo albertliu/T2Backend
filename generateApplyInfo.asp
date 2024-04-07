@@ -1067,6 +1067,7 @@
 		$("#btnZip").hide();
 		$("#btnGen").hide();
 		$("#generateApplyZip").hide();
+		$("#generateMZip").hide();
 		$("#azip").hide();
 		$("#doImportApply").hide();
 		$("#doImportScore").hide();
@@ -1118,6 +1119,7 @@
 				if(s<2){
 					$("#close").show();
 					$("#btnGen").show();
+					$("#btnZip").show();
 					$("#adjustClassDate").show();
 					if(agencyID==1){
 						$("#doApplyEnter").show();	// 应急局项目可以自动报名
