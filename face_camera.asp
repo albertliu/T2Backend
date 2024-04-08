@@ -38,10 +38,15 @@
     var tipFlag = false // 是否检测
     var faceflag = false // 是否进行拍照
     var quality = 0.2;  // 0.2-0.5之间，控制压缩率。越小压缩越大，0.2可以在保证质量的情况下达到最大压缩率。
+    var video = "";
+    var canvas = "";
+    var context = "";
+    var tra = "";
+
     $(document).ready(function (){
-      var video = document.getElementById('video');
-      var canvas = document.getElementById('canvas');
-      var context = canvas.getContext('2d');
+      video = document.getElementById('video');
+      canvas = document.getElementById('canvas');
+      context = canvas.getContext('2d');
 
       canvas.width = canvas.clientWidth;
       canvas.height = canvas.clientHeight;
@@ -59,7 +64,7 @@
       tracker.setStepSize(2);
       tracker.setEdgesDensity(0.1);
 
-      var tra = tracking.track('#video', tracker, { camera: true });
+      tra = tracking.track('#video', tracker, { camera: true });
       var timer = null;
       tracker.on('track', function(event) {
         if (!tipFlag) {
@@ -95,19 +100,15 @@
                   faceflag = true;
                   tipFlag = true;
                   setTimeout(() => {
-                      tackPhoto(function(base64Data){
-                        //upload photo for compare
-                        alert(uploadURL);
-                        $.post(uploadURL + "/alis/searchFace", {base64Data: base64Data, refID: 1} ,function(data){
-                          if(data.status==0){
-                            alert(data.msg);
-                          }else{
-                            alert(data.msg);
-                          }
-                        });
-                      }); 
-                      //uploadPhoto();
-                      $("#tip").html('识别成功.');
+                      let base64Data = tackPhoto();
+                      //upload photo for compare
+                      $.post(uploadURL + "/alis/searchFace", {base64Data: base64Data, refID: 1} ,function(data){
+                        if(data.status==0){
+                          alert(data.msg);
+                        }else{
+                          alert(data.msg);
+                        }
+                      });
                       faceflag = false;
                       tipFlag = false;
                   }, 500);
@@ -127,18 +128,17 @@
         // 第二种方式	
         context.drawImage(video, 0, 0, video.clientWidth, video.clientHeight);
         var snapData = canvas.toDataURL('image/jpeg', quality);
-        var imgSrc = "data:image/jepg;" + snapData;
-        alert(snapData);
+        // var imgSrc = "data:image/jepg;" + snapData;
+        stop();
         return snapData;
-        // $("#imgShot").src = imgSrc;
-
-        // sessionStorage.setItem("faceImage", imgSrc);
-        // history.go(-1);
-        // history.back()
-        // video.srcObject.getTracks().forEach(track => track.stop());
-        // 取消监听
-        // tra.stop();
     }
+
+    function stop() {
+        video.srcObject.getTracks().forEach(track => track.stop());
+        // 取消监听
+        tra.stop();
+    }
+
 
   </script>
 </head>

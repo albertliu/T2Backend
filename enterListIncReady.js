@@ -261,7 +261,10 @@
 				// 	return false;
 				// }
 				// showUploadFile(c, "", "apply_picker", "接龙申报名单", "getEnterList(reDo)", 1, 1);
-				window.open("face_camera.asp","", 'top=0, left=0, toolbar=no, menubar=no, scrollbars=no, resizable=no,location=no, status=no', "_blank");
+				// window.open("face_camera.asp","", 'top=0, left=0, toolbar=no, menubar=no, scrollbars=no, resizable=no,location=no, status=no', "_blank");
+				$.get(uploadURL + "/outfiles/delFaceInit", function(re){
+					alert(re.status);
+				})
 			}
 		});
 		

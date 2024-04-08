@@ -350,6 +350,9 @@
 							jAlert("重启成功。");
 							updateCount += 1;
 							getNodeInfo($("#ID").val());
+							$.get(uploadURL + "/outfiles/addFace?username=" + $("#username").textbox("getValue"), function(re){
+								// alert(re.status);
+							})							
 						});
 					}
 				});
