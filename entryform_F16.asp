@@ -59,11 +59,12 @@
 		$.ajaxSetup({ 
 			async: false 
 		}); 
-		$("#print").click(function(){
-			resumePrint();
-		});
-		if(keyID>1){
-			$("#pageTitle").hide();
+		if(keyID==5){
+			$("#keyItem4").hide();
+			$("#resume_print").css("display", "flex");
+		}else{
+			$("#keyItem5").hide();
+			$("#keyItem6").hide();
 		}
 		//getNeed2know(nodeID);
 		getNodeInfo(nodeID, refID);
@@ -97,23 +98,37 @@
 					// alert(ar[115])
 					if(keyID == 3 && ar[107]>""){  //除鉴定归档以外，其他鉴定不签字
 						$("#f_sign40").show();
-						// $("#f_sign50").attr("src","/users/upload/companies/stamp/station_feng.png?times=" + (new Date().getTime()));		//鉴定印章
+						$("#f_sign50").attr("src","/users/upload/companies/signature/agree.png?times=" + (new Date().getTime()));		//鉴定同意
 						$("#f_sign40").attr("src","/users" + ar[107] + "?times=" + (new Date().getTime()));		//鉴定签名
-						$("#date2").html(ar[115]);
+						$("#date2").html(ar[115].substr(0,4));
+						$("#date2M").html(ar[115].substr(5,2));
+						$("#date2D").html(ar[115].substr(8,2));
 						var arr = new Array();
 						arr.push('<div style="position: relative;width:100%;height:80%;">');
 						arr.push('<div style="position: absolute; z-index:10;">');
 						arr.push('<div style="float:left;">');
-						arr.push('	<span style="padding-left:150px;"><img src="/users/upload/companies/stamp/station_' + host + '.png" style="width:150px;padding-top:840px;opacity:0.7;"></span>');
+						arr.push('	<span style="padding-left:150px;"><img src="/users/upload/companies/stamp/station_' + host + '.png" style="width:150px;padding-top:870px;opacity:0.7;"></span>');
 						arr.push('</div>');
 						arr.push('</div>');
 						arr.push('</div>');
 						$("#stampCover").html(arr.join(""));
+					}else{
+						$("#f_sign50").hide();
+						$("#date2").html("&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp");
+						$("#date2M").html("&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp");
+						$("#date2D").html("&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp");
 					}
-					$("#date").html(new Date(sDate).format("yyyy.M.d"));
+					let date1 = new Date(sDate).format("yyyy.MM.dd");
+					$("#date").html(date1.substr(0,4));
+					$("#dateM").html(date1.substr(5,2));
+					$("#dateD").html(date1.substr(8,2));
 					//$("#f_sign40").hide();
 				}else{
 					$("#f_sign20").hide();
+					$("#f_sign50").hide();
+					$("#date2").html("&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp");
+					$("#date2M").html("&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp");
+					$("#date2D").html("&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp");
 				}
 			}else{
 				//alert("没有找到要打印的内容。");
@@ -151,6 +166,13 @@
 					$("#img_photo").attr("src","/users" + ar[15] + "?times=" + (new Date().getTime()));
 				}else{
 					$("#img_photo").attr("src","images/blank_photo.png");
+				}
+				if(keyID ==5){
+					$("#img_A").attr("src","/users" + ar[16] + "?times=" + (new Date().getTime()));
+					$("#img_B").attr("src","/users" + ar[17] + "?times=" + (new Date().getTime()));
+					if(reex == 0){	//初训报名表显示学历
+						$("#img_E").attr("src","/users" + ar[18] + "?times=" + (new Date().getTime()));
+					}
 				}
 				var p = 0;
 				// if(keyID == 2){
@@ -212,9 +234,7 @@
 <div id='layout' align='left' style="background:#f0f0f0;">	
 	
 	<div style="width:100%;float:left;margin:0;">
-		<div id="pageTitle" style="text-align:center;">
-			<input class="button" type="button" id="print" value="打印" />&nbsp;
-		</div>
+
 		<div id="resume_print" style="border:none;width:100%;margin:1px;background:#ffffff;line-height:18px;">
 			<div style="position: relative;width:100%;height:100%;">
 				<div style="position: absolute; z-index:10;">
@@ -222,6 +242,7 @@
 					<div style='text-align:center; margin:10px 0 20px 0;'><h3 style='font-size:1.45em;'>考核申请表</h3></div>
 					<div style='text-align:left; margin:10px 0 15px 30px;'>
 						<span style='font-size:1.5em; font-family: 幼圆;'>申请考试类别：<input type="checkbox" id="R0" />&nbsp;初证 <input type="checkbox" id="R1" />&nbsp;复审</span>
+						<span style='font-size:1.2em; padding-left:50px;'>学员编号：</span><span style='font-size:1.2em;' id="SNo"></span>
 					</div>
 					<table class='table_resume' style='width:99%;'>
 					<tr>
@@ -238,14 +259,14 @@
 						<td align="center" class='table_resume_title' width='13%'>文化程度</td><td class='table_resume_title' width='14%'><p style='font-size:1em;' id="educationName"></p></td>
 					</tr>
 					<tr>
-						<td align="center" class='table_resume_title' height='65px'>证件类型</td><td align="center" colspan="3"><input type="checkbox" id="IDK0" />&nbsp;身份证 <input type="checkbox" />&nbsp;护照 <input type="checkbox" id="IDK1" />&nbsp;其他</td>
+						<td align="center" class='table_resume_title' height='65px'>证件类型</td><td align="center" colspan="3"><input type="checkbox" id="IDK0" />&nbsp;身份证 <input type="checkbox" />&nbsp;军官证 <input type="checkbox" />&nbsp;护照 <input type="checkbox" id="IDK1" />&nbsp;其他</td>
 						<td align="center" class='table_resume_title'>证件有效期</td><td class='table_resume_title' width='14%'><p style='font-size:1em;' id="IDdate"></p></td>
 					</tr>
 					<tr>
 						<td align="center" class='table_resume_title' height='65px'>证件号码</td><td align="center" colspan="5"><p style='font-size:1em;' id="username"></p></td>
 					</tr>
 					<tr>
-						<td align="center" class='table_resume_title' height='65px'>工作单位</td><td align="center" colspan="3"><p style='font-size:1em;' id="company"></p></td>
+						<td align="center" class='table_resume_title' height='65px'>工作单位</td><td align="center" colspan="3"><p style='font-size:1em;' id="unit"></p></td>
 						<td align="center" class='table_resume_title'>从事岗位</td><td align="center" colspan="3"><p style='font-size:1em;' id="job"></p></td>
 					</tr>
 					<tr>
@@ -266,21 +287,34 @@
 						<td align="left" colspan="7" style="padding-left:5px;line-height:30px;">
 							<p style='font-size:1em;'>&nbsp;&nbsp;&nbsp;&nbsp;本人承诺所提供资料真实完整有效，如因提供资料虚假而产生相关影响，由本人承担全部责任。</p>
 							<div style="display:table-cell;height:50px;vertical-align:middle;text-align:center">
-								<span style='font-size:1.2em;padding-left:280px;'>申请人（签名）：</span>
-								<span><img id="f_sign20" src="" style="max-width:170px;max-height:40px;padding-left:10px;"></span>
-								<span id="date" style='font-size:1.5em;padding-top:3px;color:#555;font-family:"qyt","Ink Free";'></span>
+								<span style='font-size:1.2em;padding-left:180px;'>申请人（签名）：</span>
+								<span><img id="f_sign20" src="" style="max-width:150px;max-height:40px;padding-left:0px;"></span>
+								<span id="date" style='font-size:1.5em;padding-left:10px;padding-top:20px;color:#555;font-family:"qyt","Ink Free";'></span>
+								<span style='font-size:1.2em;'>年</span>
+								<span id="dateM" style='font-size:1.5em;padding-top:20px;color:#555;font-family:"qyt","Ink Free";'></span>
+								<span style='font-size:1.2em;'>月</span>
+								<span id="dateD" style='font-size:1.5em;padding-top:20px;color:#555;font-family:"qyt","Ink Free";'></span>
+								<span style='font-size:1.2em;'>日</span>
 							</div>
 						</td>
 					</tr>
-					<tr>
-						<td align="left" class='table_resume_title' height='140px' colspan="8">
+					<tr id="keyItem1">
+						<td align="left" class='table_resume_title' height='100px' colspan="8">
 							<div style="display:table-cell;height:100px;vertical-align:middle;text-align:left;">
-								<div><p style='font-size:1.2em;'>考试点审查意见：</p></div>
+								<div style="vertical-align:middle;">
+									<span style='font-size:1.2em;'>考试点审查意见：</span>
+									<span style='padding-left:0px;padding-bottom:0;'><img id="f_sign50" src="" style="width:70px;"></span>
+								</div>
 								<div style="display:table-cell;vertical-align:middle;text-align:left;">
 									<span style='font-size:1.2em;padding-left:150px;'>考试点（盖章）：</span>
 									<span style='font-size:1.2em;padding-left:100px;'>经办人（签名）：</span>
-									<span style='font-size:1.2em;'><img id="f_sign40" src="" style="width:100px;padding-left:10px;"></span>
+									<span style='font-size:1.2em;'><img id="f_sign40" src="" style="width:70px;padding-left:10px;"></span>
 									<span id="date2" style='font-size:1.4em;color:#555;font-family:"Aa跃然体","时光沙漏";'></span>
+									<span style='font-size:1.2em;'>年</span>
+									<span id="date2M" style='font-size:1.4em;color:#555;font-family:"Aa跃然体","时光沙漏";'></span>
+									<span style='font-size:1.2em;'>月</span>
+									<span id="date2D" style='font-size:1.4em;color:#555;font-family:"Aa跃然体","时光沙漏";'></span>
+									<span style='font-size:1.2em;'>日</span>
 								</div>
 							</div>
 						</td>
@@ -289,9 +323,19 @@
 				</div>
 				<div id="stampCover"></div>
 			</div>
-			<div id="needCover"></div>
-			<div id="agreementCover"></div>
-			<div id="materialsCover"></div>
+			<div id="keyItem4">
+				<div id="commitmentCover"></div>
+				<div id="materialsCover1"></div>
+				<div id="materialsCover5"></div>
+				<div id="agreementCover"></div>
+			</div>
+			<div id="keyItem5" style="flex:1; text-align:center; width:800px;padding-left:20px;">
+				<div><img id="img_A" src="" value="" style="max-width:600px;max-height:500px;padding-top:20px;" /></div>
+				<div><img id="img_B" src="" value="" style="max-width:600px;max-height:500px;padding-top:20px;" /></div>
+			</div>
+			<div id="keyItem6" style="text-align:center; width:800px;padding-left:20px;">
+				<div><img id="img_E" src="" value="" style="max-width:600px;max-height:980px;padding-top:20px;" /></div>
+			</div>
 		</div>
 	</div>
 </div>

@@ -319,13 +319,13 @@
 			return false;
 		}
 		var printed = 0;
-		if($("#printed").attr("checked")){printed = 1;}
+		if($("#printed").checkbox("options").checked){printed = 1;}
 		var delivery = 0;
-		if($("#delivery").attr("checked")){delivery = 1;}
+		if($("#delivery").checkbox("options").checked){delivery = 1;}
 		var photo = 0;
-		if($("#photos").attr("checked")){photo = 1;}
-		//alert($("#studentID").val() + "&item=" + ($("#memo").val()));
-		$.get("diplomaControl.asp?op=updateGenerateDiplomaMemo&nodeID=" + $("#ID").val() + "&keyID=" + $("#styleID").val() + "&kindID=" + $("#kindID").val() + "&printed=" + printed + "&delivery=" + delivery + "&photo=" + photo + "&printDate=" + $("#printDate").val() + "&deliveryDate=" + $("#deliveryDate").val() + "&photoDate=" + $("#photoDate").val() + "&startDate=" + $("#startDate").val() + "&class_startDate=" + $("#class_startDate").val() + "&class_endDate=" + $("#class_endDate").val() + "&memo=" + escape($("#memo").val()) + "&times=" + (new Date().getTime()),function(re){
+		// if($("#photos").checkbox("options").checked){photo = 1;}
+
+		$.get("diplomaControl.asp?op=updateGenerateDiplomaMemo&nodeID=" + $("#ID").val() + "&keyID=" + $("#styleID").combobox("getValue") + "&kindID=" + kindID + "&printed=" + printed + "&delivery=" + delivery + "&photo=" + photo + "&printDate=" + $("#printDate").val() + "&deliveryDate=" + $("#deliveryDate").val() + "&photoDate=" + $("#photoDate").val() + "&startDate=" + $("#startDate").val() + "&class_startDate=" + $("#class_startDate").val() + "&class_endDate=" + $("#class_endDate").val() + "&memo=" + escape($("#memo").textbox("getValue")) + "&times=" + (new Date().getTime()),function(re){
 			//jAlert(unescape(re));
 			var ar = new Array();
 			ar = unescape(re).split("|");

@@ -51,6 +51,7 @@
     var faceflag = false // 是否进行拍照
     var quality = 0.2;  // 0.2-0.5之间，控制压缩率。越小压缩越大，0.2可以在保证质量的情况下达到最大压缩率。
     window.onload = function() {
+      speak({"OK"}, function(){});
       var video = document.getElementById('video');
       var canvas = document.getElementById('canvas');
       var context = canvas.getContext('2d');
@@ -140,6 +141,32 @@
           // tra.stop();
       }
     };
+    function speak({ text, speechRate, lang, volume, pitch }, endEvent, startEvent) {
+    if (!window.SpeechSynthesisUtterance) {
+        console.warn('当前浏览器不支持文字转语音服务')
+        return;
+    }
+
+    if (!text) {
+        return;
+    }
+
+    const speechUtterance = new SpeechSynthesisUtterance();
+    speechUtterance.text = text;
+    speechUtterance.rate = speechRate || 1;
+    speechUtterance.lang = lang || 'zh-CN';
+    speechUtterance.volume = volume || 1;
+    speechUtterance.pitch = pitch || 1;
+    speechUtterance.onend = function() {
+        endEvent && endEvent();
+    };
+    speechUtterance.onstart = function() {
+        startEvent && startEvent();
+    };
+    speechSynthesis.speak(speechUtterance);
+    
+    return speechUtterance;
+}
   </script>
 
 </body>

@@ -7,7 +7,12 @@
   <title>教学班级考勤</title>
   <link rel="stylesheet" href="assets/demo.css">
 
-  <script src="js/jquery-3.3.1.min.js"></script>
+  
+	<link rel="stylesheet" type="text/css" href="js/easyui/themes/default/easyui.css?v=1.11">
+	<link rel="stylesheet" type="text/css" href="js/easyui/themes/icon.css?v=1.11">
+  <script src="js/jquery-2.1.1.min.js"></script>
+	<script type="text/javascript" src="js/easyui/jquery.easyui.min.js?v=1.0"></script>
+	<script type="text/javascript" src="js/easyui/locale/easyui-lang-zh_CN.js?v=1.0"></script>
   <script src="js/tracking.js/tracking.js"></script>
   <script src="js/tracking.js/data/face.js"></script>
   <script src="js/tracking.js/data/eye.js"></script>
@@ -104,16 +109,15 @@
                       //upload photo for compare
                       $.post(uploadURL + "/alis/searchFace", {base64Data: base64Data, refID: 1} ,function(data){
                         let msg = data.msg;
+                        speak({text: msg});
+                        showDialog(msg, data.status);
                         if(data.status==0){
-                          alert(msg);
-                          speak({msg});
-                        }else{
-                          alert(msg);
+                          // alert(msg);
                         }
                       });
                       faceflag = false;
                       tipFlag = false;
-                  }, 500);
+                  }, 1000);
               }
             }
           } else {
@@ -140,6 +144,19 @@
         // 取消监听
         tra.stop();
     }
+
+    function showDialog(text, mark) {
+      if(mark==0){
+        $("#dialog").css('background-color','green');
+      }else{
+        $("#dialog").css('background-color','red');
+      }
+      $("#msg").html(text);
+      setTimeout(() => {
+        $("#msg").html("");
+      }, 2000);
+    }
+
 /**
  * @description 文字转语音方法
  * @public
@@ -186,8 +203,8 @@ function speak({ text, speechRate, lang, volume, pitch }, endEvent, startEvent) 
   </div>
 
   <div class="demo-frame">
-    <div>
-      <img id="imgShot" style="width:300;height:300;" />
+    <div id="dialog" style="width:600px; height:200px;">
+      <p id="msg" style="font-size:2em;"></p>
     </div>
     <div class="demo-container">
       <div id="tip" class="tip-box"></div>
