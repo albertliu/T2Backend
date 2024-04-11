@@ -82,11 +82,7 @@
 		getComboBoxList("statusPay","pay_status",0);
 		getComboBoxList("signatureType","signatureType",0);
 		getComboBoxList("channel","channel",1);
-		let host = currHost;
-		if(currPartner == 10){	//考匠使用自己的销售名单
-			host = "jiang";
-		}
-        getComboList("sales","userInfo","username","realName","status=0 and host='" + host + "' and username in(select username from roleUserList where roleID='saler') order by realName",1);
+        getComboList("sales","userInfo","username","realName","status=0 and host='" + currHost + "' and username in(select username from roleUserList where roleID='saler') order by realName",1);
         getComboList("partnerID","partnerInfo","ID","title","status=0 and host='" + currHost + "' order by ID",1);
 		getComboList("courseID","v_courseInfo","courseID","courseName1","status=0 order by seq",1);
 		getComboList("agencyID","agencyInfo","agencyID","title","status=0 order by seq",1);

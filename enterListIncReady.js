@@ -27,10 +27,10 @@
 			height:25,
 			text:'添加',
 			onClick:function() {
-				if(checkPartner == 1 && $("#searchEnterHost").combobox("getValue") == ""){
-					$.messager.alert("提示","请选择一个主管单位。","warning");
-					return false;
-				}
+				// if(checkPartner == 1 && $("#searchEnterHost").combobox("getValue") == ""){
+				// 	$.messager.alert("提示","请选择一个主管单位。","warning");
+				// 	return false;
+				// }
 				showStudentInfo(0,0,1,1,"enter");
 			}
 		});
@@ -255,16 +255,16 @@
 			height:25,
 			text:'接龙申报',
 			onClick:function() {
-				// c = $("#searchEnterCourseID").combobox("getValue");
-				// if(c==""){
-				// 	jAlert("请选择一个课程。");
-				// 	return false;
-				// }
-				// showUploadFile(c, "", "apply_picker", "接龙申报名单", "getEnterList(reDo)", 1, 1);
+				c = $("#searchEnterCourseID").combobox("getValue");
+				if(c==""){
+					jAlert("请选择一个课程。");
+					return false;
+				}
+				showUploadFile(c, "", "apply_picker", "接龙申报名单", "getEnterList(reDo)", 1, 1);
 				// window.open("face_camera.asp","", 'top=0, left=0, toolbar=no, menubar=no, scrollbars=no, resizable=no,location=no, status=no', "_blank");
-				$.get(uploadURL + "/outfiles/delFaceInit", function(re){
-					alert(re.status);
-				})
+				// $.get(uploadURL + "/outfiles/delFaceInit", function(re){
+				// 	alert(re.status);
+				// })
 			}
 		});
 		
