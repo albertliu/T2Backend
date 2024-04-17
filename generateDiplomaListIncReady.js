@@ -60,8 +60,8 @@
 					if(ar1[7]==''){
 						arr.push("<td class='center'>&nbsp;</td>");
 					}else{
-						// arr.push("<td class='center'><a href='/users" + ar1[7] + "?t=" + (new Date().getTime()) + "' target='_blank'>" + imgChk + "</a></td>");
-						arr.push("<td class='center'><a href='javascript:showDiplomaCards(\"" + ar1[0] + "," + currHost + "\");'>" + imgChk + "</a></td>");
+						arr.push("<td class='center'><a href='/users" + ar1[7] + "?t=" + (new Date().getTime()) + "' target='_blank'>" + imgChk + "</a></td>");
+						// arr.push("<td class='center'><a href='javascript:showDiplomaCards(\"" + ar1[0] + "," + currHost + "\");'>" + imgChk + "</a></td>");
 					}
 					arr.push("</tr>");
 				});
