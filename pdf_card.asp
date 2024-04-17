@@ -61,13 +61,13 @@
 <body>
 <section class="login-form-wrap3p0">
 	<div style="position: relative;background-color:#fff;width:100%;height:100%;">
-		<div style="position: absolute; z-index:20;padding-top:10mm;padding-left:8mm;">
+		<div style="position: absolute; z-index:20;padding-top:9mm;padding-left:7mm;">
 			<img id="photo_filename" src="" style="opacity:1; width:65mm;max-height:87mm;object-fit:cover;">
 		</div>
 		<div style="position: absolute; z-index:30;padding-top:70mm;padding-left:10mm;">
 			<img id="stamp" src="" style="opacity:0.7; width:60mm;max-height:60mm;">
 		</div>
-		<div style="position: absolute; z-index:30;padding-top:92mm;padding-left:175mm;">
+		<div style="position: absolute; z-index:30;padding-top:89mm;padding-left:172mm;">
 			<img id="qr" src="" style="opacity:1; width:50mm;max-height:50mm;">
 		</div>
 		<div style="position: absolute; z-index:10; width:100%; padding-left:80mm;padding-top:5mm;">
