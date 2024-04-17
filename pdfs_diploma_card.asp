@@ -82,13 +82,13 @@
 					arr.push('		</tr>');
 					arr.push('	</table>');	
 					arr.push('</div>');
-					arr.push('<div style="position: absolute; z-index:30;padding-top:8mm;padding-left:6mm;">');
+					arr.push('<div style="position: absolute; z-index:30;padding-top:10mm;padding-left:8mm;">');
 					arr.push('<img id="photo" src="users' + val["photo_filename"] + '" style="opacity:1; width:65mm;max-height:87mm;object-fit:cover;">');
 					arr.push('</div>');	
 					arr.push('<div style="position: absolute; z-index:30;padding-top:70mm;padding-left:10mm;">');
 					arr.push('<img id="photo" src="users/upload/companies/stamp/' + h + '.png" style="opacity:0.7; width:60mm;max-height:60mm;">');
 					arr.push('</div>');	
-					arr.push('<div style="position: absolute; z-index:30;padding-top:87mm;padding-left:170mm;">');
+					arr.push('<div style="position: absolute; z-index:30;padding-top:92mm;padding-left:175mm;">');
 					arr.push('<img id="qr" src="' + uploadURL + '/public/get_qr_img?size=10&text=' + encodeURIComponent(backendURL + '/help.asp?msg=' + val["diplomaID"]) + '" style="opacity:1; width:50mm;max-height:50mm;">');
 					arr.push('</div>');	
 					/**/

@@ -65,7 +65,7 @@ if(op == "getStudentCourseList"){
 	if(status > "" && status !="undefined"){ // 
 		s = "status=" + status;
 	}else{
-		if(String(Request.QueryString("mark")) != "2" && d == 0){	//个人信息
+		if(String(Request.QueryString("needInvoice")) != "1" && d == 0){	//个人信息
 			s = "status<3";
 		}
 	}
