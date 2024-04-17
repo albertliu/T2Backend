@@ -12,7 +12,7 @@ var memo = "";
 var currHost = Session("user_host");
 var host = "";
 var uploadURL = getSysEnv("NODE_ENV_UPLOAD_URL");
-var backendURL = getSysEnv("NODE_ENV_BACKEND_ET");
+var backendURL = getSysEnv("NODE_ENV_BACKEND_T2");
 
 if (String(Request.QueryString("op")) != "undefined" && 
     String(Request.QueryString("op")) != "") { 
