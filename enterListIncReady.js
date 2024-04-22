@@ -278,7 +278,7 @@
 					}
 				});
 				let examDate = prompt('这' + selCount + '个人将在以下日期开始考试：', new Date().format("yyyy-MM-dd"));
-				if(!isDate(examDate)){
+				if(examDate && !isDate(examDate)){
 					jAlert("日期格式不正确。");
 					return false;
 				}
