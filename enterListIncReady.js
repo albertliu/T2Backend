@@ -278,15 +278,18 @@
 					}
 				});
 				let examDate = prompt('这' + selCount + '个人将在以下日期开始考试：', new Date().format("yyyy-MM-dd"));
-				if(examDate && !isDate(examDate)){
+
+				if(examDate && examDate != "null" && !isDate(examDate)){
 					jAlert("日期格式不正确。");
 					return false;
 				}
-				$.post(uploadURL + "/public/add_exam_from_picker", {examDate: examDate, selList: selList, registerID: currUser} ,function(data){
-					//jAlert(data);
-					getEnterList();
-					jAlert(data + "条记录操作成功。");
-				});
+				if(examDate){
+					$.post(uploadURL + "/public/add_exam_from_picker", {examDate: examDate, selList: selList, registerID: currUser} ,function(data){
+						//jAlert(data);
+						getEnterList();
+						jAlert(data + "条记录操作成功。");
+					});
+				}
 			}
 		});
 		
