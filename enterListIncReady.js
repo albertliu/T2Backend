@@ -249,6 +249,47 @@
 			}
 		});
 		
+		$("#btnEnterExam").linkbutton({
+			iconCls:'icon-filter',
+			width:80,
+			height:25,
+			text:'去考试',
+			onClick:function() {
+				getSelCart("visitstockchkEnter");
+				c = $("#searchEnterCourseID").combobox("getValue");
+				if(c==""){
+					jAlert("请选择一个课程。");
+					return false;
+				}
+				if(selCount==0){
+					jAlert("请选择要考试的名单。");
+					return false;
+				}
+				if(!$("#searchEnterPool").checkbox("options").checked){
+					jAlert("请勾选'候考'选项。");
+					return false;
+				}
+				$.get("courseControl.asp?op=getNodeInfo&nodeID=0&refID=" + c + "&times=" + (new Date().getTime()),function(re){
+					var ar = new Array();
+					ar = unescape(re).split("|");
+					if(!ar || ar[28] != 4){
+						jAlert("非本校项目不能安排考试。");
+						return false;
+					}
+				});
+				let examDate = prompt('这' + selCount + '个人将在以下日期开始考试：', new Date().format("yyyy-MM-dd"));
+				if(!isDate(examDate)){
+					jAlert("日期格式不正确。");
+					return false;
+				}
+				$.post(uploadURL + "/public/add_exam_from_picker", {examDate: examDate, selList: selList, registerID: currUser} ,function(data){
+					//jAlert(data);
+					getEnterList();
+					jAlert(data + "条记录操作成功。");
+				});
+			}
+		});
+		
 		$("#btnEnterApplyByExcel").linkbutton({
 			iconCls:'icon-filter',
 			width:85,
@@ -261,10 +302,6 @@
 					return false;
 				}
 				showUploadFile(c, "", "apply_picker", "接龙申报名单", "getEnterList(reDo)", 1, 1);
-				// window.open("face_camera.asp","", 'top=0, left=0, toolbar=no, menubar=no, scrollbars=no, resizable=no,location=no, status=no', "_blank");
-				// $.get(uploadURL + "/outfiles/delFaceInit", function(re){
-				// 	alert(re.status);
-				// })
 			}
 		});
 		

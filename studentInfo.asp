@@ -345,10 +345,10 @@
 				$("#bureau").textbox("setValue",ar[28]);
 				$("#IDdateStart").datebox("setValue",ar[29]);
 				$("#scanID").val(ar[38]);
-				if(ar[30]>""){
-					$("#IDdateEnd").datebox("setValue",ar[30]);
-				}else{
-					$("#IDdateEnd").combo('setValue', '').combo('setText', '');
+				$("#IDdateEnd").datebox("setValue",ar[30]);
+				$("#IDdateEnd").datebox("readonly",false);
+				if(ar[29]>"" && ar[30]=="" && ar[38]==0){	// 扫身份证且截至日期为长期的，不允许修改。
+					$("#IDdateEnd").combo("readonly",true);
 				}
 				$("#linker").textbox("setValue",ar[34]);
 				$("#sex").combobox("setValue",ar[35]);
@@ -729,8 +729,10 @@
 		$("#IDdateStart").datebox("setValue",re.effectData.substr(0,4)+"-"+re.effectData.substr(4,2)+"-"+re.effectData.substr(6,2));
 		if(re.expire=="长期"){
 			$("#IDdateEnd").combo('setValue', '').combo('setText', '');
+			$("#IDdateEnd").combo("readonly",true);
 		}else{
 			$("#IDdateEnd").datebox("setValue",re.expire.substr(0,4)+"-"+re.expire.substr(4,2)+"-"+re.expire.substr(6,2));
+			$("#IDdateEnd").datebox("readonly",false);
 		}
 		$("#scanID").val(0);
 	}
@@ -807,7 +809,7 @@
 				<td><input id="birthday" name="birthday" class="easyui-datebox" data-options="height:22,width:100" /></td>
 			</tr>
 			<tr>
-				<td align="right">证件期限</td><td align="left" colspan="2"><input id="IDdateStart" name="IDdateStart" class="easyui-datebox" data-options="height:22,width:100,required:true" />&nbsp;至&nbsp;<input id="IDdateEnd" name="IDdateEnd" class="easyui-datebox" data-options="height:22,width:100,required:true" /></td>
+				<td align="right">证件期限</td><td align="left" colspan="2"><input id="IDdateStart" name="IDdateStart" class="easyui-datebox" data-options="height:22,width:100,required:true" />&nbsp;至&nbsp;<input id="IDdateEnd" name="IDdateEnd" class="easyui-datebox" data-options="height:22,width:100" /></td>
 				<td align="left">民族&nbsp;<input id="ethnicity" name="ethnicity" class="easyui-textbox" data-options="height:22,width:80" /></td>
 			</tr>
 			<tr>
