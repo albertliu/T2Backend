@@ -82,8 +82,8 @@
 					arr.push('		</tr>');
 					arr.push('	</table>');	
 					arr.push('</div>');
-					arr.push('<div style="position: absolute; z-index:30;padding-top:9mm;padding-left:9mm;">');
-					arr.push('<img id="photo" src="users' + val["photo_filename"] + '" style="opacity:1; width:60mm;max-height:87mm;object-fit:cover;">');
+					arr.push('<div style="position: absolute; z-index:30;padding-top:10mm;padding-left:12mm;">');
+					arr.push('<img id="photo" src="users' + val["photo_filename"] + '" style="opacity:1; width:59mm;max-height:87mm;object-fit:cover;">');
 					arr.push('</div>');	
 					arr.push('<div style="position: absolute; z-index:30;padding-top:70mm;padding-left:10mm;">');
 					arr.push('<img id="photo" src="users/upload/companies/stamp/' + h + '.png" style="opacity:0.7; width:60mm;max-height:60mm;">');
