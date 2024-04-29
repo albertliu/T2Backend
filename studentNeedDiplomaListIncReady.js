@@ -3,7 +3,8 @@
 
 	$(document).ready(function (){
 		getComboBoxList("statusYes","searchStudentNeedDiplomaHavePhoto",1);
-		getComboList("searchStudentNeedDiplomaCert","v_certificateInfo","certID","shortName","status=0 and mark=1",1);
+		// getComboList("searchStudentNeedDiplomaCert","v_certificateInfo","certID","shortName","status=0 and mark=1",1);
+		// getComboList("searchStudentNeedDiplomaCert","[dbo].[getNeedDiplomaQty]('" + currHost + "')","certID","certName","1=1",1);
         getComboList("StudentNeedDiplomaPartner","partnerInfo","ID","title","status=0 and host='" + currHost + "' order by ID",1);
         getComboList("StudentNeedDiplomaSales","userInfo","username","realName","status=0 and host='" + currHost + "' and username in(select username from roleUserList where roleID='saler') order by realName",1);
 
@@ -26,6 +27,13 @@
 		
 		$("#txtSearchStudentNeedDiploma").textbox('textbox').css('background','#FFFF00');
 		
+
+		$("#searchStudentNeedDiplomaCert").combobox({
+			onShowPanel:function() {
+				getComboList("searchStudentNeedDiplomaCert","[dbo].[getNeedDiplomaQty]('" + currHost + "')","certID","certName","1=1 order by certID",1);
+			}
+		});
+
 		if(!checkPermission("studentAdd")){
 			$("#btnStudentNeedDiplomaAttentionPhotoClose").hide();
 			$("#btnStudentNeedDiplomaAttentionPhoto").hide();
