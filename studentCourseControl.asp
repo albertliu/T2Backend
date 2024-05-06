@@ -762,7 +762,7 @@ if(op == "getStudentOpList"){
 	
 	rs = conn.Execute(sql);
 	while (!rs.EOF){
-		result += "%%" + rs("opLogID").value + "|" + rs("event").value + "|" + rs("opDate").value + "|" + rs("operator").value;
+		result += "%%" + rs("opLogID").value + "|" + rs("event").value + "|" + rs("opDate").value + "|" + rs("operator").value + "|" + rs("memo").value;
 		rs.MoveNext();
 	}
 	rs.Close();

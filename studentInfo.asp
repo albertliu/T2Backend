@@ -72,8 +72,8 @@
 			}
 		});
 		$("#smsList").linkbutton({
-			iconCls:'icon-comment',
-			width:85,
+			iconCls:'',
+			width:65,
 			height:25,
 			text:'查看通知',
 			onClick:function() {
@@ -82,8 +82,8 @@
 		});
 
 		$("#examList").linkbutton({
-			iconCls:'icon-comment',
-			width:85,
+			iconCls:'',
+			width:65,
 			height:25,
 			text:'查看考试',
 			onClick:function() {
