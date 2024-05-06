@@ -754,10 +754,12 @@ if(op == "getStudentExamList"){
 if(op == "getStudentOpList"){
 	result = "";
 	s = "";
-	sql = "select opLogID,event,memo,convert(varchar(20),opDate,120) as opDate,operator from userOpLog where refID='" + nodeID + "' order by opDate";
+	sql = "select opLogID,event,memo,convert(varchar(20),opDate,120) as opDate,operator from userOpLog where refID='" + nodeID + "'";
 	if(refID==1){	//username
 		sql += " union select opLogID,event,memo,convert(varchar(20),opDate,120) as opDate,operator from userOpLog where refID in (select cast(ID as varchar) as ID from studentCourseList where username='" + nodeID + "')";
-		sql += " union select opLogID,event,memo,convert(varchar(20),opDate,120) as opDate,operator from userOpLog where refID in (select cast(ID as varchar) as ID from del_studentCourseList where username='" + nodeID + "')";
+		sql += " union select opLogID,event,memo,convert(varchar(20),opDate,120) as opDate,operator from userOpLog where refID in (select cast(ID as varchar) as ID from del_studentCourseList where username='" + nodeID + "') order by opDate";
+	}else{
+		sql += " order by opDate";
 	}
 	
 	rs = conn.Execute(sql);
