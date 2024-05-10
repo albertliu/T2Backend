@@ -256,7 +256,7 @@
 						// });
 						var start = performance.now(); 
 						$.ajax({
-							url: uploadURL + "/public/applyEnter?SMS=1&reexamine=" + reexamine + "&register=" + currUserName + "&host=" + currHost + "&classID=&courseName=&reex=",
+							url: uploadURL + "/public/applyEnter?SMS=1&reexamine=" + reexamine + "&register=" + currUserName + "&host=" + currHost + "&classID=1&courseName=" + $("#courseName").val() + "&reex=" + (reexamine==0?"初证":"复审"),
 							type: "post",
 							data: {"selList":selList},
 							beforeSend: function() {   
@@ -312,7 +312,50 @@
 						// });
 						var start = performance.now(); 
 						$.ajax({
-							url: uploadURL + "/public/applyEnter?SMS=1&reexamine=9&register=" + currUserName + "&host=" + currHost + "&classID=" + $("#applyID").textbox("getValue") + "&courseName=" + $("#courseName").val() + "&reex=" + ((reexamine==0?"初证":"复审") + ($("#kindID").combobox("getValue")==1?"补考":"")),
+							url: uploadURL + "/public/applyEnter?SMS=1&reexamine=9&register=" + currUserName + "&host=" + currHost + "&classID=" + $("#applyID").textbox("getValue") + "&courseName=" + $("#courseName").val() + "&reex=" + (reexamine==0?"初证":"复审"),
+							type: "post",
+							data: {"selList":selList},
+							beforeSend: function() {   
+								$.messager.progress();	// 显示进度条
+							},
+							success: function(data){
+								//jAlert(data);
+								if(data.err==0){
+									var end = performance.now(); 
+									jAlert("成功上传数量：" + data.count_s + "; &nbsp;失败数量：" + data.count_e + "; &nbsp;耗时：" + ((end-start)/1000).toFixed(2) + "秒","信息提示");
+								}else{
+									jAlert("操作失败，请稍后再试。" + data.errMsg,"信息提示");
+								}
+								getApplyList();
+								$.messager.progress('close');	// 如果提交成功则隐藏进度条 
+							}
+						});
+					}
+				});
+			}
+		});
+
+		$("#doApplyUploadPhoto").linkbutton({
+			iconCls:'icon-upload',
+			width:85,
+			height:25,
+			text:'上传照片',
+			onClick:function() {
+				getSelCart("");
+				if(selCount==0){
+					$.messager.alert("提示","请选择要上传照片的人员。","info");
+					return false;
+				}
+				if($("#applyID").textbox("getValue")==""){
+					$.messager.alert("提示","请填写开班编号并保存。","info");
+					return false;
+				}
+				// jConfirm('确定要为这' + selCount + '个人报名吗?', "确认对话框",function(r){
+				$.messager.confirm('确认对话框','确定要为这' + selCount + '个人上传照片吗?<br>可能要花几分钟时间，请稍候...', function(r){
+					if(r){
+						var start = performance.now(); 
+						$.ajax({
+							url: uploadURL + "/public/applyEnter?SMS=1&reexamine=8&register=" + currUserName + "&host=" + currHost + "&classID=" + $("#applyID").textbox("getValue") + "&courseName=" + $("#courseName").val() + "&reex=" + ((reexamine==0?"初证":"复审")),
 							type: "post",
 							data: {"selList":selList},
 							beforeSend: function() {   
@@ -364,7 +407,7 @@
 						// });
 						var start = performance.now(); 
 						$.ajax({
-							url: uploadURL + "/public/applyEnter?SMS=1&reexamine=10&register=" + currUserName + "&host=" + currHost + "&classID=" + $("#applyID").textbox("getValue") + "&courseName=" + $("#courseName").val() + "&reex=" + ((reexamine==0?"初证":"复审") + ($("#kindID").combobox("getValue")==1?"补考":"")),
+							url: uploadURL + "/public/applyEnter?SMS=1&reexamine=10&register=" + currUserName + "&host=" + currHost + "&classID=" + $("#applyID").textbox("getValue") + "&courseName=" + $("#courseName").val() + "&reex=" + (reexamine==0?"初证":"复审"),
 							type: "post",
 							data: {"selList":selList, "kindID":0},
 							beforeSend: function() {   
@@ -923,7 +966,7 @@
 							h = "";
 						}
 						if(ar1[30] > ""){	//照片
-							arr.push("<td class='center'" + h + "><img id='photo" + ar1[1] + "' title='大小：" + photo_size + "k, 类型：" + photo_type + "' src='users" + ar1[30] + "?times=" + (new Date().getTime()) + "' onclick='showCropperInfo(\"users" + ar1[30] + "\",\"" + ar1[4] + "\",\"photo\",\"\",0,1)' style='width:50px;background: #ccc;border:2px #fff solid;box-shadow: 0 0 1px rgba(0, 0, 0, 0.8);-moz-box-shadow: 0 0 1px rgba(0, 0, 0, 0.8);-webkit-box-shadow: 0 0 1px rgba(0, 0, 0, 0.8);'></td>");
+							arr.push("<td class='center'" + h + "><img id='photo" + ar1[4] + "' title='大小：" + photo_size + "k, 类型：" + photo_type + "' src='users" + ar1[30] + "?times=" + (new Date().getTime()) + "' onclick='showCropperInfo(\"users" + ar1[30] + "\",\"" + ar1[4] + "\",\"photo\",\"\",0,1)' style='width:50px;background: #ccc;border:2px #fff solid;box-shadow: 0 0 1px rgba(0, 0, 0, 0.8);-moz-box-shadow: 0 0 1px rgba(0, 0, 0, 0.8);-webkit-box-shadow: 0 0 1px rgba(0, 0, 0, 0.8);'></td>");
 						}else{
 							arr.push("<td class='center'" + h + ">&nbsp;</td>");
 						}
@@ -1071,6 +1114,7 @@
 		$("#azip").hide();
 		$("#doImportApply").hide();
 		$("#doImportScore").hide();
+		$("#doApplyUploadPhoto").hide();
 		// $("#generateEZip").hide();
 		// $("#generateExamDoc").prop("disabled",true);
 		$("#sendMsgExam").prop("disabled",true);
@@ -1124,8 +1168,9 @@
 					if(agencyID==1){
 						$("#doApplyEnter").show();	// 应急局项目可以自动报名
 						$("#doApplyUpload").show();	// 
-						if(currUser=="desk"){
-							$("#doApplyDownload").show();	// 
+						$("#doApplyUploadPhoto").show();
+						$("#doApplyDownload").show();	//
+						if(currUser=="desk"){ 
 							$("#doApplyCheck").show();	// 
 						}
 					}
@@ -1311,6 +1356,7 @@
 			<a class="easyui-linkbutton" id="sendMsgDiploma" href="javascript:void(0)"></a>
 			<a class="easyui-linkbutton" id="doApplyEnter" href="javascript:void(0)"></a>
 			<a class="easyui-linkbutton" id="doApplyUpload" href="javascript:void(0)"></a>
+			<a class="easyui-linkbutton" id="doApplyUploadPhoto" href="javascript:void(0)"></a>
 			<a class="easyui-linkbutton" id="doApplyDownload" href="javascript:void(0)"></a>
 			<a class="easyui-linkbutton" id="doApplyCheck" href="javascript:void(0)"></a>
 			&nbsp;&nbsp;<input class="easyui-checkbox" id="showPhoto" name="showPhoto" checked value="1"/>&nbsp;显示照片&nbsp;

@@ -87,7 +87,7 @@
 
 	});
 //输出签名图片
-	function save(){
+	function save(c){
 		if (0 == 1) {
 			alert("请签名。");
 			return false;
@@ -97,8 +97,8 @@
 
 		jConfirm('确定要保存照片的修改吗?', '确认对话框', function(r) {
 			if(r){
-				$.post(uploadURL + "/outfiles/uploadBase64img",{upID:kindID,username:refID,currUser:currUser,imgData:base64url.replace("data:image/jpeg;base64,","")},function(re){
-					alert("保存成功。");
+				$.post(uploadURL + "/outfiles/uploadBase64img",{upID:kindID,username:refID,currUser:currUser,compress:c,imgData:base64url.replace("data:image/jpeg;base64,","")},function(re){
+					jAlert("保存成功。文件大小：" + re.size + "k");
 					updateCount += 1;
 					//window.parent.$.close("cropper");
 				});
@@ -143,7 +143,8 @@
 			<img id="image" style="display: block; max-width: 100%;max-height:500px;" />
 		</div>
 	  	<div style="padding: 4px;">
-			<button type="button" onclick="save()">保存</button>
+			<button type="button" onclick="save(0)">保存</button>
+			&nbsp;&nbsp;<button type="button" onclick="save(1)">压缩并保存</button>
 		</div>
 	</div>
 </div>
