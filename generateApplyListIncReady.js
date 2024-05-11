@@ -107,7 +107,7 @@
 					i += 1;
 					arr.push("<tr class='grade" + c + "'>");
 					arr.push("<td class='center'>" + ar1[0] + "</td>");
-					arr.push("<td class='link1'><a href='javascript:showGenerateApplyInfo(" + ar1[0] + ",0,0,1);'>" + ar1[3] + "</a></td>");
+					arr.push("<td class='link1'><a href='javascript:showGenerateApplyInfo(" + ar1[0] + ",0,0,1,1);'>" + ar1[3] + "</a></td>");
 					arr.push("<td class='left'>" + ar1[5] + "</td>");
 					arr.push("<td class='left'>" + ar1[4] + "</td>");
 					arr.push("<td class='left'>" + ar1[6] + "</td>");

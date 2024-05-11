@@ -41,6 +41,6 @@
 <body style="background:#f0f0f0;">
 
 <div id='layout' align='left' style="background:#f0f0f0;">	
-	<img id="img" src="" style="width: 95%;padding:3px; border:1px solid #ddd; background:#FFF;box-shadow: 10px 10px 10px rgba(0, 0, 0, .5);" />
+	<img id="img" src="" style="width: 100%;padding:3px; border:1px solid #ddd; background:#FFF;box-shadow: 10px 10px 10px rgba(0, 0, 0, .5);" />
 </div>
 </body>

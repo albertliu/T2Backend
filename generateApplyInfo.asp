@@ -1079,7 +1079,7 @@
 	}
 
 	function showPic(path){
-		showImage(path,2,1.5,0);
+		showImage(path,2,1.5,0,1);
 	}
 
 	function generateZip(t){

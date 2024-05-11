@@ -1787,13 +1787,20 @@
 	}
 	
 	//nodeID: ID; op: 0 浏览 1 新增; mark: 0 不动作  1 有修改时刷新列表;
-	function showGenerateApplyInfo(nodeID,refID,op,mark){
+	function showGenerateApplyInfo(nodeID,refID,op,mark,x){
+		let w = 1300;
+		let h = 900;
+		if(x==1){
+			w = $(window).width();
+			h = $(window).height();
+		}
 		asyncbox.open({
 			id: "generateApply",
 			url:"generateApplyInfo.asp?nodeID=" + nodeID + "&refID=" + refID + "&op=" + op + "&p=1&times=" + (new Date().getTime()),
 			title: "申报批次信息",
-			width: 1440,
-			height: 980,
+			width: w,
+			height: h,
+			drag: false,
 			cover : {
 	          //透明度
 	          opacity : 0,
@@ -1995,15 +2002,20 @@
 	}
 	
 	//nodeID: ID; op: 0 浏览 1 新增  2 编辑  3 删除  4 审批; mark: 0 不动作  1 有修改时刷新列表  2 有修改时刷新对象
-	function showImage(nodeID,refID,op,mark){
+	function showImage(nodeID,refID,op,mark,x){
 		let w = (refID+1) * 400;
 		let h = (op+1) * 250;
+		if(x==1){
+			w = $(window).width();
+			h = $(window).height();
+		}
 		asyncbox.open({
 			id: "imgShow",
 			url:"imgShow.asp?nodeID=" + nodeID + "&refID=" + refID + "&op=" + op + "&p=1&times=" + (new Date().getTime()),
 			title: "图片",
 			width: w,
 			height: h,
+			drag: false,
 			cover : {
 	          //透明度
 	          opacity : 0,
