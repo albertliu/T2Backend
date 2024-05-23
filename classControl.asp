@@ -45,7 +45,7 @@ if(op == "getClassList"){
 		}
 	}
 	//host
-	if(host > ""){ // 
+	if(host > ""){ // partner
 		s = "host='" + host + "'";
 		if(where > ""){
 			where = where + " and " + s;
@@ -54,7 +54,10 @@ if(op == "getClassList"){
 		}
 	}
 	if(currHost==""){	//不能查看合作单位的预备班
-		s = "pre=0";
+		s = "(pre=0 or host='')";
+		if(String(Request.QueryString("pre"))==0){
+			s += " and pre=0";
+		}
 		if(where > ""){
 			where = where + " and " + s;
 		}else{
@@ -78,7 +81,7 @@ if(op == "getClassList"){
 	sql = " FROM v_classInfo " + where;
 	result = getBasketTip(sql,"");
 	ssql = "SELECT classID,className,statusName,certName,dateStart,dateEnd,adviserName,classroom,qty,qtyApply,qtyExam,qtyPass,qtyDiploma,archiveDate,memo,regDate,registerName" + sql + " order by ID desc";
-	sql = "SELECT top " + basket + " *" + sql + " order by ID desc";
+	sql = "SELECT top " + basket + " *" + sql + " order by pre desc, ID desc";
 
 	rs = conn.Execute(sql);
 	while (!rs.EOF){
@@ -92,7 +95,7 @@ if(op == "getClassList"){
 		//28
 		result += "|" + rs("send").value + "|" + rs("sendDate").value + "|" + rs("senderName").value + "|" + rs("qtyReturn").value + "|" + rs("teacher").value + "|" + rs("scheduleDate").value + "|" + rs("courseID").value + "|" + rs("courseName").value;
 		//36
-		result += "|" + rs("teacherName").value + "|" + rs("host").value + "|" + rs("transaction_id").value + "|" + rs("re").value + "|" + rs("reexamineName").value + "|" + rs("kindName").value + "|" + rs("qtyDiploma").value;
+		result += "|" + rs("teacherName").value + "|" + rs("host").value + "|" + rs("transaction_id").value + "|" + rs("re").value + "|" + rs("reexamineName").value + "|" + rs("kindName").value + "|" + rs("qtyDiploma").value + "|" + rs("pre").value;
 		rs.MoveNext();
 	}
 /**/
@@ -119,7 +122,7 @@ if(op == "getNodeInfo"){
 		//38
 		result += "|" + rs("teacherName").value + "|" + rs("host").value + "|" + rs("transaction_id").value + "|" + rs("re").value + "|" + rs("reexamineName").value + "|" + rs("kindName").value + "|" + rs("qtyDiploma").value;
 		//45
-		result += "|" + rs("signatureType").value + "|" + rs("signatureTypeName").value + "|" + rs("zip").value + "|" + rs("pzip").value + "|" + rs("ezip").value;
+		result += "|" + rs("signatureType").value + "|" + rs("signatureTypeName").value + "|" + rs("zip").value + "|" + rs("pzip").value + "|" + rs("ezip").value + "|" + rs("pre").value;
 		//execSQL(sql);
 	}
 	rs.Close();
@@ -129,19 +132,14 @@ if(op == "getNodeInfo"){
 if(op == "update"){
 	result = 0;
 	if(result == 0){
-		sql = "exec updateClassInfo " + nodeID + ",'" + unescape(String(Request.QueryString("className"))) + "','" + String(Request.QueryString("certID")) + "','" + String(Request.QueryString("courseID")) + "','" + String(Request.QueryString("projectID")) + "','" + String(Request.QueryString("adviserID")) + "','" + host + "','" + String(Request.QueryString("teacher")) + "'," + kindID + "," + status + ",'" + String(Request.QueryString("dateStart")) + "','" + String(Request.QueryString("dateEnd")) + "','" + unescape(String(Request.QueryString("classroom"))) + "','" + unescape(String(Request.QueryString("timetable"))) + "','" + String(Request.QueryString("archived")) + "','" + String(Request.Form("summary")) + "','" + String(Request.QueryString("transaction_id")) + "'," + String(Request.QueryString("signatureType")) + ",'" + String(Request.Form("memo")) + "','" + currUser + "'";
+		sql = "exec updateClassInfo " + nodeID + ",'" + unescape(String(Request.QueryString("className"))) + "','" + String(Request.QueryString("certID")) + "','" + String(Request.QueryString("courseID")) + "','" + String(Request.QueryString("projectID")) + "','" + String(Request.QueryString("adviserID")) + "','" + host + "','" + String(Request.QueryString("teacher")) + "'," + kindID + "," + status + "," + String(Request.QueryString("pre")) + ",'" + String(Request.QueryString("dateStart")) + "','" + String(Request.QueryString("dateEnd")) + "','" + unescape(String(Request.QueryString("classroom"))) + "','" + unescape(String(Request.QueryString("timetable"))) + "','" + String(Request.QueryString("archived")) + "','" + String(Request.Form("summary")) + "','" + String(Request.QueryString("transaction_id")) + "'," + String(Request.QueryString("signatureType")) + ",'" + String(Request.Form("memo")) + "','" + currUser + "'";
 
-		execSQL(sql);
-		if(nodeID == 0){
-			//这是一个新增的记录
-			sql = "SELECT max(ID) as maxID FROM classInfo where registerID='" + currUser + "'";
-			rs = conn.Execute(sql);
-			nodeID = rs("maxID");
+		rs = conn.Execute(sql);
+		if(!rs.EOF){
+			result = rs("re");
 		}
 	}
-
-	result += "|" + nodeID;
-	Response.Write(escape(result));
+	Response.Write((result));
 	//Response.Write(escape(sql));
 }
 
@@ -163,7 +161,7 @@ if(op == "getStudentListByClassID"){
 	}
 
 	sql = " FROM v_studentCourseList " + where;
-	sql = "SELECT *, (case when host='znxf' then unit else hostName end) as unit1" + sql + " order by SNo";
+	sql = "SELECT *, (case when host='znxf' then unit else hostName end) as unit1,cast(isnull(completion,0) as decimal(18,2)) as completion1,cast(isnull(completion*hours/100,0) as decimal(18,2)) as hoursSpend1" + sql + " order by SNo";
 
 	result = "";
 	rs = conn.Execute(sql);
@@ -173,6 +171,8 @@ if(op == "getStudentListByClassID"){
 		result += "|" + rs("mobile").value + "|" + rs("unit1").value + "|" + rs("score").value + "|" + rs("diploma_startDate").value + "|" + rs("diplomaID").value;
 		//10
 		result += "|" + rs("score1").value + "|" + rs("score2").value + "|" + rs("statusName").value + "|" + rs("educationName").value;
+		//14
+		result += "|" + rs("hours").value + "|" + rs("completion1").value + "|" + rs("hoursSpend1").value + "|" + rs("startDate").value;
 		rs.MoveNext();
 	}
 	result = result.substr(2);
@@ -182,7 +182,21 @@ if(op == "getStudentListByClassID"){
 }	
 
 if(op == "getClassListByProject"){
-	sql = "SELECT classID,className FROM [dbo].[getClassListByProject]('" + refID + "') order by classID desc";;
+	sql = "SELECT classID,className FROM [dbo].[getClassListByProject]('" + refID + "') where status=0 order by classID desc";;
+
+	result = "";
+	rs = conn.Execute(sql);
+	while (!rs.EOF){
+		result += ',"' + rs("classID").value + '":"' + rs("className").value + '"';
+		rs.MoveNext();
+	}
+	result = "{" + result.substr(1) + "}";
+	Response.Write(escape(result));/**/
+	//Response.Write(escape(sql));
+}	
+
+if(op == "getClassListByClassID"){
+	sql = "SELECT a.classID, a.className FROM v_classInfo a, classInfo b where b.classID='" + refID + "' and a.courseID=b.courseID and a.status=0 and a.classID<>'" + refID + "' order by a.classID desc";;
 
 	result = "";
 	rs = conn.Execute(sql);
@@ -207,6 +221,24 @@ if(op == "getClassSchedule"){
 			where = s;
 		}
 	}
+	//如果有类别
+	if(kindID > ""){ // 
+		s = "mark='" + kindID + "'";
+		if(where > ""){
+			where = where + " and " + s;
+		}else{
+			where = s;
+		}
+	}
+	//如果有类别
+	if(keyID > ""){ // 
+		s = "online='" + keyID + "'";
+		if(where > ""){
+			where = where + " and " + s;
+		}else{
+			where = s;
+		}
+	}
 
 	if(where>""){
 		where = " where " + where;
@@ -223,9 +255,9 @@ if(op == "getClassSchedule"){
 		//7
 		result += "|" + rs("hours").value + "|" + rs("period").value + "|" + rs("theDate").value + "|" + rs("theWeek").value + "|" + rs("item").value + "|" + rs("address").value + "|" + rs("teacher").value;
 		//14
-		result += "|" + rs("kindName").value + "|" + rs("typeName").value + "|" + rs("teacherName").value;
-		//17
-		result += "|" + rs("memo").value + "|" + rs("regDate").value + "|" + rs("registerID").value + "|" + rs("registerName").value;
+		result += "|" + rs("kindName").value + "|" + rs("typeName").value + "|" + rs("teacherName").value + "|" + rs("memo").value + "|" + rs("regDate").value;
+		//19
+		result += "|" + rs("registerID").value + "|" + rs("registerName").value + "|" + rs("online").value + "|" + rs("onlineName").value + "|" + rs("mark").value;
 		rs.MoveNext();
 	}
 	result = result.substr(2);
@@ -244,9 +276,9 @@ if(op == "getClassScheduleInfo"){
 		//7
 		result += "|" + rs("hours").value + "|" + rs("period").value + "|" + rs("theDate").value + "|" + rs("theWeek").value + "|" + rs("item").value + "|" + rs("address").value + "|" + rs("teacher").value;
 		//14
-		result += "|" + rs("kindName").value + "|" + rs("typeName").value + "|" + rs("teacherName").value;
-		//17
-		result += "|" + rs("memo").value + "|" + rs("regDate").value + "|" + rs("registerID").value + "|" + rs("registerName").value;
+		result += "|" + rs("kindName").value + "|" + rs("typeName").value + "|" + rs("teacherName").value + "|" + rs("memo").value + "|" + rs("regDate").value;
+		//19
+		result += "|" + rs("registerID").value + "|" + rs("registerName").value + "|" + rs("online").value + "|" + rs("onlineName").value + "|" + rs("mark").value;
 	}
 	Session(op) = ssql;
 	Response.Write(escape(result));/**/
@@ -256,7 +288,7 @@ if(op == "getClassScheduleInfo"){
 if(op == "updateClassSchedule"){
 	result = 0;
 	//@ID int,@seq int,@kindID int,@typeID int,@hours int,@period varchar(50),@theDate varchar(50),@teacher varchar(50),@memo varchar(500),@registerID
-	sql = "exec updateClassSchedule " + nodeID + "," + String(Request.QueryString("seq")) + "," + kindID + "," + refID + "," + String(Request.QueryString("hours")) + ",'" + String(Request.QueryString("period")) + "','" + String(Request.QueryString("theDate")) + "','" + String(Request.QueryString("teacher")) + "','" + memo + "','" + currUser + "'";
+	sql = "exec updateClassSchedule " + nodeID + "," + String(Request.QueryString("seq")) + "," + kindID + "," + refID + "," + String(Request.QueryString("online")) + "," + String(Request.QueryString("hours")) + ",'" + String(Request.QueryString("period")) + "','" + String(Request.QueryString("theDate")) + "','" + String(Request.QueryString("teacher")) + "','" + memo + "','" + currUser + "'";
 	rs = conn.Execute(sql);
 	if (!rs.EOF){
 		result = rs("status").value + "|" + rs("msg").value;
@@ -306,7 +338,7 @@ if(op == "getRandSummary"){
 }
 
 if(op == "generateClassSchedule"){
-	sql = "exec autoSetClassSchedule '" + refID + "',0,'','" + currUser + "'";
+	sql = "exec autoSetClassSchedule '" + refID + "','" + kindID + "','" + currUser + "'";
 	execSQL(sql);
 	Response.Write(0);
 }

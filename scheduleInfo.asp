@@ -37,6 +37,7 @@
 		
 		getDicList("scheduleKind","kindID",0);
 		getDicList("scheduleType","typeID",0);
+		getDicList("online","online",0);
 		getComList("teacher","v_courseTeacherList a, courseInfo b","teacherID","teacherName","a.courseID=b.certID and a.status=0 and b.courseID='" + refID + "' group by teacherID,teacherName",1);
 		$("#theDate").click(function(){WdatePicker();});
 		
@@ -73,6 +74,7 @@
 				$("#memo").val(ar[17]);
 				$("#regDate").val(ar[18]);
 				$("#registerName").val(ar[20]);
+				$("#online").val(ar[21]);
 			}else{
 				jAlert("该信息未找到！","信息提示");
 				setEmpty();
@@ -95,7 +97,7 @@
 			return false;
 		}
 		//alert($("#ID").val() + "&refID=" + $("#agencyID").val() + "&agencyName=" + ($("#agencyName").val()) + "&title=" + ($("#title").val()) + "&linker=" +  ($("#linker").val()) + "&kindID=" + $("#kindID").val() + "&status=" + $("#status").val() + "&phone=" +  ($("#phone").val()) + "&email=" + ($("#email").val()) + "&address=" + ($("#address").val()) + "&memo=" + ($("#memo").val()));
-		$.get("classControl.asp?op=updateClassSchedule&nodeID=" + $("#ID").val() + "&seq=" + $("#seq").val() + "&refID=" + $("#typeID").val() + "&period=" + $("#period").val() + "&hours=" +  $("#hours").val() + "&kindID=" + $("#kindID").val() + "&teacher=" + $("#teacher").val() + "&theDate=" +  $("#theDate").val() + "&memo=" + escape($("#memo").val()) + "&times=" + (new Date().getTime()),function(re){
+		$.get("classControl.asp?op=updateClassSchedule&nodeID=" + $("#ID").val() + "&online=" + $("#online").val() + "&seq=" + $("#seq").val() + "&refID=" + $("#typeID").val() + "&period=" + $("#period").val() + "&hours=" +  $("#hours").val() + "&kindID=" + $("#kindID").val() + "&teacher=" + $("#teacher").val() + "&theDate=" +  $("#theDate").val() + "&memo=" + escape($("#memo").val()) + "&times=" + (new Date().getTime()),function(re){
 			//alert(unescape(re));
 			var ar = new Array();
 			ar = unescape(re).split("|");
@@ -111,7 +113,7 @@
 	
 	function setButton(){
 		$("#btnSave").hide();
-		if(checkRole("operator") || checkRole("partner")){
+		if(checkRole("operator") || checkRole("partner") || checkRole("adviser")){
 			$("#btnSave").show();
 		}
 	}
@@ -157,8 +159,10 @@
 				<td><select id="teacher" style="width:100px;"></select></td>
 			</tr>
 			<tr>
+				<td align="right">上课形式</td>
+				<td><select id="online" style="width:100px;"></select></td>
 				<td align="right">备注</td>
-				<td colspan="3"><input type="text" id="memo" style="width:100%;"/></td>
+				<td><input type="text" id="memo" size="25"/></td>
 			</tr>
 			<tr>
 				<td align="right">登记人</td>

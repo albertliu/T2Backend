@@ -1151,6 +1151,8 @@ if(op == "getGenerateApplyNodeInfo"){
 		result += "|" + rs("kindID").value + "|" + rs("kindName").value + "|" + rs("endDate").value + "|" + rs("price").value + "|" + rs("price1").value + "|" + rs("agencyID").value;
 		//42
 		result += "|" + rs("azip").value + "|" + rs("tzip").value + "|" + rs("reexamine").value + "|" + rs("adviserID").value + "|" + rs("adviserName").value;
+		//47
+		result += "|" + rs("teacher").value + "|" + rs("classroom").value + "|" + rs("scheduleDate").value;
 	}
 	rs.Close();
 	Response.Write(escape(result));
@@ -1161,7 +1163,7 @@ if(op == "updateGenerateApplyInfo"){
 	nodeID = Request.Form("ID");
 	//@ID int,@courseID varchar(50),@applyID varchar(50),@kindID int,@title nvarchar(100),@startDate varchar(100),@address nvarchar(100),@host varchar(50),@memo nvarchar(500),@registerID
 	sql = "exec updateGenerateApplyInfo " + Request.Form("ID") + ",'" + Request.Form("courseID") + "','" + Request.Form("applyID") + "','" + Request.Form("kindID") + "','" + Request.Form("title");
-	sql += "','" + Request.Form("startDate") + "','" + Request.Form("endDate") + "','" + Request.Form("address") + "','" + Request.Form("adviserID") + "','" + currHost + "','" + Request.Form("memo") + "','" + currUser + "'";
+	sql += "','" + Request.Form("startDate") + "','" + Request.Form("endDate") + "','" + Request.Form("address") + "','" + Request.Form("teacher") + "','" + Request.Form("classroom") + "','" + Request.Form("adviserID") + "','" + currHost + "','" + Request.Form("memo") + "','" + currUser + "'";
 	
 	rs = conn.Execute(sql);
 	if(!rs.EOF){

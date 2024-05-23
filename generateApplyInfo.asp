@@ -771,6 +771,9 @@
 				agencyID = ar[41];
 				reexamine = ar[44];
 				$("#adviserID").combobox("setValue",ar[45]);
+				$("#teacher").combobox("setValue",ar[47]);
+				$("#classroom").textbox("setValue",ar[48]);
+				$("#scheduleDate").textbox("setValue",ar[49]);
 				$("#list").html("<a href='' style='text-decoration:none;color:green;'>申报名单</a>");
 				$("#archive").html("<a href='' style='text-decoration:none;color:green;'>在线学时</a>");
 				$("#diplomaSign").html("<a href='' style='text-decoration:none;color:green;'>证书签收单</a>");
@@ -1254,9 +1257,18 @@
 			</tr>
 			<tr>
 				<td align="right">考试地址</td>
+				<td>
+					<input id="address" name="address" class="easyui-textbox" data-options="height:22,width:220" />
+				</td>
+				<td align="right"><input class="button" type="button" id="btnSchedule" value="排课表" /></td>
+				<td><input id="scheduleDate" name="scheduleDate" class="easyui-datebox" data-options="height:22,width:100,readonly:true" />&nbsp;&nbsp;<span id="schedule" style="margin-left:10px;"></span></td>
+			</tr>
+			<tr>
+				<td align="right">任课教师</td>
 				<td colspan="3">
-					<input id="address" name="address" class="easyui-textbox" data-options="height:22,width:340" />
-					&nbsp;&nbsp;&nbsp;班主任&nbsp;<select id="adviserID" name="adviserID" class="easyui-combobox" data-options="editable:false,panelHeight:'auto',height:22,width:100"></select>
+					<select id="teacher" name="teacher" class="easyui-combobox" data-options="editable:false,panelHeight:'auto',height:22,width:100">></select>
+					&nbsp;&nbsp;教室&nbsp;<input id="classroom" name="classroom" class="easyui-textbox" data-options="height:22,width:180" />
+					&nbsp;&nbsp;班主任&nbsp;<select id="adviserID" name="adviserID" class="easyui-combobox" data-options="editable:false,panelHeight:'auto',height:22,width:100">></select>
 				</td>
 			</tr>
 			<tr>
