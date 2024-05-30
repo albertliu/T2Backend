@@ -178,7 +178,11 @@ if (String(Request.QueryString("msg")) != "undefined" &&
 					$.messager.alert("提示","您用的是默认密码，修改后请重新登录。");
 					return false;
 				}
-				self.location = "index.asp?times=" + (new Date().getTime());
+				if($("#username").val()=="room"){
+					self.location = "face_camera.asp?times=" + (new Date().getTime());
+				}else{
+					self.location = "index.asp?times=" + (new Date().getTime());
+				}
 				//self.location = "default1.asp?times=" + (new Date().getTime());
 			}else{  //something is wrong
 				$.messager.alert("提示",ar[1],"warning");

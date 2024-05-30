@@ -53,7 +53,6 @@
 		getComboBoxList("statusNo","s_resit",1);
 		getComboBoxList("applyKind","kindID",0);
 		getComboList("courseID","v_courseInfo","courseID","courseName2","status=0 and mark=1",1);
-		getComboList("adviserID","userInfo","username","realName","status=0 and username in(select username from roleUserList where roleID='adviser' and host='" + currHost + "') order by realName",1);
 
 		$("#sendMsgExam").click(function(){
 			if(address==""){
@@ -723,6 +722,30 @@
 				getApplyList();
 			}
 		});
+		
+		$("#btnSchedule").click(function(){
+			if($("#startDate").datebox("getValue")==""){
+				jAlert("请确定开课日期。");
+				return false;
+			}
+			if($("#teacher").combobox("getValue")==""){
+				jAlert("请确定任课教师。");
+				return false;
+			}
+			if($("#classroom").textbox("getValue")==""){
+				jAlert("请确定上课地点。");
+				return false;
+			}
+			if(confirm("确定要编排课表吗？")){
+				$.get("classControl.asp?op=generateClassSchedule&refID=" + nodeID + "&kindID=A&times=" + (new Date().getTime()),function(re){
+					getNodeInfo(nodeID);
+					jAlert("课表编排完毕。");
+				});
+			}
+		});
+		$("#schedule").click(function(){
+			showClassSchedule(nodeID, "A", "{className:'" + nodeID + "', courseName:'" + courseName + "', transaction_id:'" + $("#applyID").textbox("getValue") + "', startDate:'"+$("#startDate").datebox("getValue").substr(0,10)+"', endDate:'', adviser:'" + $("#adviserID").find("option:selected").text() + "', qty:"+$("#qty").val()+"}",0,1);
+		});
 
 		if(op==1){
 			setButton();
@@ -740,6 +763,8 @@
 			var c = "";
 			ar = unescape(re).split("|");
 			if(ar > ""){
+				getComboList("teacher","dbo.getFreeTeacherList('','" + ar[0] + "','A')","teacherID","teacherName","1=1 order by freePoint desc",1);
+				getComboList("adviserID","userInfo","username","realName","status=0 and username in(select username from roleUserList where roleID='adviser' and host='" + currHost + "') order by realName",1);
 				$("#ID").val(ar[0]);
 				$("#courseID").combobox("setValue",ar[1]);
 				$("#kindID").combobox("setValue",ar[36]);
@@ -774,6 +799,9 @@
 				$("#teacher").combobox("setValue",ar[47]);
 				$("#classroom").textbox("setValue",ar[48]);
 				$("#scheduleDate").textbox("setValue",ar[49]);
+				if(ar[49]>""){
+					$("#schedule").html("<a>课程表</a>");
+				}
 				$("#list").html("<a href='' style='text-decoration:none;color:green;'>申报名单</a>");
 				$("#archive").html("<a href='' style='text-decoration:none;color:green;'>在线学时</a>");
 				$("#diplomaSign").html("<a href='' style='text-decoration:none;color:green;'>证书签收单</a>");

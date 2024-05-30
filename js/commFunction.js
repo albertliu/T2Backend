@@ -1569,10 +1569,10 @@
 	}
 	
 	//nodeID: ID; op: 0 浏览 1 新增; mark: 0 不动作  1 有修改时刷新列表;
-	function showClassSchedule(nodeID,refID,op,mark){
+	function showClassSchedule(nodeID,keyID,refID,op,mark){
 		asyncbox.open({
 			id: "class_schedule",
-			url:"class_schedule.asp?nodeID=" + nodeID + "&refID=" + refID + "&op=" + op + "&p=1&times=" + (new Date().getTime()),
+			url:"class_schedule.asp?nodeID=" + nodeID + "&refID=" + refID + "&keyID=" + keyID + "&op=" + op + "&p=1&times=" + (new Date().getTime()),
 			title: "授课计划表",
 			width: 880,
 			height: 780,
@@ -1589,7 +1589,7 @@
 				if(re>0 && mark==1){
 					//getClassScheduleList();
 				}
-			}
+　　　		}
 		});
 	}
 	

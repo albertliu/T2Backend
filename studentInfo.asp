@@ -572,6 +572,10 @@
 			setEmpty();
 			//$("#save").focus();
 		}else{
+			if($("#kindID").combobox("getValue") != 0){
+				$("#sex").combobox("enable");
+				$("#birthday").datebox("enable");
+			}
 			if(checkPermission("messageAdd")){
 				$("#reply").show();
 			}

@@ -288,7 +288,7 @@ if(op == "getClassScheduleInfo"){
 if(op == "updateClassSchedule"){
 	result = 0;
 	//@ID int,@seq int,@kindID int,@typeID int,@hours int,@period varchar(50),@theDate varchar(50),@teacher varchar(50),@memo varchar(500),@registerID
-	sql = "exec updateClassSchedule " + nodeID + "," + String(Request.QueryString("seq")) + "," + kindID + "," + refID + "," + String(Request.QueryString("online")) + "," + String(Request.QueryString("hours")) + ",'" + String(Request.QueryString("period")) + "','" + String(Request.QueryString("theDate")) + "','" + String(Request.QueryString("teacher")) + "','" + memo + "','" + currUser + "'";
+	sql = "exec updateClassSchedule " + nodeID + "," + String(Request.QueryString("seq")) + "," + kindID + "," + refID + "," + String(Request.QueryString("online")) + "," + String(Request.QueryString("hours")) + ",'" + String(Request.QueryString("period")) + "','" + String(Request.QueryString("theDate")) + "','" + String(Request.QueryString("teacher")) + "','" + unescape(String(Request.QueryString("address"))) + "','" + memo + "','" + currUser + "'";
 	rs = conn.Execute(sql);
 	if (!rs.EOF){
 		result = rs("status").value + "|" + rs("msg").value;

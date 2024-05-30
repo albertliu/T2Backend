@@ -70,6 +70,7 @@
 				$("#theDate").val(ar[9]);
 				$("#theWeek").val(ar[10]);
 				$("#item").val(ar[11]);
+				$("#address").val(ar[12]);
 				$("#teacher").val(ar[13]);
 				$("#memo").val(ar[17]);
 				$("#regDate").val(ar[18]);
@@ -97,7 +98,7 @@
 			return false;
 		}
 		//alert($("#ID").val() + "&refID=" + $("#agencyID").val() + "&agencyName=" + ($("#agencyName").val()) + "&title=" + ($("#title").val()) + "&linker=" +  ($("#linker").val()) + "&kindID=" + $("#kindID").val() + "&status=" + $("#status").val() + "&phone=" +  ($("#phone").val()) + "&email=" + ($("#email").val()) + "&address=" + ($("#address").val()) + "&memo=" + ($("#memo").val()));
-		$.get("classControl.asp?op=updateClassSchedule&nodeID=" + $("#ID").val() + "&online=" + $("#online").val() + "&seq=" + $("#seq").val() + "&refID=" + $("#typeID").val() + "&period=" + $("#period").val() + "&hours=" +  $("#hours").val() + "&kindID=" + $("#kindID").val() + "&teacher=" + $("#teacher").val() + "&theDate=" +  $("#theDate").val() + "&memo=" + escape($("#memo").val()) + "&times=" + (new Date().getTime()),function(re){
+		$.get("classControl.asp?op=updateClassSchedule&nodeID=" + $("#ID").val() + "&online=" + $("#online").val() + "&seq=" + $("#seq").val() + "&refID=" + $("#typeID").val() + "&period=" + $("#period").val() + "&hours=" +  $("#hours").val() + "&kindID=" + $("#kindID").val() + "&teacher=" + $("#teacher").val() + "&theDate=" +  $("#theDate").val() + "&address=" + escape($("#address").val()) + "&memo=" + escape($("#memo").val()) + "&times=" + (new Date().getTime()),function(re){
 			//alert(unescape(re));
 			var ar = new Array();
 			ar = unescape(re).split("|");
@@ -161,8 +162,12 @@
 			<tr>
 				<td align="right">上课形式</td>
 				<td><select id="online" style="width:100px;"></select></td>
+				<td align="right">教室</td>
+				<td><input type="text" id="address" size="25"/></td>
+			</tr>
+			<tr>
 				<td align="right">备注</td>
-				<td><input type="text" id="memo" size="25"/></td>
+				<td colspan="3"><input type="text" id="memo" style="width:95%;"/></td>
 			</tr>
 			<tr>
 				<td align="right">登记人</td>

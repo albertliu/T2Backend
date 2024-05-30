@@ -61,7 +61,8 @@
 	});
 
 	function getClassScheduleList(){
-		$.get("classControl.asp?op=getClassSchedule&refID=" + nodeID + "&times=" + (new Date().getTime()),function(data){
+		// alert(nodeID + "&kindID=" + keyID)
+		$.get("classControl.asp?op=getClassSchedule&refID=" + nodeID + "&kindID=" + keyID + "&times=" + (new Date().getTime()),function(data){
 			//alert(unescape(data));
 			var ar = new Array();
 			ar = (unescape(data)).split("%%");

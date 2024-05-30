@@ -902,9 +902,10 @@
 					//已支付的付款可以退款。
 					$("#btnRefund").show();
 					// if($("#datePay").datebox("getValue") != (new Date().format("yyyy-MM-dd"))){	//付款当天可以修改付款日期
-						$("#amount").numberbox({readonly:true});
+						$("#amount").numberbox({readonly:false});
 						if(!checkPermission("editPayDate")){
 							$("#datePay").datebox("disable");
+							$("#amount").numberbox({readonly:true});
 						}
 					// }
 				}

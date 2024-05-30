@@ -2,16 +2,22 @@
 <!doctype html>
 <html>
 <head>
+  <title>教学考勤</title>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>教学班级考勤</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />  
+	<meta name="format-detection" content="telephone=no" />  
+	<meta name="apple-mobile-web-app-capable" content="yes" />  
+	<meta name="apple-mobile-web-app-status-bar-style" content="black"> 
+	<link href="css/style_inner1.css"  rel="stylesheet" type="text/css" />
+	<link href="css/jquery.alerts.css" rel="stylesheet" type="text/css" media="screen" />
+	<link rel="stylesheet" type="text/css" href="js/easyui/themes/default/easyui.css?v=1.21">
+	<link rel="stylesheet" type="text/css" href="js/easyui/themes/icon.css?v=1.11">
   <link rel="stylesheet" href="assets/demo.css">
 
-  
-	<link rel="stylesheet" type="text/css" href="js/easyui/themes/default/easyui.css?v=1.11">
-	<link rel="stylesheet" type="text/css" href="js/easyui/themes/icon.css?v=1.11">
-  <script src="js/jquery-2.1.1.min.js"></script>
-	<script type="text/javascript" src="js/easyui/jquery.easyui.min.js?v=1.0"></script>
+  <script src="js/jquery-3.3.1.min.js"></script>
+	<script src="js/jquery.alerts.js" type="text/javascript"></script>
+	<script type="text/javascript" src="js/easyui/jquery.easyui.min.js?v=1.2"></script>
 	<script type="text/javascript" src="js/easyui/locale/easyui-lang-zh_CN.js?v=1.0"></script>
   <script src="js/tracking.js/tracking.js"></script>
   <script src="js/tracking.js/data/face.js"></script>
@@ -20,22 +26,51 @@
 
   <style>
     video {
-      margin-left: 230px;
-      margin-top: 60px;
+      margin-left: 30px;
+      margin-top: 30px;
       position: absolute;
       transform: rotateY(180deg);
       -webkit-transform: rotateY(180deg);
       -moz-transform: rotateY(180deg);
     }
     canvas {
-      margin-left: 230px;
-      margin-top: 60px;
+      margin-left: 30px;
+      margin-top: 30px;
       position: absolute;
     }
-
     .tip-box {
+        font-size: 1.5em;
+        color: blue;
+        font-weight: bold;
         margin: 10px;
-        font-size: 1em;
+    }
+    .tip-box1 {
+        font-size: 1.5em;
+        color: red;
+        font-weight: bold;
+        margin: 10px;
+    }
+    .tip {
+        font-size: 1.5em;
+    }
+    .tip1 {
+        font-size: 1.5em;
+        color: blue;
+        background-color: #eee;
+        width: 100%;
+    }
+    .combobox-item{
+      font-weight:bold;
+      font-size: 1.5em;
+    }
+    .combobox-item-selected{
+      font-weight:bold;
+      color: blue;
+      font-size: 1.5em;
+    }
+    .textbox .textbox-text{
+      font-weight:bold;
+      font-size: 1.5em;
     }
   </style>
   <script>
@@ -43,15 +78,12 @@
     var tipFlag = false // 是否检测
     var faceflag = false // 是否进行拍照
     var quality = 0.2;  // 0.2-0.5之间，控制压缩率。越小压缩越大，0.2可以在保证质量的情况下达到最大压缩率。
-    var video = "";
-    var canvas = "";
-    var context = "";
-    var tra = "";
+    var scheduleID = 0;
 
     $(document).ready(function (){
-      video = document.getElementById('video');
-      canvas = document.getElementById('canvas');
-      context = canvas.getContext('2d');
+      var video = document.getElementById('video');
+      var canvas = document.getElementById('canvas');
+      var context = canvas.getContext('2d');
 
       canvas.width = canvas.clientWidth;
       canvas.height = canvas.clientHeight;
@@ -69,10 +101,10 @@
       tracker.setStepSize(2);
       tracker.setEdgesDensity(0.1);
 
-      tra = tracking.track('#video', tracker, { camera: true });
+      var tra = tracking.track('#video', tracker, { camera: true });
       var timer = null;
       tracker.on('track', function(event) {
-        if (!tipFlag) {
+        if (scheduleID>0 && !tipFlag) {
           context.clearRect(0, 0, canvas.width, canvas.height);
 
           if (event.data.length === 0) {
@@ -100,24 +132,28 @@
               //判断脸部是否在屏幕中间
               // alert(rect1?rect1.x:"");
               if (!faceflag && rect && rect.x > video.clientWidth * 0.2 && rect.x < video.clientWidth * 0.8) { // 检测到人脸进行拍照，延迟0.5秒
-              // $("#tip1").html(faceflag + ":" + rect?rect.x + ":" + video.clientWidth * 0.3 + ":" + video.clientWidth * 0.7:"");
-                  $("#tip").html('识别中，请勿乱动~');
+                  $("#tip").html('识别中，请勿晃动~');
                   faceflag = true;
                   tipFlag = true;
                   setTimeout(() => {
+                      // 拍照
                       let base64Data = tackPhoto();
-                      //upload photo for compare
-                      $.post(uploadURL + "/alis/searchFace", {base64Data: base64Data, refID: 1} ,function(data){
-                        let msg = data.msg;
-                        speak({text: msg});
-                        showDialog(msg, data.status);
-                        if(data.status==0){
-                          // alert(msg);
-                        }
-                      });
+                      if(base64Data){
+                        //upload photo for compare
+                        // alert(uploadURL + "/alis/searchFace")
+                        $.post(uploadURLS + "/alis/searchFace", {base64Data: base64Data, refID: scheduleID} ,function(data){
+                          getScheduleCheckIn();
+                          if(data.status==0){
+                            // alert(data.msg);
+                          }else{
+                            // alert(data.msg);
+                          }
+                          $("#res").html(data.msg);
+                        });
+                      }
                       faceflag = false;
                       tipFlag = false;
-                  }, 1000);
+                  }, 500);
               }
             }
           } else {
@@ -128,89 +164,84 @@
           }
         }
       });
+      
+
+      $("#scheduleID").combobox({
+        onChange: function(val){
+          if(val>""){
+            scheduleID = val;
+          }else{
+            scheduleID = 0;
+          }
+        }
+      });
+
+      function tackPhoto() {
+          // 第二种方式	
+          context.drawImage(video, 0, 0, video.clientWidth, video.clientHeight);
+          var snapData = canvas.toDataURL('image/jpeg', quality);
+          // var imgSrc = "data:image/jepg;" + snapData;
+          // $("#imgShot").src = snapData;
+          return snapData
+
+          // sessionStorage.setItem("faceImage", imgSrc);
+          // history.go(-1);
+          // history.back()
+          // video.srcObject.getTracks().forEach(track => track.stop());
+          // 取消监听
+          // tra.stop();
+      }
+
+      getScheduleList();
     });
 
-    function tackPhoto() {
-        // 第二种方式	
-        context.drawImage(video, 0, 0, video.clientWidth, video.clientHeight);
-        var snapData = canvas.toDataURL('image/jpeg', quality);
-        // var imgSrc = "data:image/jepg;" + snapData;
-        stop();
-        return snapData;
+
+    function getScheduleList(){
+      alert(currHost)
+      getComboList("scheduleID","dbo.getCurrScheduleList('" + currHost + "')","ID","title","typeID=0 order by ID",1);
     }
 
-    function stop() {
-        video.srcObject.getTracks().forEach(track => track.stop());
-        // 取消监听
-        tra.stop();
+    function getScheduleCheckIn(){
+      alert(scheduleID)
+      $.get("classControl.asp?op=getScheduleCheckIn&refID=" + scheduleID + "&times=" + (new Date().getTime()),function(re){
+        alert(unescape(re));
+        var ar = new Array();
+        ar = unescape(re).split("|");
+        if(ar > ""){
+          $("#qty0").html(ar[1]);
+          $("#qty1").html(ar[2] + "/" + ar[0]);
+          $("#qty2").html(ar[3]);
+        }else{
+          $("#qty0").html("");
+          $("#qty1").html("");
+          $("#qty2").html("");
+        }
+      });
     }
-
-    function showDialog(text, mark) {
-      if(mark==0){
-        $("#dialog").css('background-color','green');
-      }else{
-        $("#dialog").css('background-color','red');
-      }
-      $("#msg").html(text);
-      setTimeout(() => {
-        $("#msg").html("");
-      }, 2000);
-    }
-
-/**
- * @description 文字转语音方法
- * @public
- * @param { text, rate, lang, volume, pitch } object
- * @param  text 要合成的文字内容，字符串
- * @param  rate 读取文字的语速 0.1~10  正常1
- * @param  lang 读取文字时的语言
- * @param  volume  读取时声音的音量 0~1  正常1
- * @param  pitch  读取时声音的音高 0~2  正常1
- * @returns SpeechSynthesisUtterance
- */
-function speak({ text, speechRate, lang, volume, pitch }, endEvent, startEvent) {
-    if (!window.SpeechSynthesisUtterance) {
-        console.warn('当前浏览器不支持文字转语音服务')
-        return;
-    }
-
-    if (!text) {
-        return;
-    }
-
-    const speechUtterance = new SpeechSynthesisUtterance();
-    speechUtterance.text = text;
-    speechUtterance.rate = speechRate || 1;
-    speechUtterance.lang = lang || 'zh-CN';
-    speechUtterance.volume = volume || 1;
-    speechUtterance.pitch = pitch || 1;
-    speechUtterance.onend = function() {
-        endEvent && endEvent();
-    };
-    speechUtterance.onstart = function() {
-        startEvent && startEvent();
-    };
-    speechSynthesis.speak(speechUtterance);
-    
-    return speechUtterance;
-}
 
   </script>
 </head>
 <body>
-  <div class="demo-title">
-    <p>人脸考勤</p>
+  <div>
+    <table><tr>
+      <td style="width:20%;"><span class="tip">签到人数：</span><td>
+      <td style="width:15%;"><span id="qty0" class="tip1"></span><td>
+      <td style="width:15%;"><span class="tip">本班：</span><td>
+      <td style="width:20%;"><span id="qty1" class="tip1"></span><td>
+      <td style="width:15%;"><span class="tip">其他：</span><td>
+      <td style="width:15%;"><span id="qty2" class="tip1"></span><td>
+    </tr></table>
   </div>
 
   <div class="demo-frame">
-    <div id="dialog" style="width:600px; height:200px;">
-      <p id="msg" style="font-size:2em;"></p>
+    <div class="tip">
+			课程表&nbsp;<select id="scheduleID" name="scheduleID" class="easyui-combobox" data-options="height:22,editable:false,panelHeight:'auto',width:300"></select>
     </div>
-    <div class="demo-container">
+    <div style="display: table-cell; vertical-align: middle;">
       <div id="tip" class="tip-box"></div>
-      <div id="tip1"></div>
-      <video id="video" width="320" height="240" preload autoplay loop muted></video>
-      <canvas id="canvas" width="320" height="240"></canvas>
+      <div id="res" class="tip-box1"></div>
+      <video id="video" width="480" height="360" preload autoplay loop muted></video>
+      <canvas id="canvas" width="480" height="360"></canvas>
     </div>
   </div>
 </body>
