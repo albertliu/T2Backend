@@ -342,4 +342,16 @@ if(op == "generateClassSchedule"){
 	execSQL(sql);
 	Response.Write(0);
 }
+
+if(op == "getScheduleCheckIn"){
+	sql = "exec getScheduleCheckIn " + refID;
+	
+	rs = conn.Execute(sql);
+	if (!rs.EOF){
+		result = rs("qty").value + "|" + rs("qty0").value + "|" + rs("qty1").value + "|" + rs("qty2").value;
+	}
+	rs.Close();
+	Response.Write(escape(result));/**/
+	//Response.Write(escape(sql));
+}
 %>

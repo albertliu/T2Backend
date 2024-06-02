@@ -10,19 +10,18 @@
 	<meta name="apple-mobile-web-app-capable" content="yes" />  
 	<meta name="apple-mobile-web-app-status-bar-style" content="black"> 
 	<link href="css/style_inner1.css"  rel="stylesheet" type="text/css" />
-	<link href="css/jquery.alerts.css" rel="stylesheet" type="text/css" media="screen" />
+	<link href="css/jquery-confirm.min.css" rel="stylesheet" type="text/css" media="screen" />
 	<link rel="stylesheet" type="text/css" href="js/easyui/themes/default/easyui.css?v=1.21">
 	<link rel="stylesheet" type="text/css" href="js/easyui/themes/icon.css?v=1.11">
-  <link rel="stylesheet" href="assets/demo.css">
 
   <script src="js/jquery-3.3.1.min.js"></script>
-	<script src="js/jquery.alerts.js" type="text/javascript"></script>
 	<script type="text/javascript" src="js/easyui/jquery.easyui.min.js?v=1.2"></script>
 	<script type="text/javascript" src="js/easyui/locale/easyui-lang-zh_CN.js?v=1.0"></script>
   <script src="js/tracking.js/tracking.js"></script>
   <script src="js/tracking.js/data/face.js"></script>
   <script src="js/tracking.js/data/eye.js"></script>
   <script src="js/tracking.js/data/mouth.js"></script>
+	<script src="js/jquery-confirm.min.js" type="text/javascript"></script>
 
   <style>
     video {
@@ -140,15 +139,14 @@
                       let base64Data = tackPhoto();
                       if(base64Data){
                         //upload photo for compare
-                        // alert(uploadURL + "/alis/searchFace")
+                        // alert(uploadURLS + "/alis/searchFace")
                         $.post(uploadURLS + "/alis/searchFace", {base64Data: base64Data, refID: scheduleID} ,function(data){
-                          getScheduleCheckIn();
-                          if(data.status==0){
-                            // alert(data.msg);
-                          }else{
-                            // alert(data.msg);
+                          // alert(data)
+                          if(data.status<9){
+                            showResultMsg(data.status, data.msg);
                           }
                           $("#res").html(data.msg);
+                          getScheduleCheckIn();
                         });
                       }
                       faceflag = false;
@@ -195,16 +193,27 @@
       getScheduleList();
     });
 
+    function showResultMsg(kind, msg){
+      let c = ["green", "red", "orange"];
+      //根据不同标识，显示不同风格（字体颜色）。1秒后自动关闭
+      let jc = $.dialog({
+          title: false,
+          content: '<strong style="font-size: 20em; color:' + c[kind] + ';">' + msg + '</strong>',
+          autoClose: '|1000',
+          animation: 'scale',
+          closeAnimation: 'zoom'
+      });
+      setTimeout(() => {
+            jc.close();
+      }, 1000);    
+    }
 
     function getScheduleList(){
-      alert(currHost)
       getComboList("scheduleID","dbo.getCurrScheduleList('" + currHost + "')","ID","title","typeID=0 order by ID",1);
     }
 
     function getScheduleCheckIn(){
-      alert(scheduleID)
       $.get("classControl.asp?op=getScheduleCheckIn&refID=" + scheduleID + "&times=" + (new Date().getTime()),function(re){
-        alert(unescape(re));
         var ar = new Array();
         ar = unescape(re).split("|");
         if(ar > ""){
