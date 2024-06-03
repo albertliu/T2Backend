@@ -54,7 +54,8 @@
 			arr.push("<th width='12%'>报名表样式</th>");
 			arr.push("<th width='5%'>状态</th>");
 			arr.push("<th width='10%'>显示顺序</th>");
-			arr.push("<th width='15%'>备注</th>");
+			arr.push("<th width='10%'>备注</th>");
+			arr.push("<th width='5%'>计划</th>");
 			arr.push("</tr>");
 			arr.push("</thead>");
 			arr.push("<tbody id='tbody'>");
@@ -77,12 +78,18 @@
 					arr.push("<td class='left'>" + ar1[6] + "</td>");
 					arr.push("<td class='left'>" + ar1[22] + "</td>");
 					arr.push("<td class='left'>" + ar1[7] + "</td>");
+					if(ar1[23]>0){
+						arr.push("<td class='left'><a href='javascript:showStandardSchedule(\"" + ar1[1] + "\",\"" + ar1[2] + "\");'>" + ar1[23] + "</a></td>");
+					}else{
+						arr.push("<td>&nbsp;</td>");
+					}
 					arr.push("</tr>");
 				});
 			}
 			arr.push("</tbody>");
 			arr.push("<tfoot>");
 			arr.push("<tr>");
+			arr.push("<th>&nbsp;</th>");
 			arr.push("<th>&nbsp;</th>");
 			arr.push("<th>&nbsp;</th>");
 			arr.push("<th>&nbsp;</th>");

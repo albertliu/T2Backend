@@ -283,18 +283,98 @@ if(op == "getClassScheduleInfo"){
 	Session(op) = ssql;
 	Response.Write(escape(result));/**/
 	//Response.Write(escape(sql));
-}	
+}
 
 if(op == "updateClassSchedule"){
 	result = 0;
 	//@ID int,@seq int,@kindID int,@typeID int,@hours int,@period varchar(50),@theDate varchar(50),@teacher varchar(50),@memo varchar(500),@registerID
-	sql = "exec updateClassSchedule " + nodeID + "," + String(Request.QueryString("seq")) + "," + kindID + "," + refID + "," + String(Request.QueryString("online")) + "," + String(Request.QueryString("hours")) + ",'" + String(Request.QueryString("period")) + "','" + String(Request.QueryString("theDate")) + "','" + String(Request.QueryString("teacher")) + "','" + unescape(String(Request.QueryString("address"))) + "','" + memo + "','" + currUser + "'";
+	sql = "exec updateClassSchedule " + nodeID + "," + String(Request.QueryString("seq")) + "," + kindID + "," + refID + "," + String(Request.QueryString("online")) + "," + String(Request.QueryString("hours")) + ",'" + String(Request.QueryString("period")) + "','" + String(Request.QueryString("theDate")) + "','" + String(Request.QueryString("teacher")) + "','" + unescape(String(Request.QueryString("address"))) + "','" + item + "','" + memo + "','" + currUser + "'";
 	rs = conn.Execute(sql);
 	if (!rs.EOF){
 		result = rs("status").value + "|" + rs("msg").value;
 	}
 
 	Response.Write(escape(result));
+	//Response.Write(escape(sql));
+}
+
+if(op == "updateStandardSchedule"){
+	result = 0;	
+	sql = "exec updateStandardSchedule " + nodeID + ",'" + String(Request.QueryString("courseID")) + "'," + String(Request.QueryString("seq")) + "," + kindID + "," + refID + "," + String(Request.QueryString("online")) + "," + String(Request.QueryString("hours")) + ",'" + String(Request.QueryString("period")) + "','" + item + "','" + memo + "','" + currUser + "'";
+	
+	rs = conn.Execute(sql);
+	if (!rs.EOF){
+		result = rs("status").value + "|" + rs("msg").value + "|" + rs("ID").value;
+	}
+	/**/
+	Response.Write(escape(result));
+	//Response.Write(escape(sql));
+}
+
+if(op == "getStandardSchedule"){
+	var s = "";
+	where = "";
+	//
+	if(refID > ""){ // 
+		s = "courseID='" + refID + "'";
+		if(where > ""){
+			where = where + " and " + s;
+		}else{
+			where = s;
+		}
+	}
+	//如果有类别
+	if(keyID > ""){ // 
+		s = "online='" + keyID + "'";
+		if(where > ""){
+			where = where + " and " + s;
+		}else{
+			where = s;
+		}
+	}
+
+	if(where>""){
+		where = " where " + where;
+	}
+
+	sql = " FROM v_schedule " + where;
+	sql = "SELECT * " + sql + " order by seq";
+
+	result = "";
+	
+	rs = conn.Execute(sql);
+	while (!rs.EOF){
+		result += "%%" + rs("ID").value + "|" + rs("courseID").value + "|" + rs("seq").value + "|" + rs("kindID").value + "|" + rs("typeID").value + "|" + rs("status").value;
+		//6
+		result += "|" + rs("hours").value + "|" + rs("period").value + "|" + rs("item").value;
+		//9
+		result += "|" + rs("kindName").value + "|" + rs("typeName").value + "|" + rs("memo").value + "|" + rs("regDate").value;
+		//13
+		result += "|" + rs("registerID").value + "|" + rs("registerName").value + "|" + rs("online").value + "|" + rs("onlineName").value;
+		rs.MoveNext();
+	}
+	result = result.substr(2);
+	Session(op) = ssql;
+	Response.Write(escape(result));/**/
+	//Response.Write(escape(sql));
+}
+
+if(op == "getStandardScheduleInfo"){
+	sql = "SELECT * FROM v_schedule where ID=" + nodeID;
+	result = "";
+	
+	rs = conn.Execute(sql);
+	if (!rs.EOF){
+		result = rs("ID").value + "|" + rs("courseID").value + "|" + rs("seq").value + "|" + rs("kindID").value + "|" + rs("typeID").value + "|" + rs("status").value;
+		//6
+		result += "|" + rs("hours").value + "|" + rs("period").value + "|" + rs("item").value;
+		//9
+		result += "|" + rs("kindName").value + "|" + rs("typeName").value + "|" + rs("memo").value + "|" + rs("regDate").value;
+		//13
+		result += "|" + rs("registerID").value + "|" + rs("registerName").value + "|" + rs("online").value + "|" + rs("onlineName").value;
+	}
+	Session(op) = ssql;
+	Response.Write(escape(result));/**/
 	//Response.Write(escape(sql));
 }
 
@@ -352,6 +432,13 @@ if(op == "getScheduleCheckIn"){
 	}
 	rs.Close();
 	Response.Write(escape(result));/**/
+	//Response.Write(escape(sql));
+}
+
+if(op == "delStandardSchedule"){
+	sql = "exec delStandardSchedule '" + nodeID + "','" + where + "','" + currUser + "'";
+	execSQL(sql);
+	Response.Write(nodeID);
 	//Response.Write(escape(sql));
 }
 %>

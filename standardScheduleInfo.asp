@@ -38,8 +38,6 @@
 		getDicList("scheduleKind","kindID",0);
 		getDicList("scheduleType","typeID",0);
 		getDicList("online","online",0);
-		getComList("teacher","v_courseTeacherList a, courseInfo b","teacherID","teacherName","a.courseID=b.certID and a.status=0 and b.courseID='" + refID + "' group by teacherID,teacherName",1);
-		$("#theDate").click(function(){WdatePicker();});
 		
 		$.ajaxSetup({ 
 			async: false 
@@ -53,29 +51,49 @@
 		$("#btnSave").click(function(){
 			saveNode();
 		});
+		
+		$("#btnDel").click(function(){
+			if(confirm('确定删除该课节吗?')){
+				var x = prompt("请输入删除原因：","");
+				if(x && x>""){
+					$.get("classControl.asp?op=delStandardSchedule&nodeID=" + nodeID + "&where=" + escape(x) + "&times=" + (new Date().getTime()),function(data){
+						//alert(unescape(data));
+						alert("已成功删除。","信息提示");
+						updateCount += 1;
+						op = 1;
+						setButton();
+					});
+				}
+			}
+		});
+		
+		$("#typeID").change(function(){
+			if($("#typeID").val()==0){
+				$("#period").val("08:30-11:30");
+			}else{
+				$("#period").val("12:30-15:30");
+			}
+		});
 	});
 
 	function getNodeInfo(id){
-		$.get("classControl.asp?op=getClassScheduleInfo&nodeID=" + id + "&times=" + (new Date().getTime()),function(re){
+		$.get("classControl.asp?op=getStandardScheduleInfo&nodeID=" + id + "&times=" + (new Date().getTime()),function(re){
 			//jAlert(unescape(re));
 			var ar = new Array();
 			ar = unescape(re).split("|");
 			if(ar > ""){
 				$("#ID").val(ar[0]);
-				$("#seq").val(ar[3]);
-				$("#kindID").val(ar[4]);
-				$("#typeID").val(ar[5]);
-				$("#hours").val(ar[7]);
-				$("#period").val(ar[8]);
-				$("#theDate").val(ar[9]);
-				$("#theWeek").val(ar[10]);
-				$("#item").val(ar[11]);
-				$("#address").val(ar[12]);
-				$("#teacher").val(ar[13]);
-				$("#memo").val(ar[17]);
-				$("#regDate").val(ar[18]);
-				$("#registerName").val(ar[20]);
-				$("#online").val(ar[21]);
+				$("#courseID").val(ar[1]);
+				$("#seq").val(ar[2]);
+				$("#kindID").val(ar[3]);
+				$("#typeID").val(ar[4]);
+				$("#hours").val(ar[6]);
+				$("#period").val(ar[7]);
+				$("#item").val(ar[8]);
+				$("#online").val(ar[15]);
+				$("#memo").val(ar[11]);
+				$("#regDate").val(ar[12]);
+				$("#registerName").val(ar[14]);
 			}else{
 				jAlert("该信息未找到！","信息提示");
 				setEmpty();
@@ -89,10 +107,6 @@
 			jAlert("课次不能为空");
 			return false;
 		}
-		if($("#theDate").val()==""){
-			jAlert("上课日期不能为空");
-			return false;
-		}
 		if($("#period").val()==""){
 			jAlert("上课时段不能为空");
 			return false;
@@ -102,11 +116,15 @@
 			return false;
 		}
 		//alert($("#ID").val() + "&refID=" + $("#agencyID").val() + "&agencyName=" + ($("#agencyName").val()) + "&title=" + ($("#title").val()) + "&linker=" +  ($("#linker").val()) + "&kindID=" + $("#kindID").val() + "&status=" + $("#status").val() + "&phone=" +  ($("#phone").val()) + "&email=" + ($("#email").val()) + "&address=" + ($("#address").val()) + "&memo=" + ($("#memo").val()));
-		$.get("classControl.asp?op=updateClassSchedule&nodeID=" + $("#ID").val() + "&online=" + $("#online").val() + "&seq=" + $("#seq").val() + "&refID=" + $("#typeID").val() + "&period=" + $("#period").val() + "&hours=" +  $("#hours").val() + "&kindID=" + $("#kindID").val() + "&teacher=" + $("#teacher").val() + "&theDate=" +  $("#theDate").val() + "&address=" + escape($("#address").val()) + "&item=" + escape($("#item").val()) + "&memo=" + escape($("#memo").val()) + "&times=" + (new Date().getTime()),function(re){
-			//alert(unescape(re));
+		$.get("classControl.asp?op=updateStandardSchedule&nodeID=" + $("#ID").val() + "&courseID=" + $("#courseID").val() + "&online=" + $("#online").val() + "&seq=" + $("#seq").val() + "&refID=" + $("#typeID").val() + "&period=" + $("#period").val() + "&hours=" +  $("#hours").val() + "&kindID=" + $("#kindID").val() + "&item=" + escape($("#item").val()) + "&memo=" + escape($("#memo").val()) + "&times=" + (new Date().getTime()),function(re){
+			// alert(unescape(re));
 			var ar = new Array();
 			ar = unescape(re).split("|");
 			if(ar[0] == 0){
+				if(op==1){
+					nodeID = ar[2];
+				}
+				getNodeInfo(nodeID);
 				jAlert("保存成功！","信息提示");
 				updateCount += 1;
 			}else{
@@ -118,9 +136,31 @@
 	
 	function setButton(){
 		$("#btnSave").hide();
-		if(checkRole("operator") || checkRole("partner") || checkRole("adviser")){
+		$("#btnDel").hide();
+		if(checkPermission("courseAdd")){
 			$("#btnSave").show();
+			if(op ==1){
+				setEmpty();
+			}else{
+				$("#btnDel").show();
+			}
 		}
+	}
+	
+	function setEmpty(){
+		$("#ID").val(0);
+		$("#courseID").val(refID);
+		$("#seq").val(1);
+		$("#kindID").val(0);
+		$("#typeID").val(0);
+		$("#hours").val(4);
+		$("#period").val("08:30-11:30");
+		$("#item").val("");
+		$("#online").val(0);
+		$("#memo").val("");
+		$("#regDate").val(currDate);
+		$("#registerID").val(currUser);
+		$("#registerName").val(currUserName);
 	}
 	
 	function getUpdateCount(){
@@ -140,14 +180,8 @@
 			<form id="detailCover" name="detailCover" style="width:98%;float:right;margin:1px;padding-left:2px;background:#eefaf8;">
 			<table>
 			<tr>
-				<td align="right">课次</td><input id="ID" type="hidden" />
+				<td align="right">课次</td><input id="ID" type="hidden" /><input id="courseID" type="hidden" />
 				<td><input class="mustFill" type="text" id="seq" size="25" /></td>
-				<td align="right">上课日期</td>
-				<td><input class="mustFill" type="text" id="theDate" size="25" /></td>
-			</tr>
-			<tr>
-				<td align="right">星期</td>
-				<td><input type="text" id="theWeek" size="25" class="readOnly" readOnly="true" /></td>
 				<td align="right">时段</td>
 				<td><select id="typeID" style="width:100px;"></select></td>
 			</tr>
@@ -160,14 +194,8 @@
 			<tr>
 				<td align="right">上课类型</td>
 				<td><select id="kindID" style="width:100px;"></select></td>
-				<td align="right">授课教师</td>
-				<td><select id="teacher" style="width:100px;"></select></td>
-			</tr>
-			<tr>
 				<td align="right">上课形式</td>
 				<td><select id="online" style="width:100px;"></select></td>
-				<td align="right">教室</td>
-				<td><input type="text" id="address" size="25"/></td>
 			</tr>
 			<tr>
 				<td align="right">课程内容</td>
@@ -192,6 +220,7 @@
 	<div style="width:100%;float:left;margin:10;height:4px;"></div>
   	<div class="comm" align="center" style="width:99%;float:top;margin:1px;background:#fccffc;">
   	<input class="button" type="button" id="btnSave" value="保存" />&nbsp;
+  	<input class="button" type="button" id="btnDel" value="删除" />&nbsp;
   </div>
 </div>
 </body>
