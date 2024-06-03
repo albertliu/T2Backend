@@ -674,7 +674,7 @@
 				return false;
 			}
 			if(confirm("确定要生成这" + selCount + "个存档资料吗？")){
-				$.post(uploadURL + "/outfiles/generate_emergency_exam_materials_byclass?refID=" + nodeID + "&keyID=2&registerID=" + currUser, {selList:selList}, function(data){
+				$.post(uploadURL + "/outfiles/generate_emergency_exam_materials_byclass?refID=" + nodeID + "&keyID=2&registerID=" + currUser + "&host=" + currHost, {selList:selList}, function(data){
 					if(data>"0"){
 						// generateZip("e");
 						alert("已生成" + data + "份文档");
@@ -693,7 +693,7 @@
 				return false;
 			}
 			if(confirm("确定要生成这" + selCount + "个报名表吗？")){
-				$.post(uploadURL + "/outfiles/generate_emergency_exam_materials_byclass?refID=" + nodeID + "&keyID=5&registerID=" + currUser, {selList:selList}, function(data){
+				$.post(uploadURL + "/outfiles/generate_emergency_exam_materials_byclass?refID=" + nodeID + "&keyID=5&registerID=" + currUser + "&host=" + currHost, {selList:selList}, function(data){
 					if(data>"0"){
 						// generateZip("e");
 						alert("已生成" + data + "份文档");

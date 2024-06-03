@@ -190,16 +190,16 @@
 				}
 
 				var p = 0;
-				if(reex==1 && keyID < 3){
-					if(ar[32]==""){	//employe_filename
-						//情况说明模板
-						getCommitment(ar[1],ar[2],course,sign,sDate,k);
-					}else{
-						//已上传的情况说明图片
-						k = 1;
-						getMaterials5(ar[1],sign,p,k,s,keyID);
-					}
-				}
+				// if(reex==1 && keyID < 3){
+				// 	if(ar[32]==""){	//employe_filename
+				// 		//情况说明模板
+				// 		getCommitment(ar[1],ar[2],course,sign,sDate,k);
+				// 	}else{
+				// 		//已上传的情况说明图片
+				// 		k = 1;
+				// 		getMaterials5(ar[1],sign,p,k,s,keyID);
+				// 	}
+				// }
 				// if(keyID == 2){
 				if(keyID < 3){
 					//打印学历证明、身份证
