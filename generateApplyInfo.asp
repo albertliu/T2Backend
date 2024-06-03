@@ -1141,7 +1141,7 @@
 		$("#btnZip").hide();
 		$("#btnGen").hide();
 		$("#generateApplyZip").hide();
-		$("#generateMZip").hide();
+		// $("#generateMZip").hide();
 		$("#azip").hide();
 		$("#doImportApply").hide();
 		$("#doImportScore").hide();
