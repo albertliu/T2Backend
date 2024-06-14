@@ -298,7 +298,7 @@ if(op == "getVideoList"){
 	}
 	//如果有课程
 	if(refID > ""){ // 
-		s = "videoID in(select videoID from lessonVideoList where lessonID in(select lessonID from lessonInfo where courseID='" + refID + "'))";
+		s = "videoID in(select videoID from lessonVideoList where lessonID in(select lessonID from [courseLessonList] where courseID='" + refID + "'))";
 		if(where > ""){
 			where = where + " and " + s;
 		}else{

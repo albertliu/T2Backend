@@ -81,7 +81,7 @@
 			arr.push("<th width='12%'>申报名称</th>");
 			arr.push("<th width='8%'>开班编号</th>");
 			arr.push("<th width='4%'>人数</th>");
-			arr.push("<th width='6%'>申报日期</th>");
+			arr.push("<th width='6%'>开课日期</th>");
 			arr.push("<th width='5%'>状态</th>");
 			arr.push("<th width='5%'>类别</th>");
 			arr.push("<th width='6%'>申报导入</th>");

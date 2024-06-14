@@ -25,29 +25,41 @@
 
   <style>
     video {
-      margin-left: 30px;
-      margin-top: 30px;
+      margin-left: 1px;
+      margin-top: 1px;
+      /* top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      margin: auto; */
       position: absolute;
       transform: rotateY(180deg);
       -webkit-transform: rotateY(180deg);
       -moz-transform: rotateY(180deg);
     }
     canvas {
-      margin-left: 30px;
-      margin-top: 30px;
+      margin-left: 1px;
+      margin-top: 1px;
+      /* top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      margin: auto; */
       position: absolute;
     }
     .tip-box {
-        font-size: 1.5em;
+        font-size: 2em;
         color: blue;
         font-weight: bold;
         margin: 10px;
+        text-align: center;
     }
     .tip-box1 {
         font-size: 1.5em;
         color: red;
         font-weight: bold;
         margin: 10px;
+        text-align: center;
     }
     .tip {
         font-size: 1.5em;
@@ -61,6 +73,14 @@
     .combobox-item{
       font-weight:bold;
       font-size: 1.5em;
+    }
+    .vbox{
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      margin: auto;
     }
     .combobox-item-selected{
       font-weight:bold;
@@ -80,6 +100,36 @@
     var scheduleID = 0;
 
     $(document).ready(function (){
+      $('#dg1').datagrid({
+          url:'',
+          columns:[[
+              {field:'username',title:'身份证号',width:'70%'},
+              {field:'name',title:'姓名',width:'30%',align:'left'}
+          ]]
+      });
+      $('#dg2').datagrid({
+          url:'',
+          columns:[[
+              {field:'username',title:'身份证号',width:'50%'},
+              {field:'name',title:'姓名',width:'20%',align:'left'},
+	            {field:'photo_filename',title:'照片',width:'30%',align:'center',formatter: function(value,row,index){
+									var s = "";
+									if(row.photo_filename > ""){
+										s = '<img style="width:40px;" src="users' + row.photo_filename + '?times=' + (new Date().getTime()) + '"></a>';
+									}
+									return s;
+								}
+        			}
+          ]]
+      });
+      //更改的是datagrid中的数据
+      $('.datagrid-cell').css('font-size','18px');
+      //datagrid中的列名称
+      $('.datagrid-header .datagrid-cell span ').css('font-size','18px');
+      //标题
+      $('.panel-title ').css('font-size','36px'); 
+      //分页工具栏
+      // $('.datagrid-pager').css('display','none');
       var video = document.getElementById('video');
       var canvas = document.getElementById('canvas');
       var context = canvas.getContext('2d');
@@ -142,11 +192,12 @@
                         // alert(uploadURLS + "/alis/searchFace")
                         $.post(uploadURLS + "/alis/searchFace", {base64Data: base64Data, refID: scheduleID} ,function(data){
                           // alert(data)
-                          if(data.status<9){
+                          if(data.status < 9){
                             showResultMsg(data.status, data.msg);
                           }
                           $("#res").html(data.msg);
                           getScheduleCheckIn();
+                          getCheckinList();
                         });
                       }
                       faceflag = false;
@@ -168,6 +219,7 @@
         onChange: function(val){
           if(val>""){
             scheduleID = val;
+            getCheckinList();
           }else{
             scheduleID = 0;
           }
@@ -198,8 +250,8 @@
       //根据不同标识，显示不同风格（字体颜色）。1秒后自动关闭
       let jc = $.dialog({
           title: false,
-          content: '<strong style="font-size: 20em; color:' + c[kind] + ';">' + msg + '</strong>',
-          autoClose: '|1000',
+          content: '<strong style="font-size: 15em; color:' + c[kind] + ';">' + msg + '</strong>',
+          autoClose: '|500',
           animation: 'scale',
           closeAnimation: 'zoom'
       });
@@ -228,30 +280,56 @@
       });
     }
 
+		function getCheckinList(){
+      if(scheduleID > 0){
+        $.getJSON(uploadURLS + "/public/getScheduleCheckInList?refID=" + scheduleID + "&times=" + (new Date().getTime()),function(re){
+          $("#dg1").datagrid("loadData",re);
+        });
+        $.getJSON(uploadURLS + "/public/getScheduleNoCheckInList?refID=" + scheduleID + "&times=" + (new Date().getTime()),function(re){
+          $("#dg2").datagrid("loadData",re);
+        });
+      }
+		}
+
   </script>
 </head>
 <body>
   <div>
-    <table><tr>
-      <td style="width:20%;"><span class="tip">签到人数：</span><td>
-      <td style="width:15%;"><span id="qty0" class="tip1"></span><td>
-      <td style="width:15%;"><span class="tip">本班：</span><td>
-      <td style="width:20%;"><span id="qty1" class="tip1"></span><td>
-      <td style="width:15%;"><span class="tip">其他：</span><td>
-      <td style="width:15%;"><span id="qty2" class="tip1"></span><td>
-    </tr></table>
+    <table style="width:100%;">
+    <tr>
+        <td colspan="3">
+          <div class="tip">
+            <span style="font-size:1.1em;">课程表&nbsp;<select id="scheduleID" name="scheduleID" class="easyui-combobox" data-options="height:22,editable:false,panelHeight:'auto',width:300"></select></span>
+            <span id="res" class="tip-box1" style="padding-top: 20px; padding-left: 20px;"></span>
+          </div>
+        </td>
+    </tr>
+    <tr>
+      <td colspan="3" style="width:30%;">
+        <span class="tip">签到人数：</span><span id="qty0" class="tip1"></span>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="tip">本班：</span><span id="qty1" class="tip1"></span>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="tip">其他：</span><span id="qty2" class="tip1"></span>
+      </td>
+    </tr>
+    <tr>
+        <td style="width:25%;" valign="top">
+          <div class="tip">已签到人员：</div>
+          <div><table id="dg1" style="font-size:1.3em;"></table></div>
+        </td>
+        <td style="width:40%;" valign="top">
+          <div>
+            <div id="tip" class="tip-box"></div>
+            <video id="video" width="480" height="360" preload autoplay loop muted></video>
+            <canvas id="canvas" width="480" height="360"></canvas>
+          </div>
+        </td>
+        <td style="width:30%;" valign="top">
+          <div class="tip">本班未签到人员：</div>
+          <div><table id="dg2" style="font-size:1.3em;"></table></div>
+        </td>
+    </tr>
+    </table>
   </div>
 
-  <div class="demo-frame">
-    <div class="tip">
-			课程表&nbsp;<select id="scheduleID" name="scheduleID" class="easyui-combobox" data-options="height:22,editable:false,panelHeight:'auto',width:300"></select>
-    </div>
-    <div style="display: table-cell; vertical-align: middle;">
-      <div id="tip" class="tip-box"></div>
-      <div id="res" class="tip-box1"></div>
-      <video id="video" width="480" height="360" preload autoplay loop muted></video>
-      <canvas id="canvas" width="480" height="360"></canvas>
-    </div>
-  </div>
 </body>
 </html>
