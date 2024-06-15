@@ -202,7 +202,7 @@
                       }
                       faceflag = false;
                       tipFlag = false;
-                  }, 500);
+                  }, 1000);
               }
             }
           } else {
@@ -257,7 +257,7 @@
       });
       setTimeout(() => {
             jc.close();
-      }, 1000);    
+      }, 500);    
     }
 
     function getScheduleList(){
