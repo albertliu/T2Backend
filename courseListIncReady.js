@@ -78,11 +78,7 @@
 					arr.push("<td class='left'>" + ar1[6] + "</td>");
 					arr.push("<td class='left'>" + ar1[22] + "</td>");
 					arr.push("<td class='left'>" + ar1[7] + "</td>");
-					if(ar1[23]>0){
-						arr.push("<td class='left'><a href='javascript:showStandardSchedule(\"" + ar1[1] + "\",\"" + ar1[2] + "\");'>" + ar1[23] + "</a></td>");
-					}else{
-						arr.push("<td>&nbsp;</td>");
-					}
+					arr.push("<td class='left'><a href='javascript:showStandardSchedule(\"" + ar1[1] + "\",\"" + ar1[2] + "\");'>" + ar1[23] + "</a></td>");
 					arr.push("</tr>");
 				});
 			}

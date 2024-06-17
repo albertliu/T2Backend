@@ -43,7 +43,7 @@ if(op == "getCourseList"){
 	sql = " FROM v_courseInfo a left outer join v_courseScheduleQty b on a.courseID=b.courseID " + where;
 	result = getBasketTip(sql,"");
 	ssql = "SELECT a.courseID,courseName,hours,statusName,markName,memo,regDate,registerName" + sql + " order by a.courseID";
-	sql = "SELECT top " + basket + " a.*, b.qty" + sql + " order by a.courseID";
+	sql = "SELECT top " + basket + " a.*, isnull(b.qty,0) as qty" + sql + " order by a.courseID";
 
 	rs = conn.Execute(sql);
 	while (!rs.EOF){
