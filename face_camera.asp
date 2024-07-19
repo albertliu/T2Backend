@@ -11,6 +11,8 @@
 	<meta name="apple-mobile-web-app-status-bar-style" content="black"> 
 	<link href="css/style_inner1.css"  rel="stylesheet" type="text/css" />
 	<link href="css/jquery-confirm.min.css" rel="stylesheet" type="text/css" media="screen" />
+	<link href="css/data_table_mini.css?v=20150411" rel="stylesheet" type="text/css" />
+  <link href="css/jquery.alerts.css" rel="stylesheet" type="text/css" media="screen" />
 	<link rel="stylesheet" type="text/css" href="js/easyui/themes/default/easyui.css?v=1.21">
 	<link rel="stylesheet" type="text/css" href="js/easyui/themes/icon.css?v=1.11">
 
@@ -22,6 +24,8 @@
   <script src="js/tracking.js/data/eye.js"></script>
   <script src="js/tracking.js/data/mouth.js"></script>
 	<script src="js/jquery-confirm.min.js" type="text/javascript"></script>
+  <script language="javascript" type="text/javascript" src="js/jquery.dataTables.min.js?v=1.0"></script>
+  <script src="js/jquery.alerts.js" type="text/javascript"></script>
 
   <style>
     video {
@@ -97,22 +101,78 @@
     var tipFlag = false // 是否检测
     var faceflag = false // 是否进行拍照
     var quality = 0.2;  // 0.2-0.5之间，控制压缩率。越小压缩越大，0.2可以在保证质量的情况下达到最大压缩率。
-    var scheduleID = 0;
+    var start = 0;
 
     $(document).ready(function (){
+      $("#confidence").numberbox("setValue", 63);
+		
+      $("#confidence").numberbox({
+        onChange:function(val) {
+          if(val > 75 || val < 45){
+            $.messager.alert("提示","识别参数应该在45-75范围内。","warning");
+            $("#confidence").numberbox("setValue", 63);
+            return false;
+          }
+        }
+      });
+		
+      $("#btnStart").linkbutton({
+        iconCls:'icon-ok',
+        width:85,
+        height:25,
+        text:'开始考勤',
+        onClick:function() {
+          getSelCart("");
+          if(selCount==0){
+            $.messager.alert("提示","请选择课程。","warning");
+            return false;
+          }else{
+            start = 1;
+            $("#tip").html('考勤已开始。');
+            getScheduleCheckIn();
+            getCheckinList();
+          }
+        }
+      });
+		
+      $("#btnStop").linkbutton({
+        iconCls:'icon-cancel',
+        width:85,
+        height:25,
+        text:'结束考勤',
+        onClick:function() {
+          start = 0;
+          $("#tip").html('考勤已结束。');
+        }
+      });
+
       $('#dg1').datagrid({
           url:'',
           columns:[[
-              {field:'username',title:'身份证号',width:'70%'},
-              {field:'name',title:'姓名',width:'30%',align:'left'}
-          ]]
+              {field:'username',title:'身份证号',width:'50%'},
+              {field:'name',title:'姓名',width:'30%',align:'left'},
+              {field:'classID',title:'班级',width:'30%'}
+          ]],
+          onDblClickRow: function(index, row){
+            //取消签到
+            $.messager.prompt('取消签到', '请输入验证码：', function(r){
+                if (r=="1357"){
+                    //取消此人的签到
+                    $.get("classControl.asp?op=cancelFaceCheckin&nodeID=" + row.ID + "&times=" + (new Date().getTime()),function(re){
+                      jAlert("已取消。");
+                      getCheckinList();
+                    });
+                }
+            });
+          }
       });
       $('#dg2').datagrid({
           url:'',
           columns:[[
-              {field:'username',title:'身份证号',width:'50%'},
+              {field:'username',title:'身份证号',width:'40%'},
               {field:'name',title:'姓名',width:'20%',align:'left'},
-	            {field:'photo_filename',title:'照片',width:'30%',align:'center',formatter: function(value,row,index){
+              {field:'classID',title:'班级',width:'15%'},
+	            {field:'photo_filename',title:'照片',width:'25%',align:'center',formatter: function(value,row,index){
 									var s = "";
 									if(row.photo_filename > ""){
 										s = '<img style="width:40px;" src="users' + row.photo_filename + '?times=' + (new Date().getTime()) + '"></a>';
@@ -153,7 +213,7 @@
       var tra = tracking.track('#video', tracker, { camera: true });
       var timer = null;
       tracker.on('track', function(event) {
-        if (scheduleID>0 && !tipFlag) {
+        if (start>0 && !tipFlag) {
           context.clearRect(0, 0, canvas.width, canvas.height);
 
           if (event.data.length === 0) {
@@ -190,7 +250,7 @@
                       if(base64Data){
                         //upload photo for compare
                         // alert(uploadURLS + "/alis/searchFace")
-                        $.post(uploadURLS + "/alis/searchFace", {base64Data: base64Data, refID: scheduleID} ,function(data){
+                        $.post(uploadURLS + "/alis/searchFace", {base64Data: base64Data, selList: selList, confidence: $("#confidence").numberbox("getValue")} ,function(data){
                           // alert(data)
                           if(data.status < 9){
                             showResultMsg(data.status, data.msg);
@@ -255,17 +315,67 @@
           animation: 'scale',
           closeAnimation: 'zoom'
       });
+      var utterThis = new window.SpeechSynthesisUtterance(msg);
+		  window.speechSynthesis.speak(utterThis);
       setTimeout(() => {
             jc.close();
       }, 500);    
     }
 
     function getScheduleList(){
-      getComboList("scheduleID","dbo.getCurrScheduleList('" + currHost + "')","ID","title","typeID=0 order by ID",1);
+      $.get("classControl.asp?op=getCurrScheduleList&dk=101&times=" + (new Date().getTime()),function(data){
+        // alert(unescape(data))
+        var ar = new Array();
+        ar = (unescape(data)).split("%%");
+        $("#cover").empty();
+        arr = [];	
+        arr.push("<table cellpadding='0' cellspacing='0' border='0' class='display' id='enterTab' width='100%'>");
+        arr.push("<thead>");
+        arr.push("<tr align='center'>");
+        arr.push("<th width='2%'>No</th>");
+        arr.push("<th width='96%'>课程名称</th>");
+        arr.push("<th width='2%'></th>");
+        arr.push("</tr>");
+        arr.push("</thead>");
+        arr.push("<tbody id='tbody'>");
+        if(ar>""){
+          var i = 0;
+          $.each(ar,function(iNum,val){
+            var ar1 = new Array();
+            ar1 = val.split("|");
+            i += 1;
+            arr.push("<tr class='grade0'>");
+            arr.push("<td class='center'>" + i + "</td>");
+            arr.push("<td class='left'>" + ar1[2] + "</td>");
+            arr.push("<td class='left'>" + "<input style='BORDER-TOP-STYLE: none; BORDER-RIGHT-STYLE: none; BORDER-LEFT-STYLE: none; BORDER-BOTTOM-STYLE: none' type='checkbox' value='" + ar1[0] + "' name='visitstockchk' />" + "</td>");
+            arr.push("</tr>");
+          });
+        }
+        arr.push("</tbody>");
+        arr.push("<tfoot>");
+        arr.push("<tr>");
+        arr.push("<th>&nbsp;</th>");
+        arr.push("<th>&nbsp;</th>");
+        arr.push("<th>&nbsp;</th>");
+        arr.push("</tr>");
+        arr.push("</tfoot>");
+        arr.push("</table>");
+        $("#cover").html(arr.join(""));
+        arr = [];
+        $('#enterTab').dataTable({
+          "aaSorting": [],
+          "bFilter": false,
+          "bPaginate": false,
+          "bLengthChange": false,
+          "bInfo": false,
+          "aoColumnDefs": []
+        });
+        // setSel("");
+		  });
     }
 
     function getScheduleCheckIn(){
-      $.get("classControl.asp?op=getScheduleCheckIn&refID=" + scheduleID + "&times=" + (new Date().getTime()),function(re){
+      $.get("classControl.asp?op=getScheduleCheckIn&refID=" + selList + "&times=" + (new Date().getTime()),function(re){
         var ar = new Array();
         ar = unescape(re).split("|");
         if(ar > ""){
@@ -281,11 +391,11 @@
     }
 
 		function getCheckinList(){
-      if(scheduleID > 0){
-        $.getJSON(uploadURLS + "/public/getScheduleCheckInList?refID=" + scheduleID + "&times=" + (new Date().getTime()),function(re){
+      if(selCount > 0){
+        $.getJSON(uploadURLS + "/public/getScheduleCheckInList?selList=" + selList + "&times=" + (new Date().getTime()),function(re){
           $("#dg1").datagrid("loadData",re);
         });
-        $.getJSON(uploadURLS + "/public/getScheduleNoCheckInList?refID=" + scheduleID + "&times=" + (new Date().getTime()),function(re){
+        $.getJSON(uploadURLS + "/public/getScheduleNoCheckInList?selList=" + selList + "&times=" + (new Date().getTime()),function(re){
           $("#dg2").datagrid("loadData",re);
         });
       }
@@ -297,22 +407,22 @@
   <div>
     <table style="width:100%;">
     <tr>
-        <td colspan="3">
-          <div class="tip">
-            <span style="font-size:1.1em;">课程表&nbsp;<select id="scheduleID" name="scheduleID" class="easyui-combobox" data-options="height:22,editable:false,panelHeight:'auto',width:300"></select></span>
-            <span id="res" class="tip-box1" style="padding-top: 20px; padding-left: 20px;"></span>
-          </div>
-        </td>
-    </tr>
-    <tr>
-      <td colspan="3" style="width:30%;">
-        <span class="tip">签到人数：</span><span id="qty0" class="tip1"></span>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="tip">本班：</span><span id="qty1" class="tip1"></span>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="tip">其他：</span><span id="qty2" class="tip1"></span>
-      </td>
+      <td colspan="3">
+        <div>
+          <span class="tip">签到人数：</span><span id="qty0" class="tip1"></span>
+          &nbsp;&nbsp;&nbsp;&nbsp;<span class="tip">本班：</span><span id="qty1" class="tip1"></span>
+          &nbsp;&nbsp;&nbsp;&nbsp;<span class="tip">其他：</span><span id="qty2" class="tip1"></span>
+          <span><a class="easyui-linkbutton" id="btnStart" href="javascript:void(0)"></a></span>&nbsp;&nbsp;
+          <span><a class="easyui-linkbutton" id="btnStop" href="javascript:void(0)"></a></span>&nbsp;&nbsp;
+          <span class="tip">识别参数：<input id="confidence" name="confidence" class="easyui-numberbox" data-options="min:0,height:22,width:50" />&nbsp;45-75&nbsp;&nbsp;</span>&nbsp;&nbsp;
+          <span id="res" class="tip-box1" style="padding-left: 50px;"></span>
+        </div>
+     </td>
     </tr>
     <tr>
         <td style="width:25%;" valign="top">
+          <div id="cover" style="float:top;margin:0px;background:#f8fff8;">
+          </div>
           <div class="tip">已签到人员：</div>
           <div><table id="dg1" style="font-size:1.3em;"></table></div>
         </td>

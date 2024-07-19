@@ -423,6 +423,19 @@ if(op == "generateClassSchedule"){
 	Response.Write(0);
 }
 
+if(op == "getCurrScheduleList"){
+	sql = "select * from [dbo].[getCurrScheduleList]('') where typeID=0";
+	result = "";
+	rs = conn.Execute(sql);
+	while (!rs.EOF){
+		result += "%%" + rs("ID").value + "|" + rs("courseID").value + "|" + rs("title").value;
+		rs.MoveNext();
+	}
+	result = result.substr(2);
+	Response.Write(escape(result));/**/
+	//Response.Write(escape(sql));
+}
+
 if(op == "getScheduleCheckIn"){
 	sql = "exec getScheduleCheckIn " + refID;
 	
@@ -437,6 +450,13 @@ if(op == "getScheduleCheckIn"){
 
 if(op == "delStandardSchedule"){
 	sql = "exec delStandardSchedule '" + nodeID + "','" + where + "','" + currUser + "'";
+	execSQL(sql);
+	Response.Write(nodeID);
+	//Response.Write(escape(sql));
+}
+
+if(op == "cancelFaceCheckin"){
+	sql = "exec cancelFaceCheckin " + nodeID;
 	execSQL(sql);
 	Response.Write(nodeID);
 	//Response.Write(escape(sql));

@@ -49,7 +49,7 @@
 					arr.push("<tr class='grade0'>");
 					for(let key in val){
 						if(key != "sales"){
-							arr.push("<td" + (j>0 ? " class='link1'>" : " class='left'>") + (j>0 ? "<a href='javascript:getRptSalesDetailList(\"" + val["sales"] + "\"," + (j - 1) + ");'>" : "") + (val[key]) + (j>0 ? "</a>" : "") + "</td>");
+							arr.push("<td" + (j>0 ? " class='link1'>" : " class='left'>") + (j>0 && val["sales"] != "*" ? "<a href='javascript:getRptSalesDetailList(\"" + val["sales"] + "\"," + (j - 1) + ");'>" : "") + (val[key]) + (j>0 ? "</a>" : "") + "</td>");
 						}
 						j += 1
 					}

@@ -1805,6 +1805,55 @@
 		});
 	}
 	
+	//nodeID: ;
+	function showEnterCheckin(nodeID,refID){
+		asyncbox.open({
+			id: "enterCheckinList",
+			url:"enterCheckinList.asp?nodeID=" + nodeID + "&refID=" + refID + "&times=" + (new Date().getTime()),
+			title: "线下课程考勤",
+			width: 730,
+			height: 700,
+			cover : {
+	          //透明度
+	          opacity : 0,
+	          //背景颜色
+	           background : '#000'
+	          },
+
+			btnsbar : false,
+			callback : function(action,iframe){
+				//
+			}
+		});
+	}
+	
+	//nodeID: ID; op: 0 浏览 1 新增; mark: 0 不动作  1 有修改时刷新列表;
+	function showClassCheckin(nodeID,keyID,refID,op,mark){
+		let w = $(window).width() - 50;
+		let h = $(window).height() - 50;
+		asyncbox.open({
+			id: "class_checkin",
+			url:"class_checkin.asp?nodeID=" + nodeID + "&refID=" + refID + "&keyID=" + keyID + "&op=" + op + "&p=1&times=" + (new Date().getTime()),
+			title: "班级考勤表",
+			width: w,
+			height: h,
+			cover : {
+	          //透明度
+	          opacity : 0,
+	          //背景颜色
+	           background : '#000'
+	          },
+
+			btnsbar : false,
+			callback : function(action,iframe){	
+				var re = iframe.updateCount;
+				if(re>0 && mark==1){
+					//getClassScheduleList();
+				}
+			}
+		});
+	}
+	
 	//nodeID: ID; op: 0 浏览 1 新增; mark: 0 不动作  1 有修改时刷新列表;
 	function showGeneratePasscardInfo(nodeID,refID,op,mark){
 		asyncbox.open({

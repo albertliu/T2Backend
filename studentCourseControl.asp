@@ -1065,4 +1065,40 @@ if(op == "checkRetake"){
 	Response.Write(result);
 }
 
+if(op == "setCheckPass"){
+	sql = "exec setCheckPass " + nodeID + ",'" + currUser + "'";
+	execSQL(sql);
+	Response.Write(0);
+}
+
+if(op == "getEnterCheckinListOnClass"){
+	result = "";
+	sql = "exec getEnterCheckinListOnClass " + nodeID + "," + refID;
+	
+	rs = conn.Execute(sql);
+	while (!rs.EOF){
+		result += "%%" + rs("theDate").value + "|" + rs("item").value + "|" + rs("teacherName").value + "|" + rs("kindName").value + "|" + rs("classID").value + "|" + rs("file1").value + "|" + rs("file2").value;
+		rs.MoveNext();
+	}
+	rs.Close();
+	result = result.substr(2);/**/
+	Response.Write(escape(result));
+	//Response.Write(escape(sql));
+}
+
+if(op == "getEnterCheckinListOutClass"){
+	result = "";
+	sql = "exec getEnterCheckinListOutClass " + nodeID + "," + refID;
+	
+	rs = conn.Execute(sql);
+	while (!rs.EOF){
+		result += "%%" + rs("theDate").value + "|" + rs("item").value + "|" + rs("teacherName").value + "|" + rs("kindName").value + "|" + rs("classID").value + "|" + rs("file1").value + "|" + rs("file2").value;
+		rs.MoveNext();
+	}
+	rs.Close();
+	result = result.substr(2);/**/
+	Response.Write(escape(result));
+	//Response.Write(escape(sql));
+}
+
 %>

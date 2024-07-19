@@ -231,6 +231,23 @@
 			showCompletionList(nodeID,0,0,0);
 		});
 
+		$("#btnShowEnterCheckin").click(function(){
+			showEnterCheckin(nodeID,0,0,0);
+		});
+
+		$("#btnCheckPass").click(function(){
+			jConfirm('确定要设置/取消免签吗?', '确认对话框', function(r) {
+				if(r){
+					$.get("studentCourseControl.asp?op=setCheckPass&nodeID=" + nodeID + "&times=" + (new Date().getTime()),function(re){
+						// alert(unescape(re))
+						$.messager.alert("提示","操作成功。","info");
+						updateCount += 1;
+						getNodeInfo(nodeID);
+					});
+				}
+			});
+		});
+
 		$("#btnEntryform").click(function(){
 			generateMaterials();
 		});
@@ -244,10 +261,9 @@
 			//window.open("entryform_C13.asp?keyID=0&nodeID=" + nodeID + "&refID=" + refID, "_self");
 		});
 
-		// $("#btnPreview").click(function(){
-		// 	// printEntryform(0);
-		// 	printEntryform1(1);
-		// });
+		$("#btnProof").click(function(){
+			window.open("trainingProof.asp?nodeID=" + nodeID + "&keyID=1&times=" + (new Date().getTime()), "_self");
+		});
 
 		$("#btnGenSignForm").click(function(){
 			generateEntryFormSign();
@@ -1071,12 +1087,14 @@
 					<td><input id="submiterName" name="submiterName" class="easyui-textbox" data-options="height:22,width:90,readonly:true" />&nbsp;&nbsp;<input id="submitDate" name="submitDate" class="easyui-textbox" data-options="height:22,width:90,readonly:true" /></td>
 				</tr>
 				<tr>
-					<td align="right">考试条件</td>
-					<td><input id="completionPass" name="completionPass" class="easyui-textbox" data-options="height:22,width:100,readonly:true" />&nbsp;课时%</td>
-					<td align="right">实际完成</td>
-					<td>
-						<input id="completion" name="completion" class="easyui-textbox" data-options="height:22,width:100,readonly:true" />&nbsp;%
-						&nbsp;<input class="button" type="button" id="btnShowCompletion" value="查看详情" />
+					<td align="right">在线进度</td>
+					<td colspan="3">
+						<input id="completion" name="completion" class="easyui-textbox" data-options="height:22,width:50,readonly:true" />&nbsp;%
+						&nbsp;<input class="button" type="button" id="btnShowCompletion" value="在线考勤" />
+						&nbsp;<input class="button" type="button" id="btnShowEnterCheckin" value="线下考勤" />
+						&nbsp;<input class="button" type="button" id="btnProof" value="培训证明" />
+						&nbsp;&nbsp;<input class="easyui-checkbox" id="check_pass" name="check_pass" value="1" />
+						&nbsp;<input class="button" type="button" id="btnCheckPass" value="免签" />
 					</td>
 				</tr>
 				<tr id="enterTrail1">

@@ -37,6 +37,8 @@
 	var cardJson = "";
 	var fromCard = 0;
 	var lastCourseID = "";
+	let scanPhoto = 0;
+	let hasPhoto = 0;
 	<!--#include file="js/commFunction.js"-->
 	<!--#include file="js/EST_reader.js"-->
 	$(document).ready(function (){
@@ -352,6 +354,13 @@
 				}
 				$("#linker").textbox("setValue",ar[34]);
 				$("#sex").combobox("setValue",ar[35]);
+				if(ar[39]==1){
+					$("#scanPhoto").checkbox({checked:true});
+					scanPhoto = 1;
+				}else{
+					$("#scanPhoto").checkbox({checked:false});
+					scanPhoto = 0;
+				}
 				
 				if(ar[25]==""){
 					$("#unit").textbox("textbox").css("border", "solid 1px red");
@@ -368,9 +377,11 @@
 				if(ar[15] > ""){
 					$("#img_photo").attr("src","/users" + ar[15] + "?times=" + (new Date().getTime()));
 					$("#img_photo").attr("value","/users" + ar[15]);
+					hasPhoto = 1;
 				}else{
 					$("#img_photo").attr("src","images/blank_photo.png" + "?times=" + (new Date().getTime()));
 					arr.push("," + "photo");
+					hasPhoto = 0;
 				}
 				if(ar[16] > ""){
 					$("#img_cardA").attr("src","/users" + ar[16] + "?times=" + (new Date().getTime()));
@@ -891,7 +902,10 @@
 <div style="padding: 5px;text-align:center;overflow:hidden;margin:0 auto;flot:right;background: #eeeeff;" id="xx">
 	<table style="width:99%;">
 	<tr>
-		<td align="right" style="width:15%;"><img id="add_img_photo" src="images/plus.png" tag="plus" /></td>
+		<td align="right" style="width:15%;">
+			<img id="add_img_photo" src="images/plus.png" tag="plus" />
+			<div style="padding-top:5px;"><input class="easyui-checkbox" id="scanPhoto" name="scanPhoto" />识</div>
+		</td>
 		<td align="center" style="width:85%;">
 			<img id="img_photo" src="" value="" style='width:100px;border:none;' />
 		</td>
