@@ -481,6 +481,9 @@
 			// window.open("class_archives.asp?nodeID=" + nodeID + "&keyID=1", "_self");
 			outputExcelBySQL('x10','file',nodeID,$("#applyID").val()+' '+$("#courseName").val()+'('+$("#reexamineName").val()+')');
 		});
+		$("#checkin").click(function(){
+			showClassCheckin(nodeID,"A","",0,1);
+		});
 
 		$("#courseID").combobox({
 			onChange: function(val){
@@ -1289,7 +1292,7 @@
 					<input id="address" name="address" class="easyui-textbox" data-options="height:22,width:220" />
 				</td>
 				<td align="right"><input class="button" type="button" id="btnSchedule" value="排课表" /></td>
-				<td><input id="scheduleDate" name="scheduleDate" class="easyui-datebox" data-options="height:22,width:100,readonly:true" />&nbsp;&nbsp;<span id="schedule" style="margin-left:10px;"></span></td>
+				<td><input id="scheduleDate" name="scheduleDate" class="easyui-datebox" data-options="height:22,width:100,readonly:true" />&nbsp;&nbsp;<span id="schedule" style="margin-left:10px;"></span>&nbsp;&nbsp;<span id="checkin" style="margin-left:10px;">考勤</span></td>
 			</tr>
 			<tr>
 				<td align="right">任课教师</td>

@@ -424,7 +424,7 @@ if(op == "generateClassSchedule"){
 }
 
 if(op == "getCurrScheduleList"){
-	sql = "select * from [dbo].[getCurrScheduleList]('') where typeID=0";
+	sql = "select * from [dbo].[getCurrScheduleList]('" + currHost + "') where typeID=0";
 	result = "";
 	rs = conn.Execute(sql);
 	while (!rs.EOF){
