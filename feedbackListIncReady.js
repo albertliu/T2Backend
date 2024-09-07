@@ -60,8 +60,18 @@ function getFeedbackItem(){
 		var arr = new Array();
 		if(data.length>0){
 			arr.push("<table>");
+			let w = [];
+			if(checkRole("emergency")){
+				if(currHost=="fuda"){
+					w = ['C15','C25','C26','C27','C98','C99'];
+				}else{
+					w = ['C25','C26','C27','C98','C99'];
+				}
+			}
 			$.each(data,function(iNum,val){
-				arr.push("<tr><td style='width:85%; color:blue;' class='link1'><a href='javascript:getFeedbackList(\"" + val["certID"] + "\")' style='font-size:1.2em;text-decoration:none;'>" + val["certName"] + "</a></td><td style='width:15%; color:red; padding-left:30px; font-size:1.2em;'>" + nullNoDisp(val["qty"]) + "</td></tr>");
+				if(w.indexOf(val["certID"])==-1){
+					arr.push("<tr><td style='width:85%; color:blue;' class='link1'><a href='javascript:getFeedbackList(\"" + val["certID"] + "\")' style='font-size:1.2em;text-decoration:none;'>" + val["certName"] + "</a></td><td style='width:15%; color:red; padding-left:30px; font-size:1.2em;'>" + nullNoDisp(val["qty"]) + "</td></tr>");
+				}
 			});
 			arr.push("</table>");
 			$("#feedback_item").html(arr.join(""));

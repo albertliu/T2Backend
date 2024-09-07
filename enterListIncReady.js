@@ -75,10 +75,18 @@
 		$("#searchEnterCourseID").combobox({
 			onShowPanel:function() {
 				var id = $("#searchEnterAgencyID").combobox("getValue");
+				let w = "";
+				if(checkRole("emergency")){
+					if(currHost=="fuda"){
+						w = " and certID not in('C15','C25','C26','C27','C98','C99')";
+					}else{
+						w = " and certID not in('C25','C26','C27','C98','C99')";
+					}
+				}
 				if(id > ""){
-					getComboList("searchEnterCourseID","[dbo].[getEnterQtyInPool]('" + currHost + "','" + currPartner + "')","courseID","courseName","agencyID='" + id + "' order by seq",1);
+					getComboList("searchEnterCourseID","[dbo].[getEnterQtyInPool]('" + currHost + "','" + currPartner + "')","courseID","courseName","agencyID='" + id + "'" + w + " order by seq",1);
 				}else{
-					getComboList("searchEnterCourseID","[dbo].[getEnterQtyInPool]('" + currHost + "','" + currPartner + "')","courseID","courseName","1=1 order by seq",1);
+					getComboList("searchEnterCourseID","[dbo].[getEnterQtyInPool]('" + currHost + "','" + currPartner + "')","courseID","courseName","1=1" + w + " order by seq",1);
 				}
 			}
 		});

@@ -98,6 +98,9 @@
 		$("#signOut").click(function(){
 			window.parent.open('default.asp?times=' + (new Date().getTime()),'_self');
 		});
+		if(checkRole("emergency")){
+			$("#menu4").hide();		//统计
+		}
 		
 		window.setInterval(function () {
 			chkUserActive();

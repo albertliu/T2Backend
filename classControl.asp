@@ -419,8 +419,12 @@ if(op == "getRandSummary"){
 
 if(op == "generateClassSchedule"){
 	sql = "exec autoSetClassSchedule '" + refID + "','" + kindID + "','" + currUser + "'";
-	execSQL(sql);
-	Response.Write(0);
+	rs = conn.Execute(sql);
+	if (!rs.EOF){
+		result = rs("re").value;
+	}
+	rs.Close();
+	Response.Write(escape(result));/**/
 }
 
 if(op == "getCurrScheduleList"){

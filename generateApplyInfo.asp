@@ -741,8 +741,12 @@
 			}
 			if(confirm("确定要编排课表吗？")){
 				$.get("classControl.asp?op=generateClassSchedule&refID=" + nodeID + "&kindID=A&times=" + (new Date().getTime()),function(re){
-					getNodeInfo(nodeID);
-					jAlert("课表编排完毕。");
+					if(re==0){
+						getNodeInfo(nodeID);
+						jAlert("课表编排完毕。");
+					}else{
+						jAlert("已有考勤记录，不能重新生成课表。");
+					}
 				});
 			}
 		});

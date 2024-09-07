@@ -6,9 +6,17 @@
 		getComboBoxList("statusNo","searchGenerateApplyMakeup",1);
 		getComboBoxList("applyKind","searchGenerateApplyKindID",1);
 		getComboList("searchGenerateApplyRegister","v_applyRegister","registerID","registerName","host='" + currHost + "' order by ID desc",1);
-		getComboList("searchGenerateApplyCourseID","v_courseInfo","courseID","courseName2","status=0 and mark=1 order by seq",1);
         getComboList("searchGenerateApplyPartner","partnerInfo","ID","title","status=0 and host='" + currHost + "' order by ID",1);
         getComboList("searchGenerateApplySales","userInfo","username","realName","status=0 and host='" + currHost + "' and username in(select username from roleUserList where roleID='saler') order by realName",1);
+		let w = "";
+		if(checkRole("emergency")){
+			if(currHost=="jiang"){
+				w = " and certID not in('C15','C25','C26','C27','C98','C99')";
+			}else{
+				w = " and certID not in('C25','C26','C27','C98','C99')";
+			}
+		}
+		getComboList("searchGenerateApplyCourseID","v_courseInfo","courseID","courseName2","status=0 and mark=1" + w + " order by seq",1);
 
 		if(currPartner > 0){
 			$("#searchGenerateApplyRegister").hide();

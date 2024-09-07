@@ -178,7 +178,7 @@ if (String(Request.QueryString("msg")) != "undefined" &&
 					$.messager.alert("提示","您用的是默认密码，修改后请重新登录。");
 					return false;
 				}
-				if($("#username").val()=="room"){
+				if($("#username").val()=="room" || $("#username").val()=="roomx" || $("#username").val()=="roomha" || $("#username").val()=="roomhx"){
 					self.location = "face_camera.asp?times=" + (new Date().getTime());
 				}else{
 					self.location = "index.asp?times=" + (new Date().getTime());
