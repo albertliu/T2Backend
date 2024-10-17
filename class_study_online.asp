@@ -20,7 +20,7 @@
 <script src="js/jquery-confirm.js" type="text/javascript"></script>
 <script type="text/javascript" src="js/AsyncBox.v1.4.js"></script>
 <script language="javascript" type="text/javascript" src="js/jquery.dataTables.min.js"></script>
-<script src="js/datepicker/WdatePicker.js" type="text/javascript"></script>
+<script src="js/jQuery.print.js" type="text/javascript"></script>
 <script type='text/javascript' src='js/jquery.autocomplete.js'></script>
 <!--#include file="js/clickMenu.js"-->
 
@@ -40,77 +40,54 @@
 		$.ajaxSetup({ 
 			async: false 
 		}); 
-		$("#btnDownload").click(function(){
-			$.getJSON(uploadURL + "/outfiles/generate_excel?tag=class_schedule&mark=班级授课计划&classID=" + nodeID + "&pobj=" + refID + "&keyID=" + keyID ,function(data){
-				if(data>""){
-					asyncbox.alert("请点击此处<a href='" + data + "' target='_blank'>下载文件</a>",'课表',function(action){
-					　　//alert 返回action 值，分别是 'ok'、'close'。
-					　　if(action == 'ok'){
-					　　}
-					　　if(action == 'close'){
-					　　　　//alert('close');
-					　　}
-					});
-					//getNodeInfo(nodeID);
-				}else{
-					alert("没有可供处理的数据。");
-				}
-			});
+
+		$("#print").click(function(){
+			resumePrint();
 		});
-		getClassScheduleList();
+		getClassStudyOnlineList();
 	});
 
-	function getClassScheduleList(){
-		// alert(nodeID + "&kindID=" + keyID)
-		$.get("classControl.asp?op=getClassSchedule&refID=" + nodeID + "&kindID=" + keyID + "&times=" + (new Date().getTime()),function(data){
+	function getClassStudyOnlineList(){
+		$.post(uploadURL + "/public/postCommInfo", {proc:"getClassStudyOnline", params:{classID:nodeID, mark:keyID}}, function(data){
 			//alert(unescape(data));
-			var ar = new Array();
-			ar = (unescape(data)).split("%%");
+			let i = 0;
+			let j = 0;
+			let c = 0;
+			let imgChk = "<img src='images/green_check.png' />";
 			$("#cover").empty();
 			arr = [];					
 			arr.push("<table cellpadding='0' cellspacing='0' border='0' class='display' id='cardTab' width='100%'>");
 			arr.push("<thead>");
 			arr.push("<tr align='center'>");
-			arr.push("<th width='6%'>课次</th>");
-			arr.push("<th width='12%'>上课日期</th>");
-			arr.push("<th width='6%'>星期</th>");
-			arr.push("<th width='6%'>时段</th>");
-			arr.push("<th width='12%'>上课时间</th>");
-			arr.push("<th width='6%'>课时</th>");
-			arr.push("<th width='6%'>类型</th>");
-			arr.push("<th width='10%'>授课教师</th>");
-			arr.push("<th width='18%'>授课内容</th>");
-			arr.push("<th width='6%'>形式</th>");
+			arr.push("<th width='10'>No</th>");
+			arr.push("<th width='150'>身份证</th>");
+			arr.push("<th width='120'>姓名</th>");
+			arr.push("<th>在线课程</th>");
+			arr.push("<th>完成课时</th>");
+			arr.push("<th>练习次数</th>");
+			arr.push("<th>合格数</th>");
+			arr.push("<th>合格率</th>");
 			arr.push("</tr>");
 			arr.push("</thead>");
 			arr.push("<tbody id='tbody'>");
-			if(ar>""){
-				var i = 0;
-				var c = 0;
-				$.each(ar,function(iNum,val){
-					var ar1 = new Array();
-					ar1 = val.split("|");
+			if(data>""){
+				$.each(data,function(iNum,val){
 					i += 1;
-					c = 0;
-					arr.push("<tr class='grade" + c + "'>");
-					arr.push("<td class='center'>" + ar1[3] + "</td>");
-					arr.push("<td class='link1'><a href='javascript:showScheduleInfo(" + ar1[0] + ",\"" + ar1[2] + "\",0,1);'>" + ar1[9] + "</a></td>");
-					arr.push("<td class='left'>" + ar1[10] + "</td>");
-					arr.push("<td class='left'>" + ar1[15] + "</td>");
-					arr.push("<td class='left'>" + ar1[8] + "</td>");
-					arr.push("<td class='left'>" + ar1[7] + "</td>");
-					arr.push("<td class='left'>" + ar1[14] + "</td>");
-					arr.push("<td class='left'>" + nullNoDisp(ar1[16]) + "</td>");
-					arr.push("<td class='left'>" + ar1[11] + "</td>");
-					arr.push("<td class='left'>" + ar1[22] + "</td>");
+					arr.push("<tr class='grade0'>");
+					arr.push("<td>" + i + "</td>");
+					arr.push("<td align='center'>" + val["username"] + "</td>");
+					arr.push("<td align='left'>" + val["name"] + "</td>");
+					arr.push("<td align='left'><a href='javascript:showCompletionList(" + val["enterID"] + ",0,0,0);'>" + val["completion"] + "%</a></td>");
+					arr.push("<td align='left'>" + val["completion_hours"] + "</td>");
+					arr.push("<td align='left'><a style='text-decoration: none;' href='javascript:showExamList(" + val["enterID"] + ",\"" + val["name"] + "\");'>" + val["examTimes"] + "</a></td>");
+					arr.push("<td align='left'>" + val["goodTimes"] + "</td>");
+					arr.push("<td align='left'>" + val["goodRate"] + "%</td>");
 					arr.push("</tr>");
 				});
 			}
 			arr.push("</tbody>");
 			arr.push("<tfoot>");
 			arr.push("<tr>");
-			arr.push("<th>&nbsp;</th>");
-			arr.push("<th>&nbsp;</th>");
 			arr.push("<th>&nbsp;</th>");
 			arr.push("<th>&nbsp;</th>");
 			arr.push("<th>&nbsp;</th>");
@@ -136,6 +113,29 @@
 			});
 		});
 	}
+
+	function resumePrint(){
+		$("#resume_print").print({
+			//Use Global styles
+			globalStyles : true,
+			//Add link with attrbute media=print
+			mediaPrint : false,
+			//Custom stylesheet
+			stylesheet : "",
+			//Print in a hidden iframe
+			iframe : true,
+			//Don't print this
+			noPrintSelector : ".no-print",
+			//Add this at top
+			prepend : "",
+			//Add this on bottom
+			append : "<br/>"
+		});
+		window.setTimeout(function () {
+			window.parent.$.close("class_checkin");
+		}, 1000);
+	}
+
 </script>
 
 </head>
@@ -143,9 +143,13 @@
 <body style="background:#f0f0f0;">
 
 <div id='layout' align='left' style="background:#f0f0f0;">	
-	<div style='text-align:center; margin:10px 0 10px 0;'><h3 style='font-size:1.8em;'>授课计划表</h3></div>
-	<div style='float:right; padding-right:50px;'><input class="button" type="button" id="btnDownload" value="下载" /></div>
-	<div id="cover" style="float:top;background:#f8fff8;">
+	<div id="pageTitle" style="text-align:center;">
+		<input class="button" type="button" id="print" value="打印" />&nbsp;
+	</div>
+	<div id="resume_print" style="border:none;width:100%;margin:1px;background:#ffffff;line-height:18px;">
+		<div style='text-align:center; margin:10px 0 10px 0;'><h3 style='font-size:1.8em;'>班级在线学习情况统计表</h3></div>
+		<div id="cover" style="float:top;background:#f8fff8;">
+		</div>
 	</div>
 </div>
 </body>

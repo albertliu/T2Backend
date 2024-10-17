@@ -110,7 +110,7 @@ body { background:#fff url(../images/bg0.gif); }
 .table_resume td a{text-decoration:none; color:#900;}
 .table_resume td a:hover{text-decoration: underline; color: #F30;}
 .table_resume td a:visited {text-decoration:none; color: #F06;}
-.table_resume_title { text-align:center; background-color:#e0e0e0;}
+.table_resume_title { text-align:center; background-color:#fff;}
 /*
 #img_cardA{-webkit-filter: grayscale(100%);-moz-filter: grayscale(100%);-ms-filter: grayscale(100%);-o-filter: grayscale(100%);filter: grayscale(100%);filter: gray;}
 #img_cardB{-webkit-filter: grayscale(100%);-moz-filter: grayscale(100%);-ms-filter: grayscale(100%);-o-filter: grayscale(100%);filter: grayscale(100%);filter: gray;}
@@ -146,6 +146,7 @@ ul li{
 	text-align: center;
 }
 .ef1p1 { font-family:宋体; font-size:1.1em;}
+.ef1p2 { font-family:宋体; font-size:0.9em;}
 .agreep{
 	font-size:1.3em;
 	text-indent:20px;

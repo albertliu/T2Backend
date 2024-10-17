@@ -376,6 +376,51 @@
 				});
 			}
 		});
+		
+		$("#doApplyUploadSchedule").linkbutton({
+			iconCls:'icon-upload',
+			width:85,
+			height:25,
+			text:'上传课表',
+			onClick:function() {
+				if($("#applyID").textbox("getValue")==""){
+					$.messager.alert("提示","请填写开班编号并保存。","info");
+					return false;
+				}
+				if($("#adviserID").combobox("getValue")==""){
+					$.messager.alert("提示","请选择班主任并保存。","info");
+					return false;
+				}
+				// jConfirm('确定要为这' + selCount + '个人报名吗?', "确认对话框",function(r){
+				$.messager.confirm('确认对话框','确定要上传班级课表吗?<br>可能要花几分钟时间，请稍候...', function(r){
+					if(r){
+						var start = performance.now(); 
+						$.ajax({
+							url: uploadURL + "/public/applyEnter?SMS=1&reexamine=7&register=" + currUserName + "&host=" + currHost + "&classID=" + $("#applyID").textbox("getValue") + "&courseName=" + $("#courseName").val() + "&reex=" + (reexamine==0?"初证":"复审"),
+							type: "post",
+							data: {"selList":$("#adviserID").combobox("getText")},
+							beforeSend: function() {   
+								$.messager.progress();	// 显示进度条
+							},
+							success: function(data){
+								//jAlert(data);
+								if(data.err==0){
+									var end = performance.now(); 
+									jAlert("成功上传数量：" + data.count_s + "; &nbsp;失败数量：" + data.count_e + "; &nbsp;耗时：" + ((end-start)/1000).toFixed(2) + "秒","信息提示");
+								}else{
+									jAlert("操作失败，请稍后再试。" + data.errMsg,"信息提示");
+								}
+								getApplyList();
+								$.messager.progress('close');	// 如果提交成功则隐藏进度条 
+							},
+							error: function () {
+								$.messager.progress('close');
+							}
+						});
+					}
+				});
+			}
+		});
 
 		$("#doApplyDownload").linkbutton({
 			iconCls:'icon-download',
@@ -806,6 +851,7 @@
 				$("#teacher").combobox("setValue",ar[47]);
 				$("#classroom").textbox("setValue",ar[48]);
 				$("#scheduleDate").textbox("setValue",ar[49]);
+				$("#uploadScheduleDate").datebox("setValue",ar[52]);
 				if(ar[49]>""){
 					$("#schedule").html("<a>课程表</a>");
 				}
@@ -1153,6 +1199,7 @@
 		$("#doImportApply").hide();
 		$("#doImportScore").hide();
 		$("#doApplyUploadPhoto").hide();
+		$("#doApplyUploadSchedule").hide();
 		// $("#generateEZip").hide();
 		// $("#generateExamDoc").prop("disabled",true);
 		$("#sendMsgExam").prop("disabled",true);
@@ -1404,6 +1451,7 @@
 			<a class="easyui-linkbutton" id="doApplyEnter" href="javascript:void(0)"></a>
 			<a class="easyui-linkbutton" id="doApplyUpload" href="javascript:void(0)"></a>
 			<a class="easyui-linkbutton" id="doApplyUploadPhoto" href="javascript:void(0)"></a>
+			<a class="easyui-linkbutton" id="doApplyUploadSchedule" href="javascript:void(0)"></a>
 			<a class="easyui-linkbutton" id="doApplyDownload" href="javascript:void(0)"></a>
 			<a class="easyui-linkbutton" id="doApplyCheck" href="javascript:void(0)"></a>
 			&nbsp;&nbsp;<input class="easyui-checkbox" id="showPhoto" name="showPhoto" checked value="1"/>&nbsp;显示照片&nbsp;
