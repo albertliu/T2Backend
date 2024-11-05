@@ -668,11 +668,11 @@
 	}
 	
 	function generateEntryForm(i){
-		window.open("entryform_" + entryform + ".asp?nodeID=" + nodeID + "&refID=" + refID + "&keyID=" + i + "&host=" + currHost + "&times=" + (new Date().getTime()), "_self");
+		window.open("entryform_" + entryform + ".asp?nodeID=" + nodeID + "&status=0&refID=" + refID + "&keyID=" + i + "&host=" + currHost + "&times=" + (new Date().getTime()), "_self");
 	}
 	
 	function printEntryform(k){
-		window.open("entryform_" + entryform + ".asp?keyID=" + k + "&nodeID=" + nodeID + "&refID=" + refID + "&kindID=" + $("#certID").val() + "&host=" + currHost + "&times=" + (new Date().getTime()), "_self");
+		window.open("entryform_" + entryform + ".asp?keyID=" + k + "&status=0&nodeID=" + nodeID + "&refID=" + refID + "&kindID=" + $("#certID").val() + "&host=" + currHost + "&times=" + (new Date().getTime()), "_self");
 	}
 	
 	function printEntryform1(k){
@@ -710,7 +710,7 @@
 	}
 
 	function generateEntryFormSign(){
-		$.getJSON(uploadURL + "/outfiles/generate_entryform_sign?refID=" + refID + "&nodeID=" + nodeID + "&entryform=" + entryform + "&host=" + currHost ,function(data){
+		$.getJSON(uploadURL + "/outfiles/generate_entryform_sign?refID=" + refID + "&status=0&nodeID=" + nodeID + "&entryform=" + entryform + "&host=" + currHost ,function(data){
 			// no action
 		});
 	}

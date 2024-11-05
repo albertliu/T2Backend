@@ -733,7 +733,7 @@
 				});
 			}
 		});
-	
+		/*
 		$("#generateEntryDoc").click(function(){
 			getSelCart("");
 			if(selCount==0){
@@ -751,6 +751,21 @@
 					}
 				});
 			}
+		});
+		*/
+		$("#generateEntryDoc").click(function(){
+			generateEntryDoc(0);
+		});
+	
+		$("#generateEntryDoc1").click(function(){
+			generateEntryDoc(1);
+		});
+
+		$("#btnProof").click(function(){
+			$.get(uploadURL + "/outfiles/get_trainProof_shot?nodeID=" + nodeID, function(data){
+				$.messager.alert("提示","已生成","info");
+				getNodeInfo(nodeID);
+			});
 		});
 
 		$("#showPhoto").checkbox({
@@ -1182,6 +1197,25 @@
 			}
 		});
 	}
+
+	function generateEntryDoc(k){
+		//k: 0 普通  1 带培训证明
+		getSelCart("");
+		if(selCount==0){
+			$.messager.alert("提示","请选择要操作的名单。","info");
+			return false;
+		}
+		if(confirm("确定要生成这" + selCount + "个报名表吗？")){
+			$.post(uploadURL + "/outfiles/generate_emergency_exam_materials_byclass?refID=" + nodeID + "&keyID=5&registerID=" + currUser + "&kindID=" + k + "&host=" + currHost, {selList:selList}, function(data){
+				if(data>"0"){
+					$.messager.alert("提示","已生成" + data + "份文档","info");
+					getApplyList();
+				}else{
+					$.messager.alert("提示","没有可供处理的数据。","info");
+				}
+			});
+		}
+	}
 	
 	function setButton(){
 		var s = $("#status").val();
@@ -1396,6 +1430,8 @@
 						<label style="color:orange;font-size:1.2em;">生成</label><input class="button" type="button" id="generateExamDoc" value="鉴定文档" />
 						<input class="button" type="button" id="generateClassDoc" value="班级文档" />
 						<input class="button" type="button" id="generateEntryDoc" value="报名表" />
+						<input class="button" type="button" id="generateEntryDoc1" value="报名表带证明" />
+						<input class="button" type="button" id="btnProof" value="培训证明" />
 					</span>
 					<span id="btnZip">
 						<label style="color:orange;font-size:1.2em;">打包</label><input class="button" type="button" id="generateEZip" value="鉴定包" />

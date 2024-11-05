@@ -110,7 +110,7 @@
 				jAlert("保存成功！","信息提示");
 				updateCount += 1;
 			}else{
-				jAlert("未能成功保存，教师安排有冲突（" + ar[1] + "）","信息提示");
+				jAlert("未能成功保存，" + ar[1],"信息提示");
 			}
 		});
 		//return false;
