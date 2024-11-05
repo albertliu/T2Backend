@@ -897,6 +897,9 @@
 				if(ar[43] > ""){
 					$("#tzip").html("<a href='/users" + ar[43] + "?" + (new Date().getTime()) + "' target='_blank' style='text-decoration:none;color:green;'>报名表</a>");
 				}
+				if(ar[7] > ""){
+					$("#proof").html("<a href='/users" + ar[7] + "?" + (new Date().getTime()) + "' target='_blank' style='text-decoration:none;color:green;'>&nbsp;&nbsp;培训证明</a>");
+				}
 				//getDownloadFile("generateDiplomaID");
 				nodeID = ar[0];
 				setButton();
@@ -1445,7 +1448,8 @@
 					<span id="ezip" style="margin-left:2px;"></span>&nbsp;&nbsp;
 					<span id="mzip" style="margin-left:2px;"></span>&nbsp;&nbsp;
 					<span id="tzip" style="margin-left:2px;"></span>&nbsp;&nbsp;
-					<span id="azip" style="margin-left:2px;"></span>
+					<span id="azip" style="margin-left:2px;"></span>&nbsp;&nbsp;
+					<span id="proof" style="margin-left:2px;"></span>
 				</td>
 			</tr>
 			</table>
