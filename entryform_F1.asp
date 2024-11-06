@@ -86,7 +86,7 @@
 				course = ar["courseName"];
 				sDate = ar["signatureDate"];
 				price = ar["price"];
-				unit = ar["unit"];
+				unit = ar["hostName"];
 				$("#hostName").html(ar["hostName"]);
 				$("#username").html(ar["username"]);
 				$("#name").html(ar["name"]);
