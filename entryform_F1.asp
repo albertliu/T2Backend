@@ -118,6 +118,8 @@
 					if(reex == 0){	//初训报名表显示学历
 						$("#img_E").attr("src","/users" + ar["edu_filename"] + "?times=" + (new Date().getTime()));
 						$("#f_sign50").attr("src","/users" + sign + "?times=" + (new Date().getTime()));
+					}else{
+						$("#keyItem6").hide();
 					}
 					if(kindID == 1){	//显示培训证明
 						$("#img_P").attr("src","/users" + ar["proof_filename"] + "?times=" + (new Date().getTime()));
