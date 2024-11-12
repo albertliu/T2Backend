@@ -119,7 +119,7 @@
 						$("#img_E").attr("src","/users" + ar["edu_filename"] + "?times=" + (new Date().getTime()));
 						$("#f_sign50").attr("src","/users" + sign + "?times=" + (new Date().getTime()));
 					}else{
-						$("#keyItem6").hide();
+						$("#img_E_stamp").hide();
 					}
 					if(kindID == 1){	//显示培训证明
 						$("#img_P").attr("src","/users" + ar["proof_filename"] + "?times=" + (new Date().getTime()));
@@ -379,7 +379,7 @@
 					</div>
 					<div style="position: absolute; z-index:10;">
 					<div style="float:center; text-align:center;">
-						<span><img src="images/sign_stamp.png" style="width:180px;margin:0px 0px 0px 550px;padding-left:0px;padding-top:260px;opacity:0.6;"></span>
+						<span id="img_E_stamp"><img src="images/sign_stamp.png" style="width:180px;margin:0px 0px 0px 550px;padding-left:0px;padding-top:260px;opacity:0.6;"></span>
 					</div>
 					</div>
 				</div>
