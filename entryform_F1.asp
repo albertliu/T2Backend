@@ -41,6 +41,7 @@
 	var reex = 0;
 	var course = "";
 	var sDate = "";
+	let startDate = "";
 	var price = 0;
 	var unit = "";
 	var host = "";
@@ -85,6 +86,7 @@
 				reex = ar["reexamine"];
 				course = ar["courseName"];
 				sDate = ar["signatureDate"];
+				startDate = ar["startDate"];
 				price = ar["price"];
 				unit = ar["hostName"];
 				$("#hostName").html(ar["hostName"]);
@@ -129,14 +131,15 @@
 					$("#f_sign20").attr("src","/users" + sign + "?times=" + (new Date().getTime()));
 					$("#f_sign30").attr("src","/users" + sign + "?times=" + (new Date().getTime()));
 					let date1 = new Date(sDate).format("yyyy.MM.dd");
+					let date2 = new Date(startDate).format("yyyy.MM.dd");
 					$("#date").html(date1.substr(0,4));
 					$("#dateM").html(date1.substr(5,2));
 					$("#dateD").html(date1.substr(8,2));
 					$("#date1").html(date1.substr(0,4));
 					$("#date1M").html(date1.substr(5,2));
 					$("#date1D").html(date1.substr(8,2));
-					$("#date0").html(date1.substr(0,4));
-					$("#date0M").html(date1.substr(5,2));
+					$("#date0").html(date2.substr(0,4));
+					$("#date0M").html(date2.substr(5,2));
 
 				}else{
 					$("#f_sign20").hide();
