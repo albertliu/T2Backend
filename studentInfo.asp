@@ -349,9 +349,9 @@
 				$("#scanID").val(ar[38]);
 				$("#IDdateEnd").datebox("setValue",ar[30]);
 				$("#IDdateEnd").datebox("readonly",false);
-				if(ar[29]>"" && ar[30]=="" && ar[38]==0){	// 扫身份证且截至日期为长期的，不允许修改。
-					$("#IDdateEnd").combo("readonly",true);
-				}
+				// if(ar[29]>"" && ar[30]=="" && ar[38]==0){	// 扫身份证且截至日期为长期的，不允许修改。
+					// $("#IDdateEnd").combo("readonly",true);
+				// }
 				$("#linker").textbox("setValue",ar[34]);
 				$("#sex").combobox("setValue",ar[35]);
 				if(ar[39]==1){
