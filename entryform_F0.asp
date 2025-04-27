@@ -225,8 +225,8 @@
 					<tr>
 						<td align="center" class='table_resume_title' height='100px'>岗位类别</td>
 						<td align="left" colspan="4" style="padding:20px;">
-							<div style="font-size:1em;"><input type="checkbox" id="CC23" />&nbsp;主要负责人 &nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" id="CC22" />&nbsp;安全管理人 &nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" id="CC1" />&nbsp;危化品从业人员</div>
-							<div style="padding-top:20px;font-size:1em;"><input type="checkbox" id="CC35" />&nbsp;有毒有限空间操作</div>
+							<div style="font-size:1em;"><input type="checkbox" id="CC23" />&nbsp;主要负责人 &nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" id="CC22" />&nbsp;安全管理人&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" id="CC1" />&nbsp;危化品从业人员&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" id="CC2" />&nbsp;危险化学品消防</div>
+							<div style="padding-top:20px;font-size:1em;"><input type="checkbox" id="CC35" />&nbsp;有毒有限空间操作&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" id="CC33" />&nbsp;消防安全责任人&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" id="CC34" />&nbsp;消防安全管理员</div>
 						</td>
 					</tr>
 					<tr>
