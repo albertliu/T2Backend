@@ -381,40 +381,53 @@
 			iconCls:'icon-upload',
 			width:85,
 			height:25,
-			text:'上传课表',
+			text:'创建计划',
 			onClick:function() {
-				if($("#applyID").textbox("getValue")==""){
-					$.messager.alert("提示","请填写开班编号并保存。","info");
+				if($("#startDate").datebox("getValue")==""){
+					alert("请确定开课日期。");
 					return false;
 				}
-				if($("#adviserID").combobox("getValue")==""){
+				if($("#endDate").datebox("getValue")==""){
+					alert("请确定结束日期。");
+					return false;
+				}
+				if($("#notes").textbox("getValue")==""){
+					$.messager.alert("提示","请填写办学地点并保存。","info");
+					return false;
+				}
+				if($("#adviserID").textbox("getValue")==""){
 					$.messager.alert("提示","请选择班主任并保存。","info");
 					return false;
 				}
-				// jConfirm('确定要为这' + selCount + '个人报名吗?', "确认对话框",function(r){
-				$.messager.confirm('确认对话框','确定要上传班级课表吗?<br>可能要花几分钟时间，请稍候...', function(r){
-					if(r){
-						var start = performance.now(); 
-						$.ajax({
-							url: uploadURL + "/public/applyEnter?SMS=1&reexamine=7&register=" + currUserName + "&host=" + currHost + "&classID=" + $("#applyID").textbox("getValue") + "&courseName=" + $("#courseName").val() + "&reex=" + (reexamine==0?"初证":"复审"),
-							type: "post",
-							data: {"selList":$("#adviserID").combobox("getText")},
-							beforeSend: function() {   
-								$.messager.progress();	// 显示进度条
-							},
-							success: function(data){
-								//jAlert(data);
-								if(data.err==0){
-									var end = performance.now(); 
-									jAlert("成功上传数量：" + data.count_s + "; &nbsp;失败数量：" + data.count_e + "; &nbsp;耗时：" + ((end-start)/1000).toFixed(2) + "秒","信息提示");
-								}else{
-									jAlert("操作失败，请稍后再试。" + data.errMsg,"信息提示");
-								}
-								getApplyList();
-								$.messager.progress('close');	// 如果提交成功则隐藏进度条 
-							},
-							error: function () {
-								$.messager.progress('close');
+				$.post(uploadURL + "/public/postCommInfo", {proc:"checkClassSchedule", params:{classID:nodeID}}, function(data){
+					let ar = data[0]
+					if(ar["msg"] > ""){
+						$.messager.alert("提示","不能创建，请检查以下事项：\n" + ar["msg"],"warning");
+					}else{
+						// jConfirm('确定要为这' + selCount + '个人报名吗?', "确认对话框",function(r){
+						$.messager.confirm('确认对话框','确定要创建新的计划吗?<br>可能要花几分钟时间，请稍候...', function(r){
+							if(r){
+								var start = performance.now(); 
+								$.ajax({
+									url: uploadURL + "/public/applyEnter?SMS=1&reexamine=7&register=" + currUserName + "&host=" + currHost + "&classID=" + $("#ID").val() + "&courseName=" + $("#courseName").val() + "&reex=" + (reexamine==0?"初证":"复审"),
+									type: "post",
+									data: {"selList":$("#adviserID").combobox("getText")},
+									beforeSend: function() {   
+										$.messager.progress();	// 显示进度条
+									},
+									success: function(data){
+										if(data.count_s>0){
+											var end = performance.now(); 
+											$.messager.alert("提示","成功上传数量：" + data.count_s + "; &nbsp;失败数量：" + data.count_e + "; &nbsp;耗时：" + ((end-start)/1000).toFixed(2) + "秒","info");
+										}else{
+											$.messager.alert("提示","操作失败，请稍后再试。" + data.errMsg,"info");
+										}
+										$.messager.progress('close');	// 如果提交成功则隐藏进度条 
+									},
+									error: function () {
+										$.messager.progress('close');
+									}
+								});
 							}
 						});
 					}
@@ -858,6 +871,9 @@
 				//$("#sendScoreDate").val(ar[19]);
 				$("#senderScoreName").textbox("setValue",ar[20] + (ar[19]>""?"&nbsp;" + ar[19]:""));
 				$("#reexamineName").val(ar[24]);
+				$("#planID").textbox("setValue",ar[53]);
+				$("#planQty").numberbox("setValue", ar[54]);
+				$("#notes").textbox("setValue", ar[55]);
 				certID = ar[31];
 				price1 = ar[40];
 				agencyID = ar[41];
@@ -997,16 +1013,18 @@
 			arr.push("<th width='6%'>复训日期</th>");
 			arr.push("<th width='6%'>申报</th>");
 			arr.push("<th width='5%'>上传</th>");
-			arr.push("<th width='6%'>考试时间</th>");
-			arr.push("<th width='5%'>成绩</th>");
-			arr.push("<th width='5%'>结果</th>");
 			if(photo == 0){
 				// arr.push("<th width='7%'>去向</th>");
+				arr.push("<th width='6%'>考试时间</th>");
+				arr.push("<th width='5%'>成绩</th>");
+				arr.push("<th width='5%'>结果</th>");
 				arr.push("<th width='15%'>备注</th>");
 			}else{
 				// arr.push("<th width='7%'>考站签名</th>");
 				arr.push("<th width='7%'>照片</th>");
 				arr.push("<th width='6%'>签名</th>");
+				arr.push("<th width='6%'>证明</th>");
+				arr.push("<th width='10%'>单位代码</th>");
 			}
 			arr.push("<th width='3%'>鉴</th>");
 			arr.push("<th width='3%'>班</th>");
@@ -1022,6 +1040,9 @@
 				var k = 0;
 				var s = $("#status").val();
 				var imgChk = "<img src='images/green_check.png'>";
+				let jobbc = ["#C5FFC5","#FFFFC5","#E5E5E5"];
+				let jobtt = ["工作证明","社保","居住证"];
+				let jobid = ["employee","social","student_jobCertificate"];
 				let photo_size = 0;
 				let photo_type = "jpg";
 				$.each(ar,function(iNum,val){
@@ -1077,6 +1098,14 @@
 						}else{
 							arr.push("<td class='center'>&nbsp;</td>");
 						}
+						if(ar1[42] > "" || ar1[43] > "" || ar1[44] > ""){	//工作证明、社保证明、居住证三选一, 
+							let jobsize = [ar1[46],ar1[47],ar1[48]]
+							let t = (ar1[42] > "" ? 0 : (ar1[43] > "" ? 1 : 2));
+							arr.push("<td class='center' title='" + jobtt[t] + " 大小:" + jobsize[t] + "k' style='background-color:" + jobbc[t] + "'><img id='" + jobid[t] + ar1[4] + "' src='users" + (ar1[42] || ar1[43] || ar1[44]) + "?times=" + (new Date().getTime()) + "' onclick='showCropperInfo(\"users" + (ar1[42] || ar1[43] || ar1[44]) + "\",\"" + ar1[4] + "\",\"" + jobid[t] + "\",\"\",0,1)' style='width:60px;background: #ccc;border:2px #fff solid;box-shadow: 0 0 1px rgba(0, 0, 0, 0.8);-moz-box-shadow: 0 0 1px rgba(0, 0, 0, 0.8);-webkit-box-shadow: 0 0 1px rgba(0, 0, 0, 0.8);'></td>");
+						}else{
+							arr.push("<td class='center'>&nbsp;</td>");
+						}
+						arr.push("<td class='left'>" + (ar1[49]>""?imgChk:'&nbsp;') + ar1[45] + "</td>");	//tax
 					}
 					if(s==0){
 						k = ar1[0];
@@ -1372,6 +1401,14 @@
 				<td>
 					<input id="startDate" name="startDate" class="easyui-datebox" data-options="height:22,width:100" />&nbsp;&nbsp;
 					<input id="endDate" name="endDate" class="easyui-datebox" data-options="height:22,width:100" />
+				</td>
+			</tr>
+			<tr>
+				<td align="right">计划编号</td>
+				<td colspan="3">
+					<input id="planID" name="planID" class="easyui-textbox" data-options="height:22,width:120" />&nbsp;
+					计划数量<input id="planQty" name="planQty" class="easyui-numberbox" data-options="height:22,width:30" />&nbsp;
+					办学地址<input id="notes" name="notes" class="easyui-textbox" data-options="height:22,width:180" />
 				</td>
 			</tr>
 			<tr>

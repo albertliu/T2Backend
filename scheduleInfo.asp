@@ -76,6 +76,7 @@
 				$("#regDate").val(ar[18]);
 				$("#registerName").val(ar[20]);
 				$("#online").val(ar[21]);
+				$("#teacherSID").val(ar[24]);
 			}else{
 				jAlert("该信息未找到！","信息提示");
 				setEmpty();
@@ -155,13 +156,16 @@
 				<td align="right">上课时间</td>
 				<td><input class="mustFill" type="text" id="period" size="25" /></td>
 				<td align="right">课时</td>
-				<td><input class="mustFill" type="text" id="hours" size="25" /></td>
+				<td>
+					<input class="mustFill" type="text" id="hours" size="5" />
+					&nbsp;&nbsp;类型&nbsp;<select id="kindID" style="width:80px;"></select>
+				</td>
 			</tr>
 			<tr>
-				<td align="right">上课类型</td>
-				<td><select id="kindID" style="width:100px;"></select></td>
 				<td align="right">授课教师</td>
 				<td><select id="teacher" style="width:100px;"></select></td>
+				<td align="right">身份证</td>
+				<td><input type="text" id="teacherSID" class="readOnly" readOnly="true" size="25"/></td>
 			</tr>
 			<tr>
 				<td align="right">上课形式</td>

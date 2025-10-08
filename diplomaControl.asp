@@ -1105,7 +1105,7 @@ if(op == "getApplyListByBatch"){
 	}
 	sql = " FROM v_applyInfo " + where;
 	//ssql = "SELECT kindName,qty,hostName,memo,regDate,registerName" + sql + " order by ID";
-	sql = "SELECT *" + sql + " order by ID";
+	sql = "SELECT *, [dbo].[getStudentMaterialSize](username,5) as employe_size, [dbo].[getStudentMaterialSize](username,8) as social_size, [dbo].[getStudentMaterialSize](username,6) as job_size" + sql + " order by ID";
 	
 	rs = conn.Execute(sql);
 	while (!rs.EOF){
@@ -1122,6 +1122,10 @@ if(op == "getApplyListByBatch"){
 		result += "|" + rs("photo_filename").value + "|" + rs("signature").value + "|" + rs("photo_size").value + "|" + rs("person").value + "|" + rs("after").value + "|" + rs("signatureDate").value;
 		//36
 		result += "|" + rs("signatureDate1").value + "|" + rs("upload").value + "|" + rs("memo1").value + "|" + rs("currDiplomaDate").value + "|" + rs("currDiplomaChecked").value + "|" + rs("currDiplomaChecker").value;
+		//42
+		result += "|" + rs("employe_filename").value + "|" + rs("social_filename").value + "|" + rs("job_filename").value + "|" + rs("tax").value + "|" + rs("employe_size").value + "|" + rs("social_size").value + "|" + rs("job_size").value;
+		//49
+		result += "|" + rs("checker").value;
 		rs.MoveNext();
 	}
 	rs.Close();
@@ -1153,6 +1157,8 @@ if(op == "getGenerateApplyNodeInfo"){
 		result += "|" + rs("azip").value + "|" + rs("tzip").value + "|" + rs("reexamine").value + "|" + rs("adviserID").value + "|" + rs("adviserName").value;
 		//47
 		result += "|" + rs("teacher").value + "|" + rs("classroom").value + "|" + rs("scheduleDate").value + "|" + rs("mark").value + "|" + rs("checkinMark").value + "|" + rs("uploadScheduleDate").value;
+		//53
+		result += "|" + rs("planID").value + "|" + rs("planQty").value + "|" + rs("notes").value;
 	}
 	rs.Close();
 	Response.Write(escape(result));
@@ -1163,7 +1169,7 @@ if(op == "updateGenerateApplyInfo"){
 	nodeID = Request.Form("ID");
 	//@ID int,@courseID varchar(50),@applyID varchar(50),@kindID int,@title nvarchar(100),@startDate varchar(100),@address nvarchar(100),@host varchar(50),@memo nvarchar(500),@registerID
 	sql = "exec updateGenerateApplyInfo " + Request.Form("ID") + ",'" + Request.Form("courseID") + "','" + Request.Form("applyID") + "','" + Request.Form("kindID") + "','" + Request.Form("title");
-	sql += "','" + Request.Form("startDate") + "','" + Request.Form("endDate") + "','" + Request.Form("address") + "','" + Request.Form("teacher") + "','" + Request.Form("classroom") + "','" + Request.Form("adviserID") + "','" + currHost + "','" + Request.Form("memo") + "','" + currUser + "'";
+	sql += "','" + Request.Form("startDate") + "','" + Request.Form("endDate") + "','" + Request.Form("planID") + "','" + Request.Form("planQty") + "','" + Request.Form("notes") + "','" + Request.Form("address") + "','" + Request.Form("teacher") + "','" + Request.Form("classroom") + "','" + Request.Form("adviserID") + "','" + currHost + "','" + Request.Form("memo") + "','" + currUser + "'";
 	
 	rs = conn.Execute(sql);
 	if(!rs.EOF){

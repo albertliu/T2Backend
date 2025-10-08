@@ -2379,6 +2379,31 @@
 		});
 	}
 	
+	//
+	function showUnitTaxConfirm(unitname,tax,address,username,mark){
+		asyncbox.open({
+			id: "unitTaxConfirm",
+			url:"unitTaxConfirm.asp?item=" + unitname + "&nodeID=" + tax + "&where=" + address + "&refID=" + username + "&p=1&times=" + (new Date().getTime()),
+			title: "企业信息审核",
+			width: 440,
+			height: 350,
+			drag: false,
+			cover : {
+	          //透明度
+	          opacity : 0,
+	          //背景颜色
+	           background : '#000'
+	        },
+			btnsbar : false,
+			callback : function(action,iframe){
+				var re = iframe.getUpdateCount();
+				if(re>0 && mark==1 && username>""){
+					getNodeInfo(0,username);
+				}
+ 			}
+		});
+	}
+	
 	//nodeID: ID; kindID: kind ID; op: 0 浏览 1 新增  2 编辑  3 删除  4 审批; mark: 0 不动作  1 有修改时刷新列表  2 有修改时刷新对象
 	function showDocInfo(nodeID,kindID,op,mark){
 		asyncbox.open({
@@ -3140,6 +3165,28 @@
 			$("#" + objID).focus();
 			return false;
 		}
+	}
+
+
+	//统一社会信用代码校验函数  return true/false
+	function checkUSCI(code) {
+		if (!/^[0-9A-Z]{18}$/.test(code)) {
+			return false; // 格式不正确
+		}
+	 
+		const weights = [1, 3, 9, 27, 19, 26, 16, 17, 20, 29, 25, 13, 8, 24, 10, 30, 28];
+		const chars = '0123456789ABCDEFGHJKLMNPQRTUWXY';
+		let sum = 0;
+		let index = 0;
+	 
+		for (let i = 0; i < 17; i++) {
+			const charIndex = chars.indexOf(code[i].toUpperCase());
+			sum += charIndex * weights[index++];
+			index %= 20; // 因为是模20运算，所以取余数
+		}
+	 
+		const checkDigit = chars[(31 - (sum % 31)) % 31]; // 根据计算结果找到对应的校验码字符
+		return checkDigit === code[17].toUpperCase(); // 比较计算出的校验码与最后一位是否一致
 	}
 
 //验证字符串是否是非零正整数

@@ -307,32 +307,32 @@
 							<table border="0" cellpadding="0" cellspacing="0" width="98%" style="line-height:10px;">
 								<tr><input id="ID" name="ID" type="hidden" />
 									<td align="right">编号</td>
-									<td><input id="teacherID" name="teacherID" class="easyui-textbox" data-options="height:22,width:100,required:true" /></td>
+									<td><input id="teacherID" name="teacherID" class="easyui-textbox" data-options="height:22,width:120,required:true" /></td>
 									<td align="right">姓名</td>
-									<td><input id="teacherName" name="teacherName" class="easyui-textbox" data-options="height:22,width:100,required:true" /></td>
+									<td><input id="teacherName" name="teacherName" class="easyui-textbox" data-options="height:22,width:120,required:true" /></td>
 								</tr>
 								<tr>
 									<td align="right">状态</td>
-									<td><select id="status" name="status" class="easyui-combobox" data-options="height:22,editable:false,panelHeight:'auto',width:100"></select></td>
-									<td align="right">备注</td>
-									<td><input id="memo" name="memo" class="easyui-textbox" data-options="height:22,width:100" /></td>
+									<td><select id="status" name="status" class="easyui-combobox" data-options="height:22,editable:false,panelHeight:'auto',width:120"></select></td>
+									<td align="right">身份证号</td>
+									<td><input id="memo" name="memo" class="easyui-textbox" data-options="height:22,width:120" /></td>
 								</tr>
 								<tr>
 									<td align="right">登记日期</td>
-									<td><input id="regDate" name="regDate" class="easyui-textbox" data-options="height:22,width:100,readonly:true" /></td>
+									<td><input id="regDate" name="regDate" class="easyui-textbox" data-options="height:22,width:120,readonly:true" /></td>
 									<td align="right">登记人</td><input type="hidden" id="registerID" />
-									<td><input id="registerName" name="registerName" class="easyui-textbox" data-options="height:22,width:100,readonly:true" /></td>
+									<td><input id="registerName" name="registerName" class="easyui-textbox" data-options="height:22,width:120,readonly:true" /></td>
 								</tr>
 							</table>
 						</form>
 					</div>
 				</div>
 			</div>
-			<div style="width:100%;float:left;margin:10;height:4px;"></div>
+			<div style="width:120%;float:left;margin:10;height:4px;"></div>
 			<div class="buttonbox">
 				<a class="easyui-linkbutton" id="btnSave" href="javascript:void(0)"></a>
 			</div>
-			<div style="width:100%;float:left;margin:10;height:4px;"></div>
+			<div style="width:120%;float:left;margin:10;height:4px;"></div>
 	   	</td>
 		</tr>
 		<tr>
@@ -340,14 +340,14 @@
 			<div class="comm"><h2>教授课程</h2></div>
 				<div style="width:48%;float:left;margin:2;">
 					<div style="color:orange;margin:0;padding:5px;text-align:center;">未分配课程</div>
-					<div style="border:solid 1px #e0e0e0;width:100%;margin:1px;background:#ffffff;line-height:18px;">
+					<div style="border:solid 1px #e0e0e0;width:120%;margin:1px;background:#ffffff;line-height:18px;">
 						<div id="userListCover" style="float:top;margin:3px;background:#f8fff8;">
 						</div>
 					</div>
 				</div>
 				<div style="width:48%;float:right;margin:2;">
 					<div style="color:orange;margin:0;padding:5px;text-align:center;">已分配课程</div>
-					<div style="border:solid 1px #e0e0e0;width:100%;margin:1px;background:#ffffff;line-height:18px;">
+					<div style="border:solid 1px #e0e0e0;width:120%;margin:1px;background:#ffffff;line-height:18px;">
 						<div id="taskUserCover" style="float:top;margin:3px;background:#f8fff8;">
 						</div>
 					</div>

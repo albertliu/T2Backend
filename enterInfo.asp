@@ -514,6 +514,7 @@
 				$("#signatureDate1").datebox("setValue",ar[115]);
 				$("#file5").val(ar[116]);
 				$("#payNow").combobox("setValue",ar[118]);
+				$("#tax").textbox("setValue",ar[119]);
 
 				if(ar[43]>""){
 					$("#status_signature").checkbox({checked:true});
@@ -1017,8 +1018,11 @@
 				<tr>
 					<td align="right">单位名称</td>
 					<td><input id="unit" name="unit" class="easyui-textbox" data-options="height:22,width:250,readonly:true" /></td>
-					<td align="right">岗位职务</td>
-					<td><input id="job" name="job" class="easyui-textbox" data-options="height:22,width:195,readonly:true" /></td>
+					<td align="right">单位代码</td>
+					<td>
+						<input id="tax" name="tax" class="easyui-textbox" data-options="height:22,width:150,readonly:true" />
+						&nbsp;&nbsp;岗位&nbsp;<input id="job" name="job" class="easyui-textbox" data-options="height:22,width:70,readonly:true" />
+					</td>
 				</tr>
 			</table>
 			</form>

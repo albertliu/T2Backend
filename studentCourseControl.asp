@@ -361,7 +361,7 @@ if(op == "getNodeInfo"){
 		//109
 		result += "|" + rs("file4").value + "|" + rs("try").value + "|" + rs("person").value + "|" + rs("agencyID").value + "|" + rs("price1").value + "|" + rs("channel").value + "|" + rs("signatureDate1").value;
 		//116
-		result += "|" + rs("file5").value + "|" + rs("needInvoice").value + "|" + rs("payNow").value;
+		result += "|" + rs("file5").value + "|" + rs("needInvoice").value + "|" + rs("payNow").value + "|" + rs("tax").value;
 	}
 	rs.Close();
 	Response.Write(escape(result));

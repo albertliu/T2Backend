@@ -77,10 +77,10 @@
 			arr.push("<th width='6%'>时段</th>");
 			arr.push("<th width='12%'>上课时间</th>");
 			arr.push("<th width='6%'>课时</th>");
-			arr.push("<th width='6%'>类型</th>");
-			arr.push("<th width='10%'>授课教师</th>");
+			arr.push("<th width='6%'>教室</th>");
+			arr.push("<th width='10%'>教师</th>");
 			arr.push("<th width='18%'>授课内容</th>");
-			arr.push("<th width='6%'>形式</th>");
+			arr.push("<th width='10%'>形式</th>");
 			arr.push("</tr>");
 			arr.push("</thead>");
 			arr.push("<tbody id='tbody'>");
@@ -99,10 +99,10 @@
 					arr.push("<td class='left'>" + ar1[15] + "</td>");
 					arr.push("<td class='left'>" + ar1[8] + "</td>");
 					arr.push("<td class='left'>" + ar1[7] + "</td>");
-					arr.push("<td class='left'>" + ar1[14] + "</td>");
+					arr.push("<td class='left'>" + ar1[12] + "</td>");
 					arr.push("<td class='left'>" + nullNoDisp(ar1[16]) + "</td>");
 					arr.push("<td class='left'>" + ar1[11] + "</td>");
-					arr.push("<td class='left'>" + ar1[22] + "</td>");
+					arr.push("<td class='left'>" + ar1[25] + "</td>");
 					arr.push("</tr>");
 				});
 			}

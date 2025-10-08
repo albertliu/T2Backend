@@ -37,9 +37,9 @@
 			arr.push("<th width='2%'>No</th>");
 			arr.push("<th width='10%'>编号</th>");
 			arr.push("<th width='12%'>姓名</th>");
+			arr.push("<th width='15%'>身份证号</th>");
 			arr.push("<th width='12%'>所属</th>");
 			arr.push("<th width='6%'>状态</th>");
-			arr.push("<th width='15%'>备注</th>");
 			arr.push("<th width='12%'>注册日期</th>");
 			arr.push("<th width='10%'>注册人</th>");
 			arr.push("</tr>");
@@ -55,9 +55,9 @@
 					arr.push("<td class='center'>" + i + "</td>");
 					arr.push("<td class='link1'><a href='javascript:showTeacherInfo(\"" + ar1[0] + "\",0,0,1);'>" + ar1[1] + "</a></td>");
 					arr.push("<td class='left'>" + ar1[2] + "</td>");
+					arr.push("<td class='left'>" + ar1[7] + "</td>");
 					arr.push("<td class='left'>" + ar1[6] + "</td>");
 					arr.push("<td class='left'>" + ar1[4] + "</td>");
-					arr.push("<td class='left'>" + ar1[7] + "</td>");
 					arr.push("<td class='left'>" + ar1[8] + "</td>");
 					arr.push("<td class='left'>" + ar1[10] + "</td>");
 					arr.push("</tr>");

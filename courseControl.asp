@@ -87,7 +87,7 @@ if(op == "getNodeInfo"){
 		//20
 		result += "|" + rs("price1").value + "|" + rs("reexamine").value + "|" + rs("reexamineName").value + "|" + rs("shortName").value + "|" + rs("entryform").value + "|" + rs("priceX").value;
 		//26
-		result += "|" + rs("priceX1").value + "|" + rs("seq").value + "|" + rs("agencyID").value;
+		result += "|" + rs("priceX1").value + "|" + rs("seq").value + "|" + rs("agencyID").value + "|" + rs("period").value;
 	}
 	rs.Close();
 	Response.Write(escape(result));
@@ -97,7 +97,7 @@ if(op == "update"){
 	result = 0;
 	if(result == 0){
 	//@ID int,@courseID varchar(50),@certID varchar(50),@reexamine int,@hours int,@completionPass int,@sc int,@cards int,@status int,@mark int,@price int,@price1 int,@entryForm varchar(50),@memo nvarchar(500),@registerID varchar(50)
-		sql = "exec updateCourseInfo " + nodeID + ",'" + String(Request.QueryString("courseID")) + "','" + refID + "','" + String(Request.QueryString("reexamine")) + "','" + String(Request.QueryString("hours")) + "','" + String(Request.QueryString("completionPass")) + "','" + String(Request.QueryString("sc")) + "','" + String(Request.QueryString("cards")) + "'," + status + "," + String(Request.QueryString("mark")) + ",'" + String(Request.QueryString("price")) + "','" + String(Request.QueryString("price1")) + "','" + String(Request.QueryString("entryForm")) + "','" + String(Request.QueryString("seq")) + "','" + memo + "','" + currHost + "','" + currUser + "'";
+		sql = "exec updateCourseInfo " + nodeID + ",'" + String(Request.QueryString("courseID")) + "','" + refID + "','" + String(Request.QueryString("reexamine")) + "','" + String(Request.QueryString("period")) + "','" + String(Request.QueryString("hours")) + "','" + String(Request.QueryString("completionPass")) + "','" + String(Request.QueryString("sc")) + "','" + String(Request.QueryString("cards")) + "'," + status + "," + String(Request.QueryString("mark")) + ",'" + String(Request.QueryString("price")) + "','" + String(Request.QueryString("price1")) + "','" + String(Request.QueryString("entryForm")) + "','" + String(Request.QueryString("seq")) + "','" + memo + "','" + currHost + "','" + currUser + "'";
 
 		execSQL(sql);
 		if(nodeID == 0){

@@ -39,6 +39,7 @@
 	var lastCourseID = "";
 	let scanPhoto = 0;
 	let hasPhoto = 0;
+	let checker = "";
 	<!--#include file="js/commFunction.js"-->
 	<!--#include file="js/EST_reader.js"-->
 	$(document).ready(function (){
@@ -192,6 +193,9 @@
 				});
 			}
 		});
+		$("#btnUnitTaxConfirm").click(function(){
+			showUnitTaxConfirm($("#unit").textbox("getValue"),$("#tax").textbox("getValue"),$("#email").textbox("getValue"),$("#username").textbox("getValue"),1);
+		});
 		$("#username").textbox({
 			onChange: function(val){
 				refID = $("#username").textbox("getValue");
@@ -250,10 +254,13 @@
 			showUploadFile(refID, "", "student_CHESICC", "学信网截图", "setImag('img_CHESICC',reDo)", 0, 1);
 		});
 		$("#add_img_employment").click(function(){
-			showUploadFile(refID, "", "student_employment", "在职证明", "setImag('img_employment',reDo)", 0, 1);
+			showUploadFile(refID, "", "student_employment", "工作证明", "setImag('img_employment',reDo)", 0, 1);
+		});
+		$("#add_img_social").click(function(){
+			showUploadFile(refID, "", "student_social", "社保证明", "setImag('img_social',reDo)", 0, 1);
 		});
 		$("#add_img_jobCertificate").click(function(){
-			showUploadFile(refID, "", "student_jobCertificate", "职业资格证书", "setImag('img_jobCertificate',reDo)", 0, 1);
+			showUploadFile(refID, "", "student_jobCertificate", "居住证", "setImag('img_jobCertificate',reDo)", 0, 1);
 		});
 		$("#img_photo").click(function(){
 			if($("#img_photo").attr("value")>""){
@@ -354,6 +361,7 @@
 				// }
 				$("#linker").textbox("setValue",ar[34]);
 				$("#sex").combobox("setValue",ar[35]);
+				$("#tax").textbox("setValue",ar[40]);
 				if(ar[39]==1){
 					$("#scanPhoto").checkbox({checked:true});
 					scanPhoto = 1;
@@ -370,6 +378,13 @@
 				}
 				if(ar[29]==""){
 					$("#IDdateStart").datebox("textbox").css("border", "solid 1px red");
+				}
+				if(ar[41] > ""){
+					$("#checker").checkbox({checked:true});
+					checker = ar[41];
+				}else{
+					$("#checker").checkbox({checked:false});
+					checker = "";
 				}
 				//$("#upload1").html("<a href='javascript:showLoadFile(\"student_education\",\"" + ar[1] + "\",\"student\",\"\");' style='padding:3px;'>上传</a>");
 				//<a href='/users" + ar[21] + "' target='_blank'></a>
@@ -420,6 +435,12 @@
 					$("#img_jobCertificate").attr("value","/users" + ar[33]);
 				}else{
 					$("#img_jobCertificate").attr("src","images/blank_jobCertificate.png" + "?times=" + (new Date().getTime()));
+				}
+				if(ar[42] > ""){
+					$("#img_social").attr("src","/users" + ar[42] + "?times=" + (new Date().getTime()));
+					$("#img_social").attr("value","/users" + ar[42]);
+				}else{
+					$("#img_social").attr("src","images/blank_social.png" + "?times=" + (new Date().getTime()));
 				}
 				
 				//$("#photo").html(c);
@@ -568,6 +589,7 @@
 		$("#smsList").hide();
 		$("#examList").hide();
 		$("#enter").hide();
+		$("#btnUnitTaxConfirm").hide();
 		$("#username").textbox("disable");
 		$("#age").textbox("disable");
 		$("#statusName").textbox("disable");
@@ -618,6 +640,9 @@
 			}
 			$("#smsList").show();
 			$("#examList").show();
+			if(checkPermission("checkUnitTax") && checker==""){
+				$("#btnUnitTaxConfirm").show();
+			}
 		}
 	}
 	
@@ -836,25 +861,31 @@
 				<td align="right">状态</td>
 				<td><input id="statusName" name="statusName" class="easyui-textbox" data-options="height:22,width:185" /></td>
 				<td align="right">文化程度</td>
-				<td><select id="education" name="education" class="easyui-combobox" data-options="editable:false,panelHeight:'auto',height:22,width:180"></select></td>
-			</tr>
-			<tr id="znxf_dept">
-				<td align="right">单位名称</td>
-				<td><input id="unit" name="unit" class="easyui-textbox" data-options="height:22,width:185,required:true" /></td>
-				<td align="right">岗位职务</td>
-				<td><select id="job" name="job" class="easyui-combobox" data-options="editable:true,panelHeight:'auto',height:22,width:180"></select></td>
+				<td>
+					<select id="education" name="education" class="easyui-combobox" data-options="editable:false,panelHeight:'auto',height:22,width:80"></select>
+					&nbsp;&nbsp;岗位&nbsp;<select id="job" name="job" class="easyui-combobox" data-options="editable:true,panelHeight:'auto',height:22,width:75"></select>
+				</td>
 			</tr>
 			<tr>
-				<td align="right">联系地址</td>
-				<td><input id="address" name="address" class="easyui-textbox" data-options="height:22,width:185,required:true" /></td>
-				<td align="right">手机</td>
-				<td><input id="mobile" name="mobile" class="easyui-textbox" data-options="height:22,width:185,required:true" /></td>
+				<td align="right">单位名称</td>
+				<td><input id="unit" name="unit" class="easyui-textbox" data-options="height:22,width:185,required:true" /></td>
+				<td align="right">代码&nbsp;&nbsp;<input class="easyui-checkbox" id="checker" value="1" /></td>
+				<td>
+					<input id="tax" name="tax" class="easyui-textbox" data-options="height:22,width:140" />
+					&nbsp;<input class="button" type="button" id="btnUnitTaxConfirm" value="审核" />
+				</td>
 			</tr>
 			<tr>
 				<td align="right">单位地址</td>
 				<td><input id="email" name="email" class="easyui-textbox" data-options="height:22,width:185" /></td>
 				<td align="right">单位电话</td>
 				<td><input id="phone" name="phone" class="easyui-textbox" data-options="height:22,width:185" /></td>
+			</tr>
+			<tr>
+				<td align="right">联系地址</td>
+				<td><input id="address" name="address" class="easyui-textbox" data-options="height:22,width:185,required:true" /></td>
+				<td align="right">手机</td>
+				<td><input id="mobile" name="mobile" class="easyui-textbox" data-options="height:22,width:185,required:true" /></td>
 			</tr>
 			<tr>
 				<td align="right">联系人</td>
@@ -929,21 +960,27 @@
 		</td>
 	</tr>
 	<tr>
-		<td align="right" style="width:15%;"><img id="add_img_CHESICC" src="images/plus.png" tag="plus" /></td>
-		<td style="width:85%;">
-			<img id="img_CHESICC" src="" value="" style='width:150px;border:none;' />
-		</td>
-	</tr>
-	<tr>
 		<td align="right" style="width:15%;"><img id="add_img_employment" src="images/plus.png" tag="plus" /></td>
-		<td style="width:85%;">
+		<td style="width:85%;" title="工作证明">
 			<img id="img_employment" src="" value="" style='width:150px;border:none;' />
 		</td>
 	</tr>
 	<tr>
+		<td align="right" style="width:15%;"><img id="add_img_social" src="images/plus.png" tag="plus" /></td>
+		<td style="width:85%;" title="社保证明">
+			<img id="img_social" src="" value="" style='width:150px;border:none;' />
+		</td>
+	</tr>
+	<tr>
 		<td align="right" style="width:15%;"><img id="add_img_jobCertificate" src="images/plus.png" tag="plus" /></td>
-		<td style="width:85%;">
+		<td style="width:85%;" title="居住证">
 			<img id="img_jobCertificate" src="" value="" style='width:150px;border:none;' />
+		</td>
+	</tr>
+	<tr>
+		<td align="right" style="width:15%;"><img id="add_img_CHESICC" src="images/plus.png" tag="plus" /></td>
+		<td style="width:85%;">
+			<img id="img_CHESICC" src="" value="" style='width:150px;border:none;' />
 		</td>
 	</tr>
 	<tr>
