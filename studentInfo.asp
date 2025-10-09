@@ -262,6 +262,21 @@
 		$("#add_img_jobCertificate").click(function(){
 			showUploadFile(refID, "", "student_jobCertificate", "居住证", "setImag('img_jobCertificate',reDo)", 0, 1);
 		});
+		$("#del_img_education").click(function(){
+			delStudentMaterial("student_education");
+		});
+		$("#del_img_employment").click(function(){
+			delStudentMaterial("student_employment");
+		});
+		$("#del_img_jobCertificate").click(function(){
+			delStudentMaterial("student_jobCertificaten");
+		});
+		$("#del_img_social").click(function(){
+			delStudentMaterial("student_social");
+		});
+		$("#del_img_CHESICC").click(function(){
+			delStudentMaterial("student_CHESICC");
+		});
 		$("#img_photo").click(function(){
 			if($("#img_photo").attr("value")>""){
 				//window.open($("#img_photo").attr("value"));
@@ -478,10 +493,10 @@
 					$.messager.alert("提示","请填写姓名。","warning");
 					isValid = false;
 				}
-				if($("#address").textbox("getValue")==""){
-					$.messager.alert("提示","请填写联系地址。","warning");
-					isValid = false;
-				}
+				// if($("#address").textbox("getValue")==""){
+				// 	$.messager.alert("提示","请填写联系地址。","warning");
+				// 	isValid = false;
+				// }
 				if(kindID!=0 && $("#birthday").datebox("getValue")==""){
 					$.messager.alert("提示","请填写出生日期。","warning");
 					isValid = false;
@@ -819,6 +834,22 @@
 		//nothing, just callback enterInfo return's event
 	}
 
+	function delStudentMaterial(kind){
+		if(!checkPermission("studentAdd")){
+			$.messager.alert("信息提示","没有操作权限");
+			return false;
+		}
+		$.messager.confirm('确认对话框', '你确定要删除这个资料吗?', function(r) {
+			if(r){
+				$.post(uploadURL + "/public/postCommInfo", {proc:"delStudentMaterial", params:{username:$("#username").textbox("getValue"), kind, registerID:currUser}}, function(data){
+					$.messager.alert("信息提示","成功删除！");
+					getNodeInfo(nodeID,"");
+					updateCount += 1;
+				});
+			}
+		});
+	}
+
 	function getUpdateCount(){
 		return updateCount;
 	}
@@ -934,7 +965,7 @@
 	<table style="width:99%;">
 	<tr>
 		<td align="right" style="width:15%;">
-			<img id="add_img_photo" src="images/plus.png" tag="plus" />
+			<img id="add_img_photo" src="images/plus0.png" tag="plus" />
 			<div style="padding-top:5px;"><input class="easyui-checkbox" id="scanPhoto" name="scanPhoto" />识</div>
 		</td>
 		<td align="center" style="width:85%;">
@@ -942,45 +973,60 @@
 		</td>
 	</tr>
 	<tr>
-		<td align="right" style="width:15%;"><img id="add_img_cardA" src="images/plus.png" tag="plus" /></td>
+		<td align="right" style="width:15%;"><img id="add_img_cardA" src="images/plus0.png" tag="plus" /></td>
 		<td style="width:85%;">
 			<img id="img_cardA" src="" value="" style='width:150px;border:none;' />
 		</td>
 	</tr>
 	<tr>
-		<td align="right" style="width:15%;"><img id="add_img_cardB" src="images/plus.png" tag="plus" /></td>
+		<td align="right" style="width:15%;"><img id="add_img_cardB" src="images/plus0.png" tag="plus" /></td>
 		<td style="width:85%;">
 			<img id="img_cardB" src="" value="" style='width:150px;border:none;' />
 		</td>
 	</tr>
 	<tr>
-		<td align="right" style="width:15%;"><img id="add_img_education" src="images/plus.png" tag="plus" /></td>
-		<td style="width:85%;">
-			<img id="img_education" src="" value="" style='width:150px;border:none;' />
+		<td align="right" style="width:15%;">
+			<img id="add_img_education" src="images/plus0.png" tag="plus" />
+			<img id="del_img_education" src="images/minus.png" tag="minus" />
+		</td>
+		<td id="td_img_education" style="width:85%;" title="学历证明">
+			<img id="img_education" tag="student_education" src="" value="" style='width:150px;border:none;' />
 		</td>
 	</tr>
 	<tr>
-		<td align="right" style="width:15%;"><img id="add_img_employment" src="images/plus.png" tag="plus" /></td>
-		<td style="width:85%;" title="工作证明">
-			<img id="img_employment" src="" value="" style='width:150px;border:none;' />
+		<td align="right" style="width:15%;">
+			<img id="add_img_employment" src="images/plus0.png" tag="plus" />
+			<img id="del_img_employment" src="images/minus.png" tag="minus" />
+		</td>
+		<td id="td_img_employment" style="width:85%;" title="工作证明">
+			<img id="img_employment" tag="student_employment" src="" value="" style='width:150px;border:none;' />
 		</td>
 	</tr>
 	<tr>
-		<td align="right" style="width:15%;"><img id="add_img_social" src="images/plus.png" tag="plus" /></td>
-		<td style="width:85%;" title="社保证明">
-			<img id="img_social" src="" value="" style='width:150px;border:none;' />
+		<td align="right" style="width:15%;">
+			<img id="add_img_social" src="images/plus0.png" tag="plus" />
+			<img id="del_img_social" src="images/minus.png" tag="minus" />
+		</td>
+		<td id="td_img_social" style="width:85%;" title="社保证明">
+			<img id="img_social" tag="student_social" src="" value="" style='width:150px;border:none;' />
 		</td>
 	</tr>
 	<tr>
-		<td align="right" style="width:15%;"><img id="add_img_jobCertificate" src="images/plus.png" tag="plus" /></td>
-		<td style="width:85%;" title="居住证">
-			<img id="img_jobCertificate" src="" value="" style='width:150px;border:none;' />
+		<td align="right" style="width:15%;">
+			<img id="add_img_jobCertificate" src="images/plus0.png" tag="plus" />
+			<img id="del_img_jobCertificate" src="images/minus.png" tag="minus" />
+		</td>
+		<td id="td_img_jobCertificate" style="width:85%;" title="居住证">
+			<img id="img_jobCertificate" tag="student_jobCertificate" src="" value="" style='width:150px;border:none;' />
 		</td>
 	</tr>
 	<tr>
-		<td align="right" style="width:15%;"><img id="add_img_CHESICC" src="images/plus.png" tag="plus" /></td>
-		<td style="width:85%;">
-			<img id="img_CHESICC" src="" value="" style='width:150px;border:none;' />
+		<td align="right" style="width:15%;">
+			<img id="add_img_CHESICC" src="images/plus0.png" tag="plus" />
+			<img id="del_img_CHESICC" src="images/minus.png" tag="minus" />
+		</td>
+		<td id="td_img_CHESICC" style="width:85%;" title="学信网证明">
+			<img id="img_CHESICC" tag="student_CHESICC" src="" value="" style='width:150px;border:none;' />
 		</td>
 	</tr>
 	<tr>
