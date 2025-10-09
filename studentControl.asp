@@ -232,7 +232,7 @@ if(op == "update"){
 		//@IDaddress nvarchar(100),@bureau nvarchar(50),@IDdateStart varchar(50),@IDdateEnd varchar(50),@province nvarchar(50),@kindID int,@unit nvarchar(100),@job varchar(50),
 		//@linker varchar(50),@mobile nvarchar(50),@phone nvarchar(50),@email nvarchar(50),@address nvarchar(100),@job_status varchar(50),@memo nvarchar(500),@registerID varchar(50)
 		sql = "exec updateStudentInfo " + Request.Form("mark") + ",'" + Request.Form("username") + "','" + Request.Form("name") + "','','" + Request.Form("birthday") + "','" + Request.Form("sex") + "','" + Request.Form("education") + "','" + Request.Form("ethnicity");
-		sql += "','" + Request.Form("IDaddress") + "','" + Request.Form("bureau") + "','" + Request.Form("IDdateStart") + "','" + Request.Form("IDdateEnd") + "','" + Request.Form("province") + "'," + Request.Form("kindID") + ",'" + Request.Form("unit") + "','" + Request.Form("tax") + "','" + Request.Form("job");
+		sql += "','" + Request.Form("IDaddress") + "','" + Request.Form("bureau") + "','" + Request.Form("IDdateStart") + "','" + Request.Form("IDdateEnd") + "','0','" + Request.Form("province") + "'," + Request.Form("kindID") + ",'" + Request.Form("unit") + "','" + Request.Form("tax") + "','" + Request.Form("job");
 		sql += "','" + Request.Form("linker") + "','" + Request.Form("mobile") + "','" + Request.Form("phone") + "','" + Request.Form("email") + "','" + Request.Form("address") + "'," + Request.Form("job_status") + "," + Request.Form("scanID") + ",'" + Request.Form("memo") + "','" + currUser + "'";
 		execSQL(sql);
 	}
