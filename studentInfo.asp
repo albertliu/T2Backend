@@ -900,7 +900,7 @@
 			<tr>
 				<td align="right">单位名称</td>
 				<td><input id="unit" name="unit" class="easyui-textbox" data-options="height:22,width:185,required:true" /></td>
-				<td align="right">代码&nbsp;&nbsp;<input class="easyui-checkbox" id="checker" value="1" /></td>
+				<td align="right">代码&nbsp;&nbsp;<input class="easyui-checkbox" id="checker" value="1" disabled="true" /></td>
 				<td>
 					<input id="tax" name="tax" class="easyui-textbox" data-options="height:22,width:140" />
 					&nbsp;<input class="button" type="button" id="btnUnitTaxConfirm" value="审核" />
