@@ -1280,7 +1280,7 @@
 		$("#doApplyDownload").hide();
 		$("#doApplyCheck").hide();
 		$("#adjustClassDate").hide();
-		// $("#generateClassDoc").hide();
+		$("#generateEntryDoc1").hide();
 		// $("#generateExamDoc").hide();
 		// $("#generateZip").prop("disabled",true);
 		// $("#generatePhotoZip").prop("disabled",true);
