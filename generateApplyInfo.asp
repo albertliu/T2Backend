@@ -422,6 +422,7 @@
 										}else{
 											$.messager.alert("提示","操作失败，请稍后再试。" + data.errMsg,"info");
 										}
+										getApplyList();
 										$.messager.progress('close');	// 如果提交成功则隐藏进度条 
 									},
 									error: function () {
