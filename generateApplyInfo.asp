@@ -1043,7 +1043,7 @@
 				var imgChk = "<img src='images/green_check.png'>";
 				let jobbc = ["#C5FFC5","#FFFFC5","#E5E5E5"];
 				let jobtt = ["工作证明","社保","居住证"];
-				let jobid = ["employee","social","student_jobCertificate"];
+				let jobid = ["employment","social","jobCertificate"];
 				let photo_size = 0;
 				let photo_type = "jpg";
 				$.each(ar,function(iNum,val){
