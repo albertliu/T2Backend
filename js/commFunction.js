@@ -2242,7 +2242,7 @@
 	function showUploadFile(nodeID,refID,kindID,item,after,key,mark,memo){
 		asyncbox.open({
 			id: "fileUpload",
-			url:"fileUpload.asp?nodeID=" + nodeID + "&refID=" + refID + "&kindID=" + kindID + "&item=" + item + "&keyID=" + key + "&currUser=" + currUser + "&host=" + currHost + "&memo=" + memo + "&times=" + (new Date().getTime()),
+			url:"fileUpload.asp?nodeID=" + nodeID + "&refID=" + refID + "&kindID=" + kindID + "&item=" + item + "&keyID=" + key + "&memo=" + memo + "&times=" + (new Date().getTime()),
 			title: "上传文件",
 			width: 600,
 			height: 700,
