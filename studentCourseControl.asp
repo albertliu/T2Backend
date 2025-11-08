@@ -860,7 +860,11 @@ if(op == "enterPay"){
 	//@enterID int,@amount decimal(18,2),@pay_kind int,@pay_type int,@memo nvarchar(500), @registerID
 	sql = "exec enterPay " + nodeID + ",'" + String(Request.QueryString("amount")) + "'," + kindID + "," + refID + ",'" + memo + "','" + currUser + "'";
 	rs = conn.Execute(sql);
-	Response.Write(escape(0));
+	if (!rs.EOF){
+		result = rs("status").value + "|" + rs("msg").value;
+	}
+	rs.Close();
+	Response.Write(escape(result));
 	//Response.Write(escape(sql));
 }
 

@@ -310,9 +310,13 @@
 				if(r){
 					$.get("studentCourseControl.asp?op=enterPay&nodeID=" + $("#ID").val() + "&amount=" + $("#amount").numberbox("getValue") + "&kindID=0&refID=" + $("#pay_type").combobox("getValue") + "&memo=" + escape($("#pay_memo").textbox("getValue")) + "&times=" + (new Date().getTime()),function(re){
 						// alert(unescape(re))
-						$.messager.alert("提示","操作成功。","info");
-						updateCount += 1;
-						getNodeInfo($("#ID").val());
+						var ar = new Array();
+						ar = unescape(re).split("|");
+						$.messager.alert("提示",ar[1],"info");
+						if(ar[0]==1){
+							updateCount += 1;
+							getNodeInfo($("#ID").val());
+						}
 					});
 				}
 			});
