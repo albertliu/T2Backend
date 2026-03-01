@@ -1065,13 +1065,6 @@
 					arr.push("<td class='left' " + (ar1[40]==1?"style='color:blue;' title='已确认'":"") + ">" + ar1[39] + "</td>");	// 复训日期
 					arr.push("<td class='left'>" + ar1[28] + "</td>");
 					arr.push("<td class='left'>" + (ar1[37]==1?imgChk:'&nbsp;') + "</td>");	// 上传
-					arr.push("<td class='left' title='" + ar1[18] + "'>" + ar1[18].substring(0,10) + "</td>");
-                    h = nullNoDisp(ar1[19].replace(".00",""));
-                    if(ar1[27]==1){	//有应会成绩
-                        h = (ar1[20]>"0"? h + "/" + ar1[20].replace(".00",""):h);
-                    }
-					arr.push("<td class='left'>" + h + "</td>");
-					arr.push("<td class='left'>" + ar1[9] + "</td>");	// 结果
 					// if(ar1[7]>0){
 					// 	arr.push("<td class='center'>" + imgChk + "</td>");	//补考
 					// }else{
@@ -1079,6 +1072,13 @@
 					// }
 					if(photo == 0){
 						// arr.push("<td class='left'>" + ar1[34] + "</td>");	// 去向
+						arr.push("<td class='left' title='" + ar1[18] + "'>" + ar1[18].substring(0,10) + "</td>");
+						h = nullNoDisp(ar1[19].replace(".00",""));
+						if(ar1[27]==1){	//有应会成绩
+							h = (ar1[20]>"0"? h + "/" + ar1[20].replace(".00",""):h);
+						}
+						arr.push("<td class='left'>" + h + "</td>");
+						arr.push("<td class='left'>" + ar1[9] + "</td>");	// 结果
 						arr.push("<td class='link1'><a href='javascript:showMsg(\"" + ar1[38] + "\",\"历史数据\");'>" + ar1[10] + "</a></td>");	// 备注
 					}else{
 						// arr.push("<td class='left'>" + ar1[36] + "</td>");	// 考站签名
