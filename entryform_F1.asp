@@ -7,7 +7,7 @@
 
 <title></title>
 
-<link href="css/style_inner1.css?v=1.35"  rel="stylesheet" type="text/css" />
+<link href="css/style_inner1.css?v=1.36"  rel="stylesheet" type="text/css" />
 <link rel="stylesheet" type="text/css" href="css/easyui/easyui.css?v=1.8.6">
 <link rel="stylesheet" type="text/css" href="css/easyui/icon.css">
 <link href="css/data_table_mini.css?v=20150411" rel="stylesheet" type="text/css" />
@@ -218,27 +218,27 @@
 						</td>
 					</tr>
 					<tr>
-						<td align="center" class='table_resume_title' height='45px'>国籍</td><td align="center" width='13%'><p style='font-size:1em;'>中国</p></td>
+						<td align="center" class='table_resume_title' height='42px'>国籍</td><td align="center" width='13%'><p style='font-size:1em;'>中国</p></td>
 						<td align="center" class='table_resume_title'>民族</td><td align="center" width='10%'><p style='font-size:1em;' id="ethnicity"></p></td>
 						<td align="center" class='table_resume_title'>文化程度</td><td class='table_resume_title' width='14%'><p style='font-size:1em;' id="educationName"></p></td>
 					</tr>
 					<tr>
-						<td align="center" class='table_resume_title' height='45px'>证件类型</td><td align="center" colspan="3" class="ef1p1"><input type="checkbox" id="IDK0" />&nbsp;身份证 <input type="checkbox" />&nbsp;护照 <input type="checkbox" id="IDK1" />&nbsp;其他</td>
+						<td align="center" class='table_resume_title' height='42px'>证件类型</td><td align="center" colspan="3" class="ef1p1"><input type="checkbox" id="IDK0" />&nbsp;身份证 <input type="checkbox" />&nbsp;护照 <input type="checkbox" id="IDK1" />&nbsp;其他</td>
 						<td align="center" class='table_resume_title'>证件有效期</td><td class='table_resume_title'><p style='font-size:1em;' id="IDdate"></p></td>
 					</tr>
 					<tr>
-						<td align="center" class='table_resume_title' height='45px'>证件号码</td><td align="center" colspan="5"><p style='font-size:1em;' id="username"></p></td>
+						<td align="center" class='table_resume_title' height='42px'>证件号码</td><td align="center" colspan="5"><p style='font-size:1em;' id="username"></p></td>
 					</tr>
 					<tr>
-						<td align="center" class='table_resume_title' height='45px'>工作单位</td><td align="center" colspan="3"><p style='font-size:1em;' id="unit"></p></td>
+						<td align="center" class='table_resume_title' height='42px'>工作单位</td><td align="center" colspan="3"><p style='font-size:1em;' id="unit"></p></td>
 						<td align="center" class='table_resume_title'>从事岗位</td><td align="center" colspan="3"><p style='font-size:1em;' id="job"></p></td>
 					</tr>
 					<tr>
-						<td align="center" class='table_resume_title' height='45px'>联系地址</td><td align="center" colspan="3"><p style='font-size:1em;' id="address"></p></td>
+						<td align="center" class='table_resume_title' height='42px'>联系地址</td><td align="center" colspan="3"><p style='font-size:1em;' id="address"></p></td>
 						<td align="center" class='table_resume_title'>联系方式</td><td align="center" colspan="3"><p style='font-size:1em;' id="mobile"></p></td>
 					</tr>
 					<tr>
-						<td align="center" class='table_resume_title' height='45px'>培训机构</td><td align="center" colspan="3"><p style='font-size:1em;' id="hostName"></p></td>
+						<td align="center" class='table_resume_title' height='42px'>培训机构</td><td align="center" colspan="3"><p style='font-size:1em;' id="hostName"></p></td>
 						<td align="center" class='table_resume_title'>培训时间</td>
 						<td align="center" colspan="3">
 								<span id="date0" style='font-size:1em;padding-left:10px;padding-top:20px;'></span>
@@ -274,7 +274,7 @@
 						</td>
 					</tr>
 					<tr>
-						<td align="left" colspan="2" class="ef1p1" style="padding-left:10px;" height='45px'>冶金(有色)生产<br>安全作业</td>
+						<td align="left" colspan="2" class="ef1p1" style="padding-left:10px;" height='40px'>冶金(有色)生产安全作业</td>
 						<td align="left" colspan="5" class="ef1p1">
 							<input type="checkbox" />&nbsp;煤气作业
 						</td>
@@ -293,7 +293,7 @@
 					<tr>
 						<td align="center" class='table_resume_title' height='45px'>健<br>康<br>承<br>诺</td>
 						<td align="left" colspan="7" class="ef1p1">
-							<p class="ef1p1" style='text-indent:30px;font-weight:bold;padding:10px;'>
+							<p class="ef1p1" style='text-indent:30px;font-weight:bold;padding:0;'>
 							我承诺：本人身体健康，肢体健全，无妨碍从事相应特种作业的器质性心脏病、癫痫病、美尼尔氏症、眩晕症、癔病、震颤麻痹症、精神病、痴呆症以及其他疾病和生理缺陷。
 							</p>
 							<div style="display:table-cell;height:50px;vertical-align:middle;text-align:center">
