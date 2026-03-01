@@ -125,6 +125,7 @@
 				$("#regDate").textbox("setValue", ar[8]);
 				$("#registerName").textbox("setValue", ar[10]);
 				$("#seq").numberbox("setValue", ar[27]);
+				$("#period").numberbox("setValue", ar[29]);
 				getCourseLessonList();
 				setButton();
 			}else{
@@ -202,7 +203,7 @@
 			$.messager.alert("提示","编码不能为空。","warning");
 			return false;
 		}
-		$.get("courseControl.asp?op=update&nodeID=" + $("#ID").val() + "&courseID=" + $("#courseID").textbox("getValue") + "&price=" + $("#price").textbox("getValue") + "&price1=" + $("#price1").textbox("getValue") + "&cards=" + $("#cards").textbox("getValue") + "&reexamine=" + $("#reexamine").combobox("getValue") + "&hours=" + $("#hours").textbox("getValue") + "&completionPass=" + $("#completionPass").textbox("getValue") + "&sc=" + $("#sc").combobox("getValue") + "&refID=" + $("#certID").combobox("getValue") + "&status=" + $("#status").combobox("getValue") + "&entryForm=" + $("#entryForm").combobox("getValue") + "&mark=" + $("#mark").combobox("getValue") + "&seq=" + $("#seq").numberbox("getValue") + "&memo=" + escape($("#memo").textbox("getValue")) + "&times=" + (new Date().getTime()),function(re){
+		$.get("courseControl.asp?op=update&nodeID=" + $("#ID").val() + "&courseID=" + $("#courseID").textbox("getValue") + "&price=" + $("#price").textbox("getValue") + "&price1=" + $("#price1").textbox("getValue") + "&cards=" + $("#cards").textbox("getValue") + "&reexamine=" + $("#reexamine").combobox("getValue")  + "&period=" + $("#period").textbox("getValue")+ "&hours=" + $("#hours").textbox("getValue") + "&completionPass=" + $("#completionPass").textbox("getValue") + "&sc=" + $("#sc").combobox("getValue") + "&refID=" + $("#certID").combobox("getValue") + "&status=" + $("#status").combobox("getValue") + "&entryForm=" + $("#entryForm").combobox("getValue") + "&mark=" + $("#mark").combobox("getValue") + "&seq=" + $("#seq").numberbox("getValue") + "&memo=" + escape($("#memo").textbox("getValue")) + "&times=" + (new Date().getTime()),function(re){
 			var ar = new Array();
 			ar = unescape(re).split("|");
 			if(ar[0] == 0){
@@ -319,7 +320,10 @@
 			</tr>
 			<tr>
 				<td align="right">显示顺序</td>
-				<td><input id="seq" name="seq" class="easyui-numberbox" data-options="height:22,width:100" /></td>
+				<td>
+					<input id="seq" name="seq" class="easyui-numberbox" data-options="height:22,width:30" />
+					&nbsp;&nbsp;培训周期<input id="period" name="period" class="easyui-numberbox" data-options="height:22,width:30" />天
+				</td>
 				<td align="right">登记人</td>
 				<td>
 					<input id="registerName" name="registerName" class="easyui-textbox" data-options="height:22,width:100,readonly:true" />&nbsp;&nbsp;
