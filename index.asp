@@ -168,6 +168,8 @@
 			});
 			$.getScript("rptPartnerSalesIncReady.js", function() {
 			});
+			$.getScript("rptPayInvoiceIncReady.js", function() {
+			});
 		}
 		if(k==5 && _k5==0){
 			_k5 = 1;
@@ -388,9 +390,12 @@
 							<div id="dtab44" class="dhtmlgoodies_aTab">
 								<!--#include file="rptPartnerSalesIncDetail.js"-->
 							</div>
+							<div id="dtab45" class="dhtmlgoodies_aTab">
+								<!--#include file="rptPayInvoiceIncDetail.js"-->
+							</div>
 						</div>
 						<script type="text/javascript">
-							initTabs('dhtmlgoodies_tabView4',Array("收费日报", "销售日报", "渠道日报", "小报表"),0);
+							initTabs('dhtmlgoodies_tabView4',Array("收费日报", "销售日报", "渠道日报", "小报表","收费发票"),0);
 						</script>
 					</div>
 					
