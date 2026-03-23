@@ -104,8 +104,6 @@
 		if(!checkPermission("receiveCheck")){
 			$("#rptPayInvoiceItem1").hide();
 		}
-		$("#rptPayInvoiceReceived").hide();
-		$("#rptPayInvoiceReceivable").hide();
 	});
 
 	function getRptPayInvoiceList(mark){

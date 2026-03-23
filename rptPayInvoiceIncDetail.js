@@ -11,10 +11,10 @@
 							</span>
 							<span id="rptPayInvoiceItem1">
 								<input class="button" type="button" id="btnRptPayInvoiceReceive" value="应收确认" />&nbsp;
-							</span>
-							<span style="padding-left:50px;">
 								<a class="easyui-linkbutton" id="btnRptPayInvoice" href="javascript:void(0)"></a>
 								<a class="easyui-linkbutton" id="btnRptPayInvoiceDownLoad" href="javascript:void(0)"></a>
+							</span>
+							<span style="padding-left:50px;">
 							</span>
 				        </form>
 					</div>
