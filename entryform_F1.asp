@@ -251,8 +251,8 @@
 						<td align="center" rowspan="6" class='table_resume_title' height='45px'>申<br>请<br>项<br>目</td>
 						<td align="left" colspan="2" class="ef1p1" style="padding-left:10px;" height='60px'>电工作业</td>
 						<td align="left" colspan="5" class="ef1p1">
-							<input type="checkbox" id="CC12" />&nbsp;低压电工作业 <input type="checkbox" id="CC27" />&nbsp;高压电工作业 <input type="checkbox" />&nbsp;电力电缆作业</br>
-							<input type="checkbox" />&nbsp;继电保护作业 <input type="checkbox" />&nbsp;电气试验作业 <input type="checkbox" />&nbsp;防爆电气作业
+							<input type="checkbox" id="CC12" />&nbsp;低压电工作业 <input type="checkbox" id="CC27" />&nbsp;高压电工作业 <input type="checkbox" id="CE01" />&nbsp;电力电缆作业</br>
+							<input type="checkbox" id="CE02" />&nbsp;继电保护作业 <input type="checkbox" id="CE03" />&nbsp;电气试验作业 <input type="checkbox" id="CE04" />&nbsp;防爆电气作业
 						</td>
 					</tr>
 					<tr>
@@ -282,12 +282,12 @@
 					<tr>
 						<td align="left" colspan="2" class="ef1p1" style="padding-left:10px;">危险化学品安全作业</td>
 						<td align="left" colspan="5" class="ef1p1">
-							<input type="checkbox" />&nbsp;光气及光气化工艺作业 <input type="checkbox" />&nbsp;氧碱电解工艺作业 <br>
-							<input type="checkbox" />&nbsp;氯化工艺作业 <input type="checkbox" />&nbsp;硝化工艺作业 <input type="checkbox" />&nbsp;合成氧工艺作业 <br>
-							<input type="checkbox" />&nbsp;裂解(裂化)工艺作业 <input type="checkbox" />&nbsp;氟化工艺作业 <input type="checkbox" />&nbsp;加氢工艺作业 <br>
-							<input type="checkbox" />&nbsp;重氮化工艺作业 <input type="checkbox" />&nbsp;氧化工艺作业 <input type="checkbox" />&nbsp;过氧化工艺作业 <br>
-							<input type="checkbox" />&nbsp;胺基化工艺作业 <input type="checkbox" />&nbsp;磺化工艺作业 <input type="checkbox" />&nbsp;聚合工艺作业 <br>
-							<input type="checkbox" />&nbsp;烷基化工艺作业 <input type="checkbox" />&nbsp;化工自动化控制仪表作业
+							<input type="checkbox" id="CE05" />&nbsp;光气及光气化工艺作业 <input type="checkbox" id="CE06" />&nbsp;氧碱电解工艺作业 <br>
+							<input type="checkbox" id="CE07" />&nbsp;氯化工艺作业 <input type="checkbox" id="CE08" />&nbsp;硝化工艺作业 <input type="checkbox" id="CE09" />&nbsp;合成氧工艺作业 <br>
+							<input type="checkbox" id="CE10" />&nbsp;裂解（裂化）工艺作业 <input type="checkbox" id="CE11" />&nbsp;氟化工艺作业 <input type="checkbox" id="CE12" />&nbsp;加氢工艺作业 <br>
+							<input type="checkbox" id="CE13" />&nbsp;重氮化工艺作业 <input type="checkbox" id="CE14" />&nbsp;氧化工艺作业 <input type="checkbox" id="CE15" />&nbsp;过氧化工艺作业 <br>
+							<input type="checkbox" id="CE16" />&nbsp;胺基化工艺作业 <input type="checkbox" id="CE17" />&nbsp;磺化工艺作业 <input type="checkbox" id="CE18" />&nbsp;聚合工艺作业 <br>
+							<input type="checkbox" id="CE19" />&nbsp;烷基化工艺作业 <input type="checkbox" id="CE20" />&nbsp;化工自动化控制仪表作业
 						</td>
 					</tr>
 					<tr>
