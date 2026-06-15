@@ -81,9 +81,13 @@
 			if(ar>""){
 				$("#reexamine").html("上海市特种作业人员安全技术考试申请表");
 				$("#C" + ar["certID"]).prop("checked",true);
-				$("#R" + (rex==1?2:rex)).prop("checked",true);
 				sign = (ar["signatureType"]==1?ar["signature"]:"");
 				reex = ar["reexamine"];
+				let rex = reex;
+				if(ar["express"]===1){
+					rex = 2;
+				}
+				$("#R" + (rex==1?2:rex)).prop("checked",true);
 				course = ar["courseName"];
 				sDate = ar["signatureDate"];
 				startDate = ar["startDate"];
