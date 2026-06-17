@@ -207,7 +207,7 @@
 
 <div align='left'>	
 	
-	<div style="width:100%;float:left;margin:0;">
+	<div style="width:1000;float:left;margin:0;">
 		<div id="resume_print" style="border:none;width:100%;margin:1px;line-height:18px;">
 			<div style="position: relative; width:800px;height:99%;">
 				<div style="position: absolute; z-index:10; width:100%;">

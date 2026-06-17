@@ -1105,7 +1105,7 @@ if(op == "getApplyListByBatch"){
 	}
 	sql = " FROM v_applyInfo " + where;
 	//ssql = "SELECT kindName,qty,hostName,memo,regDate,registerName" + sql + " order by ID";
-	sql = "SELECT *, [dbo].[getStudentMaterialSize](username,5) as employe_size, [dbo].[getStudentMaterialSize](username,8) as social_size, [dbo].[getStudentMaterialSize](username,6) as job_size" + sql + " order by ID";
+	sql = "SELECT *, [dbo].[getStudentMaterialSize](username,5) as employe_size, [dbo].[getStudentMaterialSize](username,8) as social_size, [dbo].[getStudentMaterialSize](username,6) as job_size, dbo.getEnterAttendance(enterID) as attendance" + sql + " order by ID";
 	
 	rs = conn.Execute(sql);
 	while (!rs.EOF){
@@ -1125,7 +1125,7 @@ if(op == "getApplyListByBatch"){
 		//42
 		result += "|" + rs("employe_filename").value + "|" + rs("social_filename").value + "|" + rs("job_filename").value + "|" + rs("tax").value + "|" + rs("employe_size").value + "|" + rs("social_size").value + "|" + rs("job_size").value;
 		//49
-		result += "|" + rs("checker").value;
+		result += "|" + rs("checker").value + "|" + rs("file6").value + "|" + rs("file7").value + "|" + rs("uploadProof").value + "|" + rs("uploadPOA").value;
 		rs.MoveNext();
 	}
 	rs.Close();

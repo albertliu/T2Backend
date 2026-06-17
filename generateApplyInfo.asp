@@ -40,6 +40,9 @@
 	var reexamine = 0;
 	var timer1 = null;
 	var courseName = "";
+	var imgFile = "<img src='images/attachment.png' style='width:15px;'>";
+	var imgFileRed = "<img src='images/attachmentRed.png' style='width:15px;'>";
+	var imgFileBlue = "<img src='images/attachmentBlue.png' style='width:15px;'>";
 	<!--#include file="js/commFunction.js"-->
 	$(document).ready(function (){
 		nodeID = "<%=nodeID%>";		//ID
@@ -327,6 +330,96 @@
 								}
 								getApplyList();
 								$.messager.progress('close');	// 如果提交成功则隐藏进度条 
+							}
+						});
+					}
+				});
+			}
+		});
+		
+		$("#doApplyUploadProofPerson").linkbutton({
+			iconCls:'icon-upload',
+			width:85,
+			height:25,
+			text:'个人证明',
+			onClick:function() {
+				getSelCart("");
+				if(selCount==0){
+					$.messager.alert("提示","请选择要上传的人员。","info");
+					return false;
+				}
+				if($("#applyID").val()==""){
+					$.messager.alert("提示","请填写开班编号并保存。","info");
+					return false;
+				}
+				// jConfirm('确定要为这' + selCount + '个人报名吗?', "确认对话框",function(r){
+				$.messager.confirm('确认对话框','确定要为这' + selCount + '个人上传个人证明吗?<br>可能要花几分钟时间，请稍候...', function(r){
+					if(r){
+						var start = performance.now(); 
+						$.ajax({
+							url: uploadURL + "/public/applyEnter?SMS=1&reexamine=9A&register=" + currUserName + "&host=" + currHost + "&classID=" + $("#applyID").val() + "&courseName=" + $("#courseName").val() + "&reex=" + (reexamine==0?"初证":"复审"),
+							type: "post",
+							data: {"selList":selList},
+							beforeSend: function() {   
+								$.messager.progress();	// 显示进度条
+							},
+							success: function(data){
+								if(data.count_s>0){
+									var end = performance.now(); 
+									$.messager.alert("提示","成功上传数量：" + data.count_s + "; &nbsp;失败数量：" + data.count_e + "; &nbsp;耗时：" + ((end-start)/1000).toFixed(2) + "秒","info");
+								}else{
+									$.messager.alert("提示","操作失败，请稍后再试。" + data.errMsg,"info");
+								}
+								getApplyList();
+								$.messager.progress('close');	// 如果提交成功则隐藏进度条 
+							},
+							error: function () {
+								$.messager.progress('close');
+							}
+						});
+					}
+				});
+			}
+		});
+		
+		$("#doApplyUploadPOA").linkbutton({
+			iconCls:'icon-upload',
+			width:80,
+			height:25,
+			text:'委托书',
+			onClick:function() {
+				getSelCart("");
+				if(selCount==0){
+					$.messager.alert("提示","请选择要上传的人员。","info");
+					return false;
+				}
+				if($("#applyID").val()==""){
+					$.messager.alert("提示","请填写开班编号并保存。","info");
+					return false;
+				}
+				// jConfirm('确定要为这' + selCount + '个人报名吗?', "确认对话框",function(r){
+				$.messager.confirm('确认对话框','确定要为这' + selCount + '个人上传委托书吗?<br>可能要花几分钟时间，请稍候...', function(r){
+					if(r){
+						var start = performance.now(); 
+						$.ajax({
+							url: uploadURL + "/public/applyEnter?SMS=1&reexamine=9B&register=" + currUserName + "&host=" + currHost + "&classID=" + $("#applyID").val() + "&courseName=" + $("#courseName").val() + "&reex=" + (reexamine==0?"初证":"复审"),
+							type: "post",
+							data: {"selList":selList},
+							beforeSend: function() {   
+								$.messager.progress();	// 显示进度条
+							},
+							success: function(data){
+								if(data.count_s>0){
+									var end = performance.now(); 
+									$.messager.alert("提示","成功上传数量：" + data.count_s + "; &nbsp;失败数量：" + data.count_e + "; &nbsp;耗时：" + ((end-start)/1000).toFixed(2) + "秒","info");
+								}else{
+									$.messager.alert("提示","操作失败，请稍后再试。" + data.errMsg,"info");
+								}
+								getApplyList();
+								$.messager.progress('close');	// 如果提交成功则隐藏进度条 
+							},
+							error: function () {
+								$.messager.progress('close');
 							}
 						});
 					}
@@ -730,45 +823,19 @@
 		});
 	
 		$("#generateClassDoc").click(function(){
-			getSelCart("");
-			if(selCount==0){
-				$.messager.alert("提示","请选择要操作的名单。","info");
-				return false;
-			}
-			if(confirm("确定要生成这" + selCount + "个存档资料吗？")){
-				$.post(uploadURL + "/outfiles/generate_emergency_exam_materials_byclass?refID=" + nodeID + "&keyID=2&registerID=" + currUser + "&host=" + currHost, {selList:selList}, function(data){
-					if(data>"0"){
-						// generateZip("e");
-						alert("已生成" + data + "份文档");
-						getApplyList();
-					}else{
-						alert("没有可供处理的数据。");
-					}
-				});
-			}
+			generateEntryDoc(2);
 		});
-		/*
+	
 		$("#generateEntryDoc").click(function(){
-			getSelCart("");
-			if(selCount==0){
-				$.messager.alert("提示","请选择要操作的名单。","info");
-				return false;
-			}
-			if(confirm("确定要生成这" + selCount + "个报名表吗？")){
-				$.post(uploadURL + "/outfiles/generate_emergency_exam_materials_byclass?refID=" + nodeID + "&keyID=5&registerID=" + currUser + "&host=" + currHost, {selList:selList}, function(data){
-					if(data>"0"){
-						// generateZip("e");
-						alert("已生成" + data + "份文档");
-						getApplyList();
-					}else{
-						alert("没有可供处理的数据。");
-					}
-				});
-			}
+			generateEntryDoc(5);
 		});
-		*/
-		$("#generateEntryDoc").click(function(){
-			generateEntryDoc(0);
+	
+		$("#btnProofPerson").click(function(){
+			generateEntryDoc(6);
+		});
+	
+		$("#btnPowerAttorney").click(function(){
+			generateEntryDoc(7);
 		});
 	
 		$("#generateEntryDoc1").click(function(){
@@ -1013,9 +1080,11 @@
 			arr.push("<th width='6%'>签名日期</th>");
 			arr.push("<th width='6%'>复训日期</th>");
 			arr.push("<th width='6%'>申报</th>");
-			arr.push("<th width='5%'>上传</th>");
+			// arr.push("<th width='5%'>上传</th>");
 			if(photo == 0){
 				// arr.push("<th width='7%'>去向</th>");
+				arr.push("<th width='4%'>证</th>");
+				arr.push("<th width='4%'>委</th>");
 				arr.push("<th width='6%'>考试时间</th>");
 				arr.push("<th width='5%'>成绩</th>");
 				arr.push("<th width='5%'>结果</th>");
@@ -1064,7 +1133,7 @@
 					arr.push("<td class='left'>" + ar1[35] + "</td>");
 					arr.push("<td class='left' " + (ar1[40]==1?"style='color:blue;' title='已确认'":"") + ">" + ar1[39] + "</td>");	// 复训日期
 					arr.push("<td class='left'>" + ar1[28] + "</td>");
-					arr.push("<td class='left'>" + (ar1[37]==1?imgChk:'&nbsp;') + "</td>");	// 上传
+					// arr.push("<td class='left'>" + (ar1[37]==1?imgChk:'&nbsp;') + "</td>");	// 上传
 					// if(ar1[7]>0){
 					// 	arr.push("<td class='center'>" + imgChk + "</td>");	//补考
 					// }else{
@@ -1072,6 +1141,16 @@
 					// }
 					if(photo == 0){
 						// arr.push("<td class='left'>" + ar1[34] + "</td>");	// 去向
+						if(ar1[51]==''){
+							arr.push("<td class='center'></td>");
+						}else{
+							arr.push("<td class='center'><a href='javascript:void(0);' title='培训证明' onclick='showPic(\"" + ar1[51] + "\");'>" + (ar1[53]>0?imgFileBlue:imgFile) + "</a></td>");  //个人证明
+						}
+						if(ar1[52]==''){
+							arr.push("<td class='center'></td>");
+						}else{
+							arr.push("<td class='center'><a href='javascript:void(0);' title='培训证明' onclick='showPic(\"" + ar1[52] + "\");'>" + (ar1[54]>0?imgFileBlue:imgFile) + "</a></td>");  //委托书
+						}
 						arr.push("<td class='left' title='" + ar1[18] + "'>" + ar1[18].substring(0,10) + "</td>");
 						h = nullNoDisp(ar1[19].replace(".00",""));
 						if(ar1[27]==1){	//有应会成绩
@@ -1126,7 +1205,7 @@
 					if(ar1[26]==''){
 						arr.push("<td class='center'></td>");
 					}else{
-						arr.push("<td class='center'><a href='javascript:void(0);' title='申报材料' onclick='showPic(\"" + ar1[26] + "\");' title='申报材料'>" + imgFile + "</a></td>");
+						arr.push("<td class='center'><a href='javascript:void(0);' title='申报材料' onclick='showPic(\"" + ar1[26] + "\");' title='申报材料'>" + (ar1[37]>0?imgFileBlue:imgFile) + "</a></td>");
 					}
 					arr.push("<td class='left'><input style='BORDER-TOP-STYLE: none; BORDER-RIGHT-STYLE: none; BORDER-LEFT-STYLE: none; BORDER-BOTTOM-STYLE: none' type='checkbox' value='" + ar1[0] + "' name='visitstockchk'></td>");
 					arr.push("</tr>");
@@ -1151,7 +1230,10 @@
 			arr.push("<th>&nbsp;</th>");
 			arr.push("<th>&nbsp;</th>");
 			arr.push("<th>&nbsp;</th>");
-			arr.push("<th>&nbsp;</th>");
+			if(photo == 0){
+				arr.push("<th>&nbsp;</th>");
+				arr.push("<th>&nbsp;</th>");
+			}
 			arr.push("</tr>");
 			arr.push("</tfoot>");
 			arr.push("</table>");
@@ -1229,14 +1311,15 @@
 	}
 
 	function generateEntryDoc(k){
-		//k: 0 普通  1 带培训证明
+		//班级的归档/报名表/培训证明/授权委托书 k: 2/5/6/7
+		let f = ['','','班级归档资料.pdf','','','报名表.jpg','培训证明','授权委托书'];
 		getSelCart("");
 		if(selCount==0){
 			$.messager.alert("提示","请选择要操作的名单。","info");
 			return false;
 		}
-		if(confirm("确定要生成这" + selCount + "个报名表吗？")){
-			$.post(uploadURL + "/outfiles/generate_emergency_exam_materials_byclass?refID=" + nodeID + "&keyID=5&registerID=" + currUser + "&kindID=" + k + "&host=" + currHost, {selList:selList}, function(data){
+		if(confirm("确定要生成这" + selCount + "个" + f[k] + "吗？")){
+			$.post(uploadURL + "/outfiles/generate_emergency_exam_materials_byclass?refID=" + nodeID + "&keyID=" + k + "&registerID=" + currUser + "&kindID=0&host=" + currHost, {selList:selList}, function(data){
 				if(data>"0"){
 					$.messager.alert("提示","已生成" + data + "份文档","info");
 					getApplyList();
@@ -1263,7 +1346,10 @@
 		$("#doImportApply").hide();
 		$("#doImportScore").hide();
 		$("#doApplyUploadPhoto").hide();
+		$("#doApplyUpload").hide();
 		$("#doApplyUploadSchedule").hide();
+		$("#doApplyUploadProofPerson").hide();
+		$("#doApplyUploadPOA").hide();
 		// $("#generateEZip").hide();
 		// $("#generateExamDoc").prop("disabled",true);
 		$("#sendMsgExam").prop("disabled",true);
@@ -1276,7 +1362,6 @@
 		$("#btnShutdown").hide();
 		$("#btnResit").hide();
 		$("#doApplyEnter").hide();
-		$("#doApplyUpload").hide();
 		$("#doApplyDownload").hide();
 		$("#doApplyCheck").hide();
 		$("#adjustClassDate").hide();
@@ -1317,7 +1402,12 @@
 					if(agencyID==1){
 						$("#doApplyEnter").show();	// 应急局项目可以自动报名
 						$("#doApplyUpload").show();	// 
-						$("#doApplyUploadPhoto").show();
+						$("#doApplyUploadPhoto").show();	// 
+						$("#doApplyUploadSchedule").show();	//  
+						$("#doApplyUploadProofPerson").show();	//   
+						$("#doApplyUploadPOA").show();	// 
+						$("#btnUploadProofPerson").show();	// 
+						$("#btnUploadPOA").show();	// 
 						$("#doApplyDownload").show();	//
 						if(currUser=="desk"){ 
 							$("#doApplyCheck").show();	// 
@@ -1469,7 +1559,9 @@
 						<input class="button" type="button" id="generateClassDoc" value="班级文档" />
 						<input class="button" type="button" id="generateEntryDoc" value="报名表" />
 						<input class="button" type="button" id="generateEntryDoc1" value="报名表带证明" />
-						<input class="button" type="button" id="btnProof" value="培训证明" />
+						<input class="button" type="button" id="btnProof" value="班级证明" />
+						<input class="button" type="button" id="btnProofPerson" value="个人证明" />
+						<input class="button" type="button" id="btnPowerAttorney" value="委托书" />&nbsp;
 					</span>
 					<span id="btnZip">
 						<label style="color:orange;font-size:1.2em;">打包</label><input class="button" type="button" id="generateEZip" value="鉴定包" />
@@ -1526,6 +1618,8 @@
 			<a class="easyui-linkbutton" id="doApplyEnter" href="javascript:void(0)"></a>
 			<a class="easyui-linkbutton" id="doApplyUpload" href="javascript:void(0)"></a>
 			<a class="easyui-linkbutton" id="doApplyUploadPhoto" href="javascript:void(0)"></a>
+			<a class="easyui-linkbutton" id="doApplyUploadProofPerson" href="javascript:void(0)"></a>
+			<a class="easyui-linkbutton" id="doApplyUploadPOA" href="javascript:void(0)"></a>
 			<a class="easyui-linkbutton" id="doApplyUploadSchedule" href="javascript:void(0)"></a>
 			<a class="easyui-linkbutton" id="doApplyDownload" href="javascript:void(0)"></a>
 			<a class="easyui-linkbutton" id="doApplyCheck" href="javascript:void(0)"></a>

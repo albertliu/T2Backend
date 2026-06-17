@@ -265,6 +265,10 @@
 			window.open("trainingProof.asp?nodeID=" + nodeID + "&keyID=1&times=" + (new Date().getTime()), "_self");
 		});
 
+		$("#btnPowerAttorney").click(function(){
+			window.open("trainingPowerAttorney.asp?nodeID=" + nodeID + "&keyID=1&times=" + (new Date().getTime()), "_self");
+		});
+
 		$("#btnGenSignForm").click(function(){
 			generateEntryFormSign();
 		});
@@ -1101,6 +1105,7 @@
 						&nbsp;<input class="button" type="button" id="btnShowCompletion" value="在线考勤" />
 						&nbsp;<input class="button" type="button" id="btnShowEnterCheckin" value="线下考勤" />
 						&nbsp;<input class="button" type="button" id="btnProof" value="培训证明" />
+						&nbsp;<input class="button" type="button" id="btnPowerAttorney" value="委托书" />
 						&nbsp;&nbsp;<input class="easyui-checkbox" id="check_pass" name="check_pass" value="1" />
 						&nbsp;<input class="button" type="button" id="btnCheckPass" value="免签" />
 					</td>

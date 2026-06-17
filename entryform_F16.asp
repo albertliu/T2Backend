@@ -59,12 +59,12 @@
 		$.ajaxSetup({ 
 			async: false 
 		}); 
+		$("#keyItem6").hide();
 		if(keyID==5){
 			$("#keyItem4").hide();
 			$("#resume_print").css("display", "flex");
 		}else{
 			$("#keyItem5").hide();
-			$("#keyItem6").hide();
 		}
 		//getNeed2know(nodeID);
 		getNodeInfo(nodeID, refID);
