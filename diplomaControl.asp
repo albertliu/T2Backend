@@ -1158,7 +1158,7 @@ if(op == "getGenerateApplyNodeInfo"){
 		//47
 		result += "|" + rs("teacher").value + "|" + rs("classroom").value + "|" + rs("scheduleDate").value + "|" + rs("mark").value + "|" + rs("checkinMark").value + "|" + rs("uploadScheduleDate").value;
 		//53
-		result += "|" + rs("planID").value + "|" + rs("planQty").value + "|" + rs("notes").value;
+		result += "|" + rs("planID").value + "|" + rs("planQty").value + "|" + rs("notes").value + "|" + rs("proofzip").value + "|" + rs("poazip").value;
 	}
 	rs.Close();
 	Response.Write(escape(result));

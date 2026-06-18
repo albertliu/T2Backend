@@ -803,6 +803,14 @@
 			generateZip("a");
 		});
 	
+		$("#generateProofZip").click(function(){
+			generateZip("proof");
+		});
+	
+		$("#generatePOAZip").click(function(){
+			generateZip("poa");
+		});
+	
 		$("#generateExamDoc").click(function(){
 			getSelCart("");
 			if(selCount==0){
@@ -979,10 +987,16 @@
 					$("#azip").html("<a href='/users" + ar[42] + "?" + (new Date().getTime()) + "' target='_blank' style='text-decoration:none;color:green;'>申报包</a>");
 				}
 				if(ar[43] > ""){
-					$("#tzip").html("<a href='/users" + ar[43] + "?" + (new Date().getTime()) + "' target='_blank' style='text-decoration:none;color:green;'>报名表</a>");
+					$("#tzip").html("<a href='/users" + ar[43] + "?" + (new Date().getTime()) + "' target='_blank' style='text-decoration:none;color:green;'>报名表包</a>");
 				}
 				if(ar[7] > ""){
 					$("#proof").html("<a href='/users" + ar[7] + "?" + (new Date().getTime()) + "' target='_blank' style='text-decoration:none;color:green;'>&nbsp;&nbsp;培训证明</a>");
+				}
+				if(ar[56] > ""){
+					$("#proofzip").html("<a href='/users" + ar[56] + "?" + (new Date().getTime()) + "' target='_blank' style='text-decoration:none;color:green;'>&nbsp;&nbsp;个人证明包</a>");
+				}
+				if(ar[57] > ""){
+					$("#poazip").html("<a href='/users" + ar[57] + "?" + (new Date().getTime()) + "' target='_blank' style='text-decoration:none;color:green;'>&nbsp;&nbsp;委托书包</a>");
 				}
 				//getDownloadFile("generateDiplomaID");
 				nodeID = ar[0];
@@ -1576,7 +1590,9 @@
 					<span id="mzip" style="margin-left:2px;"></span>&nbsp;&nbsp;
 					<span id="tzip" style="margin-left:2px;"></span>&nbsp;&nbsp;
 					<span id="azip" style="margin-left:2px;"></span>&nbsp;&nbsp;
-					<span id="proof" style="margin-left:2px;"></span>
+					<span id="proof" style="margin-left:2px;"></span>&nbsp;&nbsp;
+					<span id="proofzip" style="margin-left:2px;"></span>&nbsp;&nbsp;
+					<span id="poazip" style="margin-left:2px;"></span>
 				</td>
 			</tr>
 			</table>
