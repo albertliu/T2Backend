@@ -1155,15 +1155,15 @@
 					// }
 					if(photo == 0){
 						// arr.push("<td class='left'>" + ar1[34] + "</td>");	// 去向
+						if(ar1[50]==''){
+							arr.push("<td class='center'></td>");
+						}else{
+							arr.push("<td class='center'><a href='javascript:void(0);' title='培训证明' onclick='showPic(\"" + ar1[50] + "\");'>" + (ar1[52]>0?imgFileBlue:imgFile) + "</a></td>");  //个人证明
+						}
 						if(ar1[51]==''){
 							arr.push("<td class='center'></td>");
 						}else{
-							arr.push("<td class='center'><a href='javascript:void(0);' title='培训证明' onclick='showPic(\"" + ar1[51] + "\");'>" + (ar1[53]>0?imgFileBlue:imgFile) + "</a></td>");  //个人证明
-						}
-						if(ar1[52]==''){
-							arr.push("<td class='center'></td>");
-						}else{
-							arr.push("<td class='center'><a href='javascript:void(0);' title='培训证明' onclick='showPic(\"" + ar1[52] + "\");'>" + (ar1[54]>0?imgFileBlue:imgFile) + "</a></td>");  //委托书
+							arr.push("<td class='center'><a href='javascript:void(0);' title='培训证明' onclick='showPic(\"" + ar1[51] + "\");'>" + (ar1[53]>0?imgFileBlue:imgFile) + "</a></td>");  //委托书
 						}
 						arr.push("<td class='left' title='" + ar1[18] + "'>" + ar1[18].substring(0,10) + "</td>");
 						h = nullNoDisp(ar1[19].replace(".00",""));
