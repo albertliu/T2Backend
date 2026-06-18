@@ -1579,10 +1579,12 @@
 					</span>
 					<span id="btnZip">
 						<label style="color:orange;font-size:1.2em;">打包</label><input class="button" type="button" id="generateEZip" value="鉴定包" />
-						<input class="button" type="button" id="generatePhotoZip" value="照片包" />
-						<input class="button" type="button" id="generateMZip" value="班级包" />
+						<input class="button" type="button" id="generatePhotoZip" value="照片" />
+						<input class="button" type="button" id="generateMZip" value="班级" />
 						<input class="button" type="button" id="generateTZip" value="报名表" />
-						<input class="button" type="button" id="generateApplyZip" value="申报包" />&nbsp;
+						<input class="button" type="button" id="generateApplyZip" value="申报" />
+						<input class="button" type="button" id="generateProofZip" value="个人证明" />
+						<input class="button" type="button" id="generatePOAZip" value="委托书" />&nbsp;
 					</span>
 					<label style="color:orange;font-size:1.2em;">下载</label>
 					<span id="pzip" style="margin-left:2px;"></span>&nbsp;&nbsp;
