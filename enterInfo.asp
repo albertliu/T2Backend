@@ -262,7 +262,7 @@
 		});
 
 		$("#btnProof").click(function(){
-			window.open("trainingProof.asp?nodeID=" + nodeID + "&keyID=1&times=" + (new Date().getTime()), "_self");
+			window.open("trainingProofPerson.asp?nodeID=" + nodeID + "&keyID=1&times=" + (new Date().getTime()), "_self");
 		});
 
 		$("#btnPowerAttorney").click(function(){

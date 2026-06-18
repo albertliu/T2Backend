@@ -95,7 +95,7 @@
 				$("#f_sign1").attr("src","/users" + ar["signature"] + "?times=" + (new Date().getTime()));
 				$("#unit").html(ar["hostName"]);
 				$("#stamp").attr("src","/users/upload/companies/stamp/" + ar["host"] + ".png" + "?times=" + (new Date().getTime()));
-				$("#f_sign2").attr("src","/users/upload/companies/signature/host_" + ar["host"] + ".png" + "?times=" + (new Date().getTime()));
+				$("#f_sign2").attr("src","/users/upload/companies/signature/poa_" + ar["host"] + ".png" + "?times=" + (new Date().getTime()));
 				// $("#unit").html("上海智能消防学校");
 				// $("#stamp").attr("src","/users/upload/companies/stamp/znxf.png" + "?times=" + (new Date().getTime()));
 				// $("#f_sign2").attr("src","/users/upload/companies/signature/poa_znxf.png" + "?times=" + (new Date().getTime()));
@@ -252,7 +252,7 @@
 					<tr>
 						<td align="left" class='table_resume_title' height='40px'>经办人签字</td>
 						<td align="left" colspan="2" class="ef1p1" style="padding-left:10px;">
-							<span style="position: relative; top: 5px;"><img id="f_sign2" src="" style="max-width:150px;max-height:35px;padding-left:10px;"></span>
+							<span style="position: relative; top: 2px;"><img id="f_sign2" src="" style="max-width:150px;max-height:35px;padding-left:10px;"></span>
 						</td>
 					</tr>
 					<tr>
