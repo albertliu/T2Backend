@@ -258,7 +258,7 @@
 						// });
 						var start = performance.now(); 
 						$.ajax({
-							url: uploadURL + "/public/applyEnter?SMS=1&reexamine=" + reexamine + "&register=" + currUserName + "&host=" + currHost + "&classID=1&courseName=" + $("#courseName").val() + "&reex=" + (reexamine==0?"初证":"复审"),
+							url: uploadURL + "/public/applyEnter?SMS=1&reexamine=" + reexamine + "&register=" + currUserName + "&host=" + currHost + "&classID=1&courseName=" + $("#courseName").val() + "&reex=" + (reexamine==0?"初证":"换证"),
 							type: "post",
 							data: {"selList":selList},
 							beforeSend: function() {   
@@ -314,7 +314,7 @@
 						// });
 						var start = performance.now(); 
 						$.ajax({
-							url: uploadURL + "/public/applyEnter?SMS=1&reexamine=9&register=" + currUserName + "&host=" + currHost + "&classID=" + $("#applyID").textbox("getValue") + "&courseName=" + $("#courseName").val() + "&reex=" + (reexamine==0?"初证":"复审"),
+							url: uploadURL + "/public/applyEnter?SMS=1&reexamine=9&register=" + currUserName + "&host=" + currHost + "&classID=" + $("#applyID").textbox("getValue") + "&courseName=" + $("#courseName").val() + "&reex=" + (reexamine==0?"初证":"换证"),
 							type: "post",
 							data: {"selList":selList},
 							beforeSend: function() {   
@@ -357,7 +357,7 @@
 					if(r){
 						var start = performance.now(); 
 						$.ajax({
-							url: uploadURL + "/public/applyEnter?SMS=1&reexamine=9A&register=" + currUserName + "&host=" + currHost + "&classID=" + $("#applyID").val() + "&courseName=" + $("#courseName").val() + "&reex=" + (reexamine==0?"初证":"复审"),
+							url: uploadURL + "/public/applyEnter?SMS=1&reexamine=9A&register=" + currUserName + "&host=" + currHost + "&classID=" + $("#applyID").val() + "&courseName=" + $("#courseName").val() + "&reex=" + (reexamine==0?"初证":"换证"),
 							type: "post",
 							data: {"selList":selList},
 							beforeSend: function() {   
@@ -402,7 +402,7 @@
 					if(r){
 						var start = performance.now(); 
 						$.ajax({
-							url: uploadURL + "/public/applyEnter?SMS=1&reexamine=9B&register=" + currUserName + "&host=" + currHost + "&classID=" + $("#applyID").val() + "&courseName=" + $("#courseName").val() + "&reex=" + (reexamine==0?"初证":"复审"),
+							url: uploadURL + "/public/applyEnter?SMS=1&reexamine=9B&register=" + currUserName + "&host=" + currHost + "&classID=" + $("#applyID").val() + "&courseName=" + $("#courseName").val() + "&reex=" + (reexamine==0?"初证":"换证"),
 							type: "post",
 							data: {"selList":selList},
 							beforeSend: function() {   
@@ -447,7 +447,7 @@
 					if(r){
 						var start = performance.now(); 
 						$.ajax({
-							url: uploadURL + "/public/applyEnter?SMS=1&reexamine=8&register=" + currUserName + "&host=" + currHost + "&classID=" + $("#applyID").textbox("getValue") + "&courseName=" + $("#courseName").val() + "&reex=" + ((reexamine==0?"初证":"复审")),
+							url: uploadURL + "/public/applyEnter?SMS=1&reexamine=8&register=" + currUserName + "&host=" + currHost + "&classID=" + $("#applyID").textbox("getValue") + "&courseName=" + $("#courseName").val() + "&reex=" + ((reexamine==0?"初证":"换证")),
 							type: "post",
 							data: {"selList":selList},
 							beforeSend: function() {   
@@ -502,7 +502,7 @@
 							if(r){
 								var start = performance.now(); 
 								$.ajax({
-									url: uploadURL + "/public/applyEnter?SMS=1&reexamine=7&register=" + currUserName + "&host=" + currHost + "&classID=" + $("#ID").val() + "&courseName=" + $("#courseName").val() + "&reex=" + (reexamine==0?"初证":"复审"),
+									url: uploadURL + "/public/applyEnter?SMS=1&reexamine=7&register=" + currUserName + "&host=" + currHost + "&classID=" + $("#ID").val() + "&courseName=" + $("#courseName").val() + "&reex=" + (reexamine==0?"初证":"换证"),
 									type: "post",
 									data: {"selList":$("#adviserID").combobox("getText")},
 									beforeSend: function() {   
@@ -558,7 +558,7 @@
 						// });
 						var start = performance.now(); 
 						$.ajax({
-							url: uploadURL + "/public/applyEnter?SMS=1&reexamine=10&register=" + currUserName + "&host=" + currHost + "&classID=" + $("#applyID").textbox("getValue") + "&courseName=" + $("#courseName").val() + "&reex=" + (reexamine==0?"初证":"复审"),
+							url: uploadURL + "/public/applyEnter?SMS=1&reexamine=10&register=" + currUserName + "&host=" + currHost + "&classID=" + $("#applyID").textbox("getValue") + "&courseName=" + $("#courseName").val() + "&reex=" + (reexamine==0?"初证":"换证"),
 							type: "post",
 							data: {"selList":selList, "kindID":0},
 							beforeSend: function() {   
@@ -585,15 +585,15 @@
 			iconCls:'icon-ok',
 			width:85,
 			height:25,
-			text:'复审核查',
+			text:'换证核查',
 			onClick:function() {
 				getSelCart("");
 				if(selCount==0){
-					$.messager.alert("提示","请选择要核查应复审日期的人员。","info");
+					$.messager.alert("提示","请选择要核查应换证日期的人员。","info");
 					return false;
 				}
 				// jConfirm('确定要为这' + selCount + '个人报名吗?', "确认对话框",function(r){
-				$.messager.confirm('确认对话框','确定要为这' + selCount + '个人核查应复审日期吗?<br>可能要花几分钟时间，请稍候...', function(r){
+				$.messager.confirm('确认对话框','确定要为这' + selCount + '个人核查应换证日期吗?<br>可能要花几分钟时间，请稍候...', function(r){
 					if(r){
 						var start = performance.now(); 
 						$.ajax({

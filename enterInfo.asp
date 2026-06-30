@@ -592,6 +592,11 @@
 				}else{
 					$("#signList").hide();
 				}
+				// auto generate form for signature showing
+				if(ar[109]==""){
+					generateEntryFormSign();
+				}
+
 
 				setButton();
 			}else{
