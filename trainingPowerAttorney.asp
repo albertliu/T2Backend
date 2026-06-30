@@ -35,6 +35,10 @@
 		font-size:1.8em;
 		text-decoration: underline;
 	}
+	@font-face {
+		font-family: "qyt"; /* 你可以自定义这个名称，建议用有意义的英文或拼音 */
+		src: url("fonts/qyt.ttf"); /* 这里替换成你存放字体文件的真实路径和文件名 */
+	}
 </style>
 
 <script language="javascript">

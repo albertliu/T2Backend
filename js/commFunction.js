@@ -1174,6 +1174,31 @@
 		});
 	}
 	
+	//nodeID: ID; op: 0 浏览 1 新增  2 编辑  3 删除  4 审批; mark: 0 不动作  1 有修改时刷新列表  2 有修改时刷新对象
+	function showApplyInfo(nodeID,op,mark){
+		asyncbox.open({
+			id: "applyInfo",
+			url:"applyInfo.asp?nodeID=" + nodeID + "&op=" + op + "&p=1&times=" + (new Date().getTime()),
+			title: "申报信息",
+			width: 580,
+			height: 580,
+			cover : {
+	          //透明度
+	          opacity : 0,
+	          //背景颜色
+	           background : '#000'
+	          },
+
+			btnsbar : false,
+			callback : function(action,iframe){
+				var re = iframe.updateCount;
+				if(re>0 && mark==1){
+					getApplyList();
+				}
+　　　		}
+		});
+	}
+	
 	//nodeID: ID; op: 0 浏览 1 新增; mark: 0 不动作  1 有修改时刷新列表; keyID: student's username
 	function showDeptInfo(nodeID,refID,op,mark,host){
 		asyncbox.open({
