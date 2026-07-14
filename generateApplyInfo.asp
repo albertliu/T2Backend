@@ -1263,7 +1263,7 @@
 						if(ar1[42] > "" || ar1[43] > "" || ar1[44] > ""){	//工作证明、社保证明、居住证三选一, 
 							let jobsize = [ar1[46],ar1[47],ar1[48]]
 							let t = (ar1[42] > "" ? 0 : (ar1[43] > "" ? 1 : 2));
-							arr.push("<td class='center' title='" + jobtt[t] + " 大小:" + jobsize[t] + "k' style='background-color:" + jobbc[t] + "'><img id='" + jobid[t] + ar1[4] + "' src='users" + (ar1[42] || ar1[43] || ar1[44]) + "?times=" + (new Date().getTime()) + "' onclick='showCropperInfo(\"users" + (ar1[42] || ar1[43] || ar1[44]) + "\",\"" + ar1[4] + "\",\"" + jobid[t] + "\",\"\",0,1)' style='width:60px;background: #ccc;border:2px #fff solid;box-shadow: 0 0 1px rgba(0, 0, 0, 0.8);-moz-box-shadow: 0 0 1px rgba(0, 0, 0, 0.8);-webkit-box-shadow: 0 0 1px rgba(0, 0, 0, 0.8);'></td>");
+							arr.push("<td class='center' title='" + jobtt[t] + " 大小:" + jobsize[t] + "k' style='background-color:" + jobbc[t] + "'><img id='" + jobid[t] + ar1[4] + "' src='users" + (ar1[42] || ar1[43] || ar1[44]) + "?times=" + (new Date().getTime()) + "' onclick='showCropperInfo(\"users" + (ar1[42] || ar1[43] || ar1[44]) + "\",\"" + ar1[4] + "\",\"" + jobid[t] + "\",\"\",0,1)' style='width:60px;background: #ccc;border:2px " + (jobsize[t] > 1000 ? "#FF0000" : "#fff") + " solid;box-shadow: 0 0 1px rgba(0, 0, 0, 0.8);-moz-box-shadow: 0 0 1px rgba(0, 0, 0, 0.8);-webkit-box-shadow: 0 0 1px rgba(0, 0, 0, 0.8);'></td>");
 						}else{
 							arr.push("<td class='center'>&nbsp;</td>");
 						}
