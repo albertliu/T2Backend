@@ -241,7 +241,7 @@
 					<div style='text-align:center; margin:10px 0 20px 0;'><h3 style='font-size:1.45em;'>上海市高危行业负责人及安全生产管理人员安全知识和管理能力</h3></div>
 					<div style='text-align:center; margin:10px 0 20px 0;'><h3 style='font-size:1.45em;'>考核申请表</h3></div>
 					<div style='text-align:left; margin:10px 0 15px 30px;'>
-						<span style='font-size:1.5em; font-family: 幼圆;'>申请考试类别：<input type="checkbox" id="R0" />&nbsp;初证 <input type="checkbox" id="R1" />&nbsp;复审</span>
+						<span style='font-size:1.5em; font-family: 幼圆;'>申请考试类别：<input type="checkbox" id="R0" />&nbsp;初证 <input type="checkbox" id="R1" />&nbsp;换证</span>
 						<span style='font-size:1.2em; padding-left:50px;'>学员编号：</span><span style='font-size:1.2em;' id="SNo"></span>
 					</div>
 					<table class='table_resume' style='width:99%;'>
@@ -276,7 +276,7 @@
 					<tr>
 						<td align="center" class='table_resume_title' height='200px'>申请考试<br>项目</td>
 						<td align="left" colspan="7" style="line-height:30px;">
-							<input type="checkbox" />&nbsp;危险化学品生产单位主要负责人 <input type="checkbox" />&nbsp;&nbsp;&nbsp;危险化学品生产单位安全生产管理人员<br/>
+							<input type="checkbox" id="CC96" />&nbsp;危险化学品生产单位主要负责人 <input type="checkbox" id="CC97" />&nbsp;&nbsp;&nbsp;危险化学品生产单位安全生产管理人员<br/>
 							<input type="checkbox" id="CC98" />&nbsp;危险化学品经营单位主要负责人 <input type="checkbox" id="CC99" />&nbsp;&nbsp;&nbsp;危险化学品经营单位安全生产管理人员<br/>
 							<input type="checkbox" />&nbsp;金属冶炼（炼钢）单位主要负责人 <input type="checkbox" />&nbsp;金属冶炼（炼钢）单位安全生产管理人员<br/>
 							<input type="checkbox" />&nbsp;金属冶炼（炼铁）单位主要负责人 <input type="checkbox" />&nbsp;金属冶炼（炼铁）单位安全生产管理人员<br/>
