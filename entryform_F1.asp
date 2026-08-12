@@ -281,10 +281,10 @@
 						<td align="left" colspan="5" class="ef1p1" style='line-height: 1.5;'>
 							<input type="checkbox" id="CCE05" />&nbsp;光气及光气化工艺 <input type="checkbox" id="CCE06" />&nbsp;氧碱电解工艺 <input type="checkbox" id="CCE07" />&nbsp;氯化工艺<br>
 							<input type="checkbox" id="CCE08" />&nbsp;硝化工艺 <input type="checkbox" id="CCE09" />&nbsp;合成氨工艺 <input type="checkbox" id="CCE10" />&nbsp;裂解(裂化)工艺 <br>
-							<input type="checkbox" id="CCE011" />&nbsp;氟化工艺 <input type="checkbox" id="CCE012" />&nbsp;加氢工艺<input type="checkbox" id="CCE013" />&nbsp;重氮化工艺 <input type="checkbox" id="CCE014" />&nbsp;氧化工艺 <br> 
-							<input type="checkbox" id="CCE015" />&nbsp;过氧化工艺 <input type="checkbox" id="CCE016" />&nbsp;胺基化工艺 <input type="checkbox" id="CCE017" />&nbsp;磺化工艺 <input type="checkbox" id="CCE018" />&nbsp;聚合工艺 <br>
-							<input type="checkbox" id="CCE019" />&nbsp;烷基化工艺 <input type="checkbox" />&nbsp;新型煤化工工艺 <input type="checkbox" />&nbsp;电石生产工艺<br>
-							<input type="checkbox" />&nbsp;偶氮化工艺 <input type="checkbox" id="CCE020" />&nbsp;化工自动化控制仪表作业
+							<input type="checkbox" id="CCE11" />&nbsp;氟化工艺 <input type="checkbox" id="CCE12" />&nbsp;加氢工艺<input type="checkbox" id="CCE13" />&nbsp;重氮化工艺 <input type="checkbox" id="CCE14" />&nbsp;氧化工艺 <br> 
+							<input type="checkbox" id="CCE15" />&nbsp;过氧化工艺 <input type="checkbox" id="CCE16" />&nbsp;胺基化工艺 <input type="checkbox" id="CCE17" />&nbsp;磺化工艺 <input type="checkbox" id="CCE18" />&nbsp;聚合工艺 <br>
+							<input type="checkbox" id="CCE19" />&nbsp;烷基化工艺 <input type="checkbox" />&nbsp;新型煤化工工艺 <input type="checkbox" />&nbsp;电石生产工艺<br>
+							<input type="checkbox" />&nbsp;偶氮化工艺 <input type="checkbox" id="CCE20" />&nbsp;化工自动化控制仪表作业
 						</td>
 					</tr>
 					<tr>
