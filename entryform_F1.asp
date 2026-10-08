@@ -267,7 +267,7 @@
 					<tr>
 						<td align="left" colspan="2" class="ef1p1" style="padding-left:10px;" height='40px'>涉氨制冷作业</td>
 						<td align="left" colspan="5" class="ef1p1">
-							<input type="checkbox" id="CC25" />&nbsp;涉氨制冷设备运行、维修操作作业
+							<input type="checkbox" id="CC25A" />&nbsp;涉氨制冷设备运行、维修操作作业
 						</td>
 					</tr>
 					<tr>
